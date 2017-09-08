@@ -1,4 +1,4 @@
-This is the first release of the Nxt Clone Starter Kit, based on NRS v1.11.8.
+Updated to NRS 1.11.9.
 
 For instructions on how to create a custom genesis block, which is required in
 order to use this package, see the README.md file.
