@@ -104,8 +104,11 @@ public final class Convert {
             return 0;
         }
         account = account.toUpperCase();
-        if (account.startsWith(Constants.ACCOUNT_PREFIX)) {
-            return Crypto.rsDecode(account.substring(Constants.ACCOUNT_PREFIX.length() + 1));
+        int prefixEnd = account.indexOf('-');
+        if (prefixEnd > 0) {
+            return Crypto.rsDecode(account.substring(prefixEnd + 1));
+        } else if (prefixEnd == 0) {
+            return Long.valueOf(account);
         } else {
             return Long.parseUnsignedLong(account);
         }

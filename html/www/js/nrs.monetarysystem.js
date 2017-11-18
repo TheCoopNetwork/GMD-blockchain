@@ -360,8 +360,8 @@ var NRS = (function (NRS, $, undefined) {
             function(callback) {
                 NRS.sendRequest("get" + type.capitalize() + "Offers+", {
                     "currency": currencyId, "availableOnly": "true",
-                    "firstIndex": NRS.pageNumber * NRS.itemsPerPage - NRS.itemsPerPage,
-                    "lastIndex": NRS.pageNumber * NRS.itemsPerPage
+                    "firstIndex": 0,
+                    "lastIndex": NRS.itemsPerPage
                 }, function (response) {
                     var offers = response["offers"];
                     if (!offers) {
@@ -995,8 +995,8 @@ var NRS = (function (NRS, $, undefined) {
     $("#publish_exchange_offer_modal").on("show.bs.modal", function (e) {
         var $invoker = $(e.relatedTarget);
 
-        $("#publish_exchange_offer_currency").val($invoker.data("currency"));
-        $("#publish_exchange_offer_decimals").val($invoker.data("decimals"));
+        $("#publish_exchange_offer_currency_id").val($invoker.data("currency"));
+        $("#publish_exchange_offer_decimals_id").val($invoker.data("decimals"));
         $(".currency_code").html(String($invoker.data("code")).escapeHTML());
 
         context = {
