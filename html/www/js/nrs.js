@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright © 2013-2016 The Nxt Core Developers.                             *
- * Copyright © 2016-2017 Jelurida IP B.V.                                     *
+ * Copyright © 2016-2018 Jelurida IP B.V.                                     *
  *                                                                            *
  * See the LICENSE.txt file at the top-level directory of this distribution   *
  * for licensing information.                                                 *
@@ -354,6 +354,7 @@ var NRS = (function(NRS, $, undefined) {
 					$(this).popover("destroy");
 					$(".popover").remove();
 				});
+                $(".coin-symbol-separator").html(" " + $.t("per") + " ");
 
 				_fix();
 
@@ -375,7 +376,7 @@ var NRS = (function(NRS, $, undefined) {
 					NRS.login(false, NRS.getUrlParameter("account"));
 				} else if (savedPassphrase) {
 					$("#remember_me").prop("checked", true);
-					NRS.login(true, savedPassphrase, null, false, true);
+					NRS.login(true, savedPassphrase, null, { isSavedPassphrase: true });
 				}
 			});
 		});
@@ -492,8 +493,11 @@ var NRS = (function(NRS, $, undefined) {
 		}
 	};
 
-    NRS.connectionError = function(errorDescription) {
-        NRS.serverConnect = false;
+    NRS.connectionError = function(errorDescription, errorCode) {
+        if (errorCode != 19) {
+            NRS.serverConnect = false;
+        }
+
         var msg = $.t("error_server_connect", {url: NRS.getRequestPath()}) +
             (errorDescription ? " " + NRS.escapeRespStr(errorDescription) : "");
         $.growl(msg, {
@@ -509,7 +513,7 @@ var NRS = (function(NRS, $, undefined) {
 		}
 		NRS.sendRequest("getBlockchainStatus", {}, function(response) {
 			if (response.errorCode) {
-                NRS.connectionError(response.errorDescription);
+                NRS.connectionError(response.errorDescription, response.errorCode);
 			} else {
 				var clientOptionsLink = $("#header_client_options_link");
                 if (NRS.isMobileApp()) {
@@ -527,7 +531,7 @@ var NRS = (function(NRS, $, undefined) {
 						"firstIndex": 0, "lastIndex": 0
 					}, function(proxyBlocksResponse) {
 						if (proxyBlocksResponse.errorCode) {
-                            NRS.connectionError(proxyBlocksResponse.errorDescription);
+                            NRS.connectionError(proxyBlocksResponse.errorDescription, proxyBlocksResponse.errorCode);
 						} else {
 							_prevLastProxyBlock = NRS.lastProxyBlock;
 							var prevHeight = NRS.lastProxyBlockHeight;
@@ -716,7 +720,9 @@ var NRS = (function(NRS, $, undefined) {
 		if (callback) {
 			try {
                 callback();
-            } catch(e) { /* ignore since sometimes callback is not a function */ }
+            } catch(e) {
+				NRS.logException(e);
+			}
 		}
 	};
 
@@ -1334,8 +1340,7 @@ var NRS = (function(NRS, $, undefined) {
                         $("#dashboard_message").addClass("alert-success").removeClass("alert-danger").html($.t("status_new_account", {
                                 "account_id": NRS.escapeRespStr(NRS.accountRS),
                                 "public_key": NRS.escapeRespStr(NRS.publicKey)
-                            }) +
-                            NRS.getPassphraseValidationLink() +
+                            }) + NRS.getPassphraseValidationLink(true) +
 							"<br/><br/>" + NRS.blockchainDownloadingMessage() +
                             "<br/><br/>" + NRS.getFundAccountLink()).show();
                     } else {
@@ -1346,10 +1351,10 @@ var NRS = (function(NRS, $, undefined) {
                 } else {
                     var message;
                     if (NRS.publicKey == "") {
-                        message = $.t("status_new_account_no_pk_v2", {
+                        message = $.t("status_new_account_no_pk_v3", {
                             "account_id": NRS.escapeRespStr(NRS.accountRS)
                         });
-                        message += NRS.getPassphraseValidationLink();
+                        message += NRS.getPassphraseValidationLink(false);
                         if (NRS.downloadingBlockchain) {
                             message += "<br/><br/>" + NRS.blockchainDownloadingMessage();
                         }
@@ -1358,7 +1363,7 @@ var NRS = (function(NRS, $, undefined) {
                             "account_id": NRS.escapeRespStr(NRS.accountRS),
                             "public_key": NRS.escapeRespStr(NRS.publicKey)
                         });
-                        message += NRS.getPassphraseValidationLink();
+                        message += NRS.getPassphraseValidationLink(true);
                         if (NRS.downloadingBlockchain) {
                             message += "<br/><br/>" + NRS.blockchainDownloadingMessage();
                         }
@@ -1367,7 +1372,15 @@ var NRS = (function(NRS, $, undefined) {
                     $("#dashboard_message").addClass("alert-success").removeClass("alert-danger").html(message).show();
                 }
             } else {
-                $("#dashboard_message").addClass("alert-danger").removeClass("alert-success").html(NRS.accountInfo.errorDescription ? NRS.escapeRespStr(NRS.accountInfo.errorDescription) : $.t("error_unknown")).show();
+                var errorMessage;
+                if (NRS.accountInfo.errorCode == 19) {
+                    errorMessage = $.t("no_open_api_peers");
+                } else {
+                    errorMessage = NRS.accountInfo.errorDescription ? NRS.escapeRespStr(NRS.accountInfo.errorDescription) : $.t("error_unknown");
+                }
+
+
+                $("#dashboard_message").addClass("alert-danger").removeClass("alert-success").html(errorMessage).show();
             }
         } else {
             if (NRS.downloadingBlockchain) {
@@ -1709,7 +1722,7 @@ var NRS = (function(NRS, $, undefined) {
 				});
 			}
 
-            if (NRS.blocks && NRS.blocks.length > 0 && NRS.baseTargetPercent(NRS.blocks[0]) > 1000 && !NRS.isTestNet) {
+            if (NRS.blocks && NRS.blocks.length > 0 && NRS.baseTargetPercent(NRS.blocks[0]) > 1500 && !NRS.isTestNet) {
                 $.growl($.t("fork_warning_base_target"), {
                     "type": "danger"
                 });

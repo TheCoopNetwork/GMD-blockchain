@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -53,7 +53,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
 final class PeerImpl implements Peer {
@@ -268,11 +272,17 @@ final class PeerImpl implements Peer {
     }
 
     void setBlockchainState(Object blockchainStateObj) {
-        if (blockchainStateObj instanceof Integer) {
-            int blockchainStateInt = (int)blockchainStateObj;
+        BlockchainState state = null;
+        if (blockchainStateObj instanceof Number) {
+            int blockchainStateInt = ((Number)blockchainStateObj).intValue();
             if (blockchainStateInt >= 0 && blockchainStateInt < BlockchainState.values().length) {
-                this.blockchainState = BlockchainState.values()[blockchainStateInt];
+                state = BlockchainState.values()[blockchainStateInt];
             }
+        }
+        if (state != null) {
+            this.blockchainState = state;
+        } else {
+            Logger.logDebugMessage("Invalid blockchain state " + blockchainStateObj + " " + getHost());
         }
     }
 
@@ -560,11 +570,13 @@ final class PeerImpl implements Peer {
             // Check for an error response
             //
             if (response != null && response.get("error") != null) {
-                deactivate();
-                if (Errors.SEQUENCE_ERROR.equals(response.get("error")) && request != Peers.getMyPeerInfoRequest()) {
+                Object error = response.get("error");
+                if (Errors.SEQUENCE_ERROR.equals(error) && request != Peers.getMyPeerInfoRequest()) {
                     Logger.logDebugMessage("Sequence error, reconnecting to " + host);
+                    deactivate();
                     connect();
-                } else {
+                } else if (!Errors.DOWNLOADING.equals(error) && !Errors.LIGHT_CLIENT.equals(error)) {
+                    deactivate();
                     Logger.logDebugMessage("Peer " + host + " version " + version + " returned error: " +
                             response.toJSONString() + ", request was: " + JSON.toString(request) +
                             ", disconnecting");

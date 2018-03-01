@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -19,6 +19,7 @@ package nxt;
 import nxt.crypto.HashFunction;
 
 import java.util.EnumSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -32,7 +33,7 @@ public enum CurrencyType {
     EXCHANGEABLE(0x01) {
 
         @Override
-        void validate(Currency currency, Transaction transaction, Set<CurrencyType> validators) throws NxtException.NotValidException {
+        void validate(Currency currency, Transaction transaction, Set<CurrencyType> validators) {
         }
 
         @Override
@@ -220,7 +221,7 @@ public enum CurrencyType {
         }
 
         @Override
-        void validateMissing(Currency currency, Transaction transaction, Set<CurrencyType> validators) throws NxtException.ValidationException {
+        void validateMissing(Currency currency, Transaction transaction, Set<CurrencyType> validators) {
         }
     };
 
@@ -291,7 +292,7 @@ public enum CurrencyType {
                 || description.length() > Constants.MAX_CURRENCY_DESCRIPTION_LENGTH) {
             throw new NxtException.NotValidException(String.format("Invalid currency name %s code %s or description %s", name, code, description));
         }
-        String normalizedName = name.toLowerCase();
+        String normalizedName = name.toLowerCase(Locale.ROOT);
         for (int i = 0; i < normalizedName.length(); i++) {
             if (Constants.ALPHABET.indexOf(normalizedName.charAt(i)) < 0) {
                 throw new NxtException.NotValidException("Invalid currency name: " + normalizedName);

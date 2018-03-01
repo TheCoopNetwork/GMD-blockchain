@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright © 2013-2016 The Nxt Core Developers.                             *
- * Copyright © 2016-2017 Jelurida IP B.V.                                     *
+ * Copyright © 2016-2018 Jelurida IP B.V.                                     *
  *                                                                            *
  * See the LICENSE.txt file at the top-level directory of this distribution   *
  * for licensing information.                                                 *
@@ -179,15 +179,8 @@ var NRS = (function (NRS, $, undefined) {
         var accountId;
         if (requestType == "getAccountId") {
             accountId = NRS.getAccountId(data.secretPhrase);
-
-            var nxtAddress = new NxtAddress();
-            var accountRS = "";
-            if (nxtAddress.set(accountId)) {
-                accountRS = nxtAddress.toString();
-            }
-            callback({
-                "account": accountId,
-                "accountRS": accountRS
+            NRS.sendRequest("getAccount", { account: accountId }, function(response) {
+                callback(response);
             });
             return;
         }
@@ -214,6 +207,8 @@ var NRS = (function (NRS, $, undefined) {
         }
         return (NRS.isPassphraseAtRisk() || doNotSign) && type == "POST" && !NRS.isSubmitPassphrase(requestType);
     }
+
+    NRS.requestId = 0;
 
     NRS.processAjaxRequest = function (requestType, data, callback, options) {
         var extra = null;
@@ -375,7 +370,9 @@ var NRS = (function (NRS, $, undefined) {
             url = NRS.getRequestPath(options.noProxy);
         }
         url += "?requestType=" + requestType;
-        NRS.logConsole("Send request " + requestType + " to url " + url);
+
+        var currentRequestId = NRS.requestId++;
+        NRS.logConsole("Send request " + requestType + " to url " + url + " id=" + currentRequestId);
 
         $.ajax({
             url: url,
@@ -418,7 +415,7 @@ var NRS = (function (NRS, $, undefined) {
                     return;
                 }
                 addMissingData(data);
-                if (file) {
+                if (file && NRS.isFileReaderSupported()) {
                     var r = new FileReader();
                     r.onload = function (e) {
                         data.filebytes = e.target.result;
@@ -445,7 +442,7 @@ var NRS = (function (NRS, $, undefined) {
                                 if (!response.unsignedTransactionBytes) {
                                     callback(null);
                                 }
-                                if (file) {
+                                if (file && NRS.isFileReaderSupported()) {
                                     var r = new FileReader();
                                     r.onload = function (e) {
                                         data.filebytes = e.target.result;
@@ -488,7 +485,7 @@ var NRS = (function (NRS, $, undefined) {
             }
         }).fail(function (xhr, textStatus, error) {
             NRS.logConsole("Node " + (options.remoteNode ? options.remoteNode.getUrl() : NRS.getRemoteNodeUrl()) + " received an error for request type " + requestType +
-                " status " + textStatus + " error " + error);
+                " status " + textStatus + " error " + error + " id=" + currentRequestId);
             if (NRS.console) {
                 NRS.addToConsole(this.url, this.type, this.data, error, true);
             }

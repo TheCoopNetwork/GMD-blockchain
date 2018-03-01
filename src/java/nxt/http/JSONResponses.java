@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -401,6 +401,14 @@ public final class JSONResponses {
         response.put("errorCode", 20);
         response.put("errorDescription", "This API is disabled when running as light client");
         LIGHT_CLIENT_DISABLED_API = JSON.prepare(response);
+    }
+
+    public static final JSONStreamAware API_PROXY_NO_PUBLIC_PEERS;
+    static {
+        JSONObject response = new JSONObject();
+        response.put("errorCode", 21);
+        response.put("errorDescription", "No public peers found. Please wait while retrying connection to peers...");
+        API_PROXY_NO_PUBLIC_PEERS = JSON.prepare(response);
     }
 
     public static final JSONStreamAware PEER_NOT_CONNECTED;

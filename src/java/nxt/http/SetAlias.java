@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -27,6 +27,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.Locale;
 
 import static nxt.http.JSONResponses.INCORRECT_ALIAS_LENGTH;
 import static nxt.http.JSONResponses.INCORRECT_ALIAS_NAME;
@@ -55,7 +57,7 @@ public final class SetAlias extends CreateTransaction {
             return INCORRECT_ALIAS_LENGTH;
         }
 
-        String normalizedAlias = aliasName.toLowerCase();
+        String normalizedAlias = aliasName.toLowerCase(Locale.ROOT);
         for (int i = 0; i < normalizedAlias.length(); i++) {
             if (Constants.ALPHABET.indexOf(normalizedAlias.charAt(i)) < 0) {
                 return INCORRECT_ALIAS_NAME;

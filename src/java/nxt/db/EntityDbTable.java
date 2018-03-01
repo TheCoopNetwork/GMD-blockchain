@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -24,6 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 
 public abstract class EntityDbTable<T> extends DerivedDbTable {
 
@@ -456,7 +457,7 @@ public abstract class EntityDbTable<T> extends DerivedDbTable {
     public final void createSearchIndex(Connection con) throws SQLException {
         if (fullTextSearchColumns != null) {
             Logger.logDebugMessage("Creating search index on " + table + " (" + fullTextSearchColumns + ")");
-            FullTextTrigger.createIndex(con, "PUBLIC", table.toUpperCase(), fullTextSearchColumns.toUpperCase());
+            FullTextTrigger.createIndex(con, "PUBLIC", table.toUpperCase(Locale.ROOT), fullTextSearchColumns.toUpperCase(Locale.ROOT));
         }
     }
 

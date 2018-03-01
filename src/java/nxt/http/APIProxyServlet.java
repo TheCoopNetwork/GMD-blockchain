@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -17,6 +17,7 @@
 package nxt.http;
 
 import nxt.peer.Peer;
+import nxt.peer.Peers;
 import nxt.util.Convert;
 import nxt.util.JSON;
 import nxt.util.Logger;
@@ -71,7 +72,11 @@ public final class APIProxyServlet extends AsyncMiddleManServlet {
                     throw new ParameterException(JSONResponses.PROXY_SECRET_DATA_DETECTED);
                 }
                 if (!initRemoteRequest(request, requestType)) {
-                    responseJson = JSONResponses.API_PROXY_NO_OPEN_API_PEERS;
+                    if (Peers.getPeers(peer -> peer.getState() == Peer.State.CONNECTED, 1).size() >= 1) {
+                        responseJson = JSONResponses.API_PROXY_NO_OPEN_API_PEERS;
+                    } else {
+                        responseJson = JSONResponses.API_PROXY_NO_PUBLIC_PEERS;
+                    }
                 } else {
                     super.service(request, response);
                 }

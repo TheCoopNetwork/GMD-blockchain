@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -20,6 +20,7 @@ import nxt.AccountLedger.LedgerEvent;
 import org.json.simple.JSONObject;
 
 import java.nio.ByteBuffer;
+import java.util.Locale;
 import java.util.Map;
 
 public abstract class MonetarySystem extends TransactionType {
@@ -70,8 +71,8 @@ public abstract class MonetarySystem extends TransactionType {
     boolean isDuplicate(Transaction transaction, Map<TransactionType, Map<String, Integer>> duplicates) {
         Attachment.MonetarySystemAttachment attachment = (Attachment.MonetarySystemAttachment) transaction.getAttachment();
         Currency currency = Currency.getCurrency(attachment.getCurrencyId());
-        String nameLower = currency.getName().toLowerCase();
-        String codeLower = currency.getCode().toLowerCase();
+        String nameLower = currency.getName().toLowerCase(Locale.ROOT);
+        String codeLower = currency.getCode().toLowerCase(Locale.ROOT);
         boolean isDuplicate = TransactionType.isDuplicate(CURRENCY_ISSUANCE, nameLower, duplicates, false);
         if (! nameLower.equals(codeLower)) {
             isDuplicate = isDuplicate || TransactionType.isDuplicate(CURRENCY_ISSUANCE, codeLower, duplicates, false);
@@ -151,15 +152,15 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemCurrencyIssuance parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemCurrencyIssuance parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemCurrencyIssuance(attachmentData);
         }
 
         @Override
         boolean isDuplicate(Transaction transaction, Map<TransactionType, Map<String, Integer>> duplicates) {
             Attachment.MonetarySystemCurrencyIssuance attachment = (Attachment.MonetarySystemCurrencyIssuance) transaction.getAttachment();
-            String nameLower = attachment.getName().toLowerCase();
-            String codeLower = attachment.getCode().toLowerCase();
+            String nameLower = attachment.getName().toLowerCase(Locale.ROOT);
+            String codeLower = attachment.getCode().toLowerCase(Locale.ROOT);
             boolean isDuplicate = TransactionType.isDuplicate(CURRENCY_ISSUANCE, nameLower, duplicates, true);
             if (! nameLower.equals(codeLower)) {
                 isDuplicate = isDuplicate || TransactionType.isDuplicate(CURRENCY_ISSUANCE, codeLower, duplicates, true);
@@ -242,12 +243,12 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemReserveIncrease parseAttachment(ByteBuffer buffer) throws NxtException.NotValidException {
+        Attachment.MonetarySystemReserveIncrease parseAttachment(ByteBuffer buffer) {
             return new Attachment.MonetarySystemReserveIncrease(buffer);
         }
 
         @Override
-        Attachment.MonetarySystemReserveIncrease parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemReserveIncrease parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemReserveIncrease(attachmentData);
         }
 
@@ -320,12 +321,12 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemReserveClaim parseAttachment(ByteBuffer buffer) throws NxtException.NotValidException {
+        Attachment.MonetarySystemReserveClaim parseAttachment(ByteBuffer buffer) {
             return new Attachment.MonetarySystemReserveClaim(buffer);
         }
 
         @Override
-        Attachment.MonetarySystemReserveClaim parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemReserveClaim parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemReserveClaim(attachmentData);
         }
 
@@ -391,12 +392,12 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemCurrencyTransfer parseAttachment(ByteBuffer buffer) throws NxtException.NotValidException {
+        Attachment.MonetarySystemCurrencyTransfer parseAttachment(ByteBuffer buffer) {
             return new Attachment.MonetarySystemCurrencyTransfer(buffer);
         }
 
         @Override
-        Attachment.MonetarySystemCurrencyTransfer parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemCurrencyTransfer parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemCurrencyTransfer(attachmentData);
         }
 
@@ -470,12 +471,12 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemPublishExchangeOffer parseAttachment(ByteBuffer buffer) throws NxtException.NotValidException {
+        Attachment.MonetarySystemPublishExchangeOffer parseAttachment(ByteBuffer buffer) {
             return new Attachment.MonetarySystemPublishExchangeOffer(buffer);
         }
 
         @Override
-        Attachment.MonetarySystemPublishExchangeOffer parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemPublishExchangeOffer parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemPublishExchangeOffer(attachmentData);
         }
 
@@ -594,12 +595,12 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemExchangeBuy parseAttachment(ByteBuffer buffer) throws NxtException.NotValidException {
+        Attachment.MonetarySystemExchangeBuy parseAttachment(ByteBuffer buffer) {
             return new Attachment.MonetarySystemExchangeBuy(buffer);
         }
 
         @Override
-        Attachment.MonetarySystemExchangeBuy parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemExchangeBuy parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemExchangeBuy(attachmentData);
         }
 
@@ -649,12 +650,12 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemExchangeSell parseAttachment(ByteBuffer buffer) throws NxtException.NotValidException {
+        Attachment.MonetarySystemExchangeSell parseAttachment(ByteBuffer buffer) {
             return new Attachment.MonetarySystemExchangeSell(buffer);
         }
 
         @Override
-        Attachment.MonetarySystemExchangeSell parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemExchangeSell parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemExchangeSell(attachmentData);
         }
 
@@ -706,12 +707,12 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemCurrencyMinting parseAttachment(ByteBuffer buffer) throws NxtException.NotValidException {
+        Attachment.MonetarySystemCurrencyMinting parseAttachment(ByteBuffer buffer) {
             return new Attachment.MonetarySystemCurrencyMinting(buffer);
         }
 
         @Override
-        Attachment.MonetarySystemCurrencyMinting parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemCurrencyMinting parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemCurrencyMinting(attachmentData);
         }
 
@@ -791,12 +792,12 @@ public abstract class MonetarySystem extends TransactionType {
         }
 
         @Override
-        Attachment.MonetarySystemCurrencyDeletion parseAttachment(ByteBuffer buffer) throws NxtException.NotValidException {
+        Attachment.MonetarySystemCurrencyDeletion parseAttachment(ByteBuffer buffer) {
             return new Attachment.MonetarySystemCurrencyDeletion(buffer);
         }
 
         @Override
-        Attachment.MonetarySystemCurrencyDeletion parseAttachment(JSONObject attachmentData) throws NxtException.NotValidException {
+        Attachment.MonetarySystemCurrencyDeletion parseAttachment(JSONObject attachmentData) {
             return new Attachment.MonetarySystemCurrencyDeletion(attachmentData);
         }
 
@@ -804,8 +805,8 @@ public abstract class MonetarySystem extends TransactionType {
         boolean isDuplicate(Transaction transaction, Map<TransactionType, Map<String, Integer>> duplicates) {
             Attachment.MonetarySystemCurrencyDeletion attachment = (Attachment.MonetarySystemCurrencyDeletion) transaction.getAttachment();
             Currency currency = Currency.getCurrency(attachment.getCurrencyId());
-            String nameLower = currency.getName().toLowerCase();
-            String codeLower = currency.getCode().toLowerCase();
+            String nameLower = currency.getName().toLowerCase(Locale.ROOT);
+            String codeLower = currency.getCode().toLowerCase(Locale.ROOT);
             boolean isDuplicate = TransactionType.isDuplicate(CURRENCY_ISSUANCE, nameLower, duplicates, true);
             if (! nameLower.equals(codeLower)) {
                 isDuplicate = isDuplicate || TransactionType.isDuplicate(CURRENCY_ISSUANCE, codeLower, duplicates, true);

@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright © 2013-2016 The Nxt Core Developers.                             *
- * Copyright © 2016-2017 Jelurida IP B.V.                                     *
+ * Copyright © 2016-2018 Jelurida IP B.V.                                     *
  *                                                                            *
  * See the LICENSE.txt file at the top-level directory of this distribution   *
  * for licensing information.                                                 *
@@ -52,7 +52,8 @@ var NRS = (function (NRS, $, undefined) {
         try {
             if (typeof transaction != "object") {
                 NRS.sendRequest("getTransaction", {
-                    "transaction": transaction
+                    "transaction": transaction,
+                    "includePhasingResult": true
                 }, function (response, input) {
                     response.transaction = input.transaction;
                     NRS.processTransactionModalData(response, isModalVisible, sharedKey);
@@ -154,6 +155,10 @@ var NRS = (function (NRS, $, undefined) {
             } else {
                 transactionDetails.height_formatted_html = NRS.getBlockLink(transactionDetails.height);
                 delete transactionDetails.height;
+            }
+            if (transactionDetails.executionHeight !== undefined) {
+                transactionDetails.execution_height_formatted_html = NRS.getBlockLink(transactionDetails.executionHeight);
+                delete transactionDetails.executionHeight;
             }
             $("#transaction_info_modal_transaction").html(NRS.escapeRespStr(transaction.transaction));
 
@@ -1441,7 +1446,7 @@ var NRS = (function (NRS, $, undefined) {
     };
 
     NRS.formatCurrencyExchange = function (currency, transaction, type) {
-        var rateUnitsStr = " [ " + currency.code + " / "  + NRS.constants.COIN_SYMBOL + " ]";
+        var rateUnitsStr = " [" + NRS.constants.COIN_SYMBOL + " " + $.t("per") + " " + currency.code +"]";
         var data = {
             "type": type == "sell" ? $.t("sell_currency") : $.t("buy_currency"),
             "code": currency.code,
@@ -1485,7 +1490,7 @@ var NRS = (function (NRS, $, undefined) {
     };
 
     NRS.formatCurrencyOffer = function (currency, transaction) {
-        var rateUnitsStr = " [ " + currency.code + " / " + +  + NRS.constants.COIN_SYMBOL + " ]";
+        var rateUnitsStr = " [" + NRS.constants.COIN_SYMBOL + " " + $.t("per") + " " + currency.code + "]";
         var buyOffer;
         var sellOffer;
         NRS.sendRequest("getOffer", {

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -26,6 +26,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 
 public final class Alias {
 
@@ -140,11 +141,11 @@ public final class Alias {
     }
 
     public static Alias getAlias(String aliasName) {
-        return aliasTable.getBy(new DbClause.StringClause("alias_name_lower", aliasName.toLowerCase()));
+        return aliasTable.getBy(new DbClause.StringClause("alias_name_lower", aliasName.toLowerCase(Locale.ROOT)));
     }
 
     public static DbIterator<Alias> getAliasesLike(String aliasName, int from, int to) {
-        return aliasTable.getManyBy(new DbClause.LikeClause("alias_name_lower", aliasName.toLowerCase()), from, to);
+        return aliasTable.getManyBy(new DbClause.LikeClause("alias_name_lower", aliasName.toLowerCase(Locale.ROOT)), from, to);
     }
 
     public static Alias getAlias(long id) {

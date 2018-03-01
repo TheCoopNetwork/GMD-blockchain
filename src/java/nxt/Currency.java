@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -30,6 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @SuppressWarnings("UnusedDeclaration")
 public final class Currency {
@@ -145,11 +146,11 @@ public final class Currency {
     }
 
     public static Currency getCurrencyByName(String name) {
-        return currencyTable.getBy(new DbClause.StringClause("name_lower", name.toLowerCase()));
+        return currencyTable.getBy(new DbClause.StringClause("name_lower", name.toLowerCase(Locale.ROOT)));
     }
 
     public static Currency getCurrencyByCode(String code) {
-        return currencyTable.getBy(new DbClause.StringClause("code", code.toUpperCase()));
+        return currencyTable.getBy(new DbClause.StringClause("code", code.toUpperCase(Locale.ROOT)));
     }
 
     public static DbIterator<Currency> getCurrencyIssuedBy(long accountId, int from, int to) {

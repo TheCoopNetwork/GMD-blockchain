@@ -3,7 +3,7 @@
 
 This package is intended to allow easy creation of new blockchain projects
 based on Nxt, satisfying the requirements of the Jelurida Public License
-version 1.0 for the Nxt Public Blockchain Platform.
+version 1.1 for the Nxt Public Blockchain Platform.
 
 This is a starter kit for developers, not for end users. If you just install
 it and run it, you will get a blockchain with no tokens, no accounts, and no
@@ -77,7 +77,9 @@ Input file format
 The input file should contain a map of account numbers to coin balances, and a
 list of account public keys. Account numbers can be specified in either numeric
 or RS format. Supplying the public key for each account is optional, but
-recommended. Here is an example input file, which allocates 300M each to the
+recommended. Forging requires a public key, so the accounts that are going to
+forge the first blocks of the blockchain must have their public keys in the file.
+Here is an example input file, which allocates 300M each to the
 accounts with passwords "0", "1" and "2", for a total of 900M to new accounts,
 resulting in 100M automatically allocated to existing NXT holders:
 
@@ -100,6 +102,8 @@ resulting in 100M automatically allocated to existing NXT holders:
 
 The generated genesisAccounts.json file should be placed in the conf/data
 directory for the new blockchain package, replacing the existing empty file.
+Changes in genesisAccounts.json are applied only when blockchain is started
+from scratch, i.e. previous database is missing.
 
 There are multiple other customizations that should be made for the newly
 created Nxt clone, such as changing the default peer ports in

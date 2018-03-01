@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2017 Jelurida IP B.V.
+ * Copyright © 2016-2018 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -576,6 +576,15 @@ public final class Account {
             publicKey.save(con);
         }
 
+        @Override
+        public void checkAvailable(int height) {
+            if (height == 0) {
+                //Effective balance at height <= 1440 requires getting the public key at height 0, so don't throw if
+                // historical data at height 0 is missing
+                return;
+            }
+            super.checkAvailable(height);
+        }
     };
 
     private static final DbKey.LinkKeyFactory<AccountAsset> accountAssetDbKeyFactory = new DbKey.LinkKeyFactory<AccountAsset>("account_id", "asset_id") {
@@ -1243,6 +1252,9 @@ public final class Account {
             while (iterator.hasNext()) {
                 lessors.add(iterator.next());
             }
+        }
+        if (lessors.isEmpty()) {
+            return 0;
         }
         Long[] lessorIds = new Long[lessors.size()];
         long[] balances = new long[lessors.size()];
