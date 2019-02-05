@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2018 Jelurida IP B.V.
+ * Copyright © 2016-2019 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -243,12 +243,16 @@ public final class Convert {
     }
 
     public static String readString(ByteBuffer buffer, int numBytes, int maxLength) throws NxtException.NotValidException {
-        if (numBytes > 3 * maxLength) {
+        if (numBytes > getMaxStringSize(maxLength)) {
             throw new NxtException.NotValidException("Max parameter length exceeded");
         }
         byte[] bytes = new byte[numBytes];
         buffer.get(bytes);
         return Convert.toString(bytes);
+    }
+
+    public static int getMaxStringSize(int length) {
+        return 3 * length;
     }
 
     public static String truncate(String s, String replaceNull, int limit, boolean dots) {

@@ -106,7 +106,7 @@ sha256sum ${PACKAGE}.zip >> ${CHANGELOG}
 
 echo >> ${CHANGELOG}
 
-#echo "The exe and dmg packages must have a digital signature by \"Stichting NXT\"." >> ${CHANGELOG}
+#echo "The exe and dmg packages must have a digital signature by \"Jelurida Swiss SA\"." >> ${CHANGELOG}
 
 if [ "${OBFUSCATE}" = "obfuscate" ];
 then

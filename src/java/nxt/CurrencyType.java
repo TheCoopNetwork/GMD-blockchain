@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2018 Jelurida IP B.V.
+ * Copyright © 2016-2019 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -286,10 +286,12 @@ public enum CurrencyType {
         String name = attachment.getName();
         String code = attachment.getCode();
         String description = attachment.getDescription();
-        if (name.length() < Constants.MIN_CURRENCY_NAME_LENGTH || name.length() > Constants.MAX_CURRENCY_NAME_LENGTH
+        if (name.length() < Constants.MIN_CURRENCY_NAME_LENGTH
+                || !Attachment.MonetarySystemCurrencyIssuance.NAME_RW.validate(name)
                 || name.length() < code.length()
-                || code.length() < Constants.MIN_CURRENCY_CODE_LENGTH || code.length() > Constants.MAX_CURRENCY_CODE_LENGTH
-                || description.length() > Constants.MAX_CURRENCY_DESCRIPTION_LENGTH) {
+                || code.length() < Constants.MIN_CURRENCY_CODE_LENGTH
+                || !Attachment.MonetarySystemCurrencyIssuance.CODE_RW.validate(code)
+                || !Attachment.MonetarySystemCurrencyIssuance.DESCRIPTION_RW.validate(description)) {
             throw new NxtException.NotValidException(String.format("Invalid currency name %s code %s or description %s", name, code, description));
         }
         String normalizedName = name.toLowerCase(Locale.ROOT);

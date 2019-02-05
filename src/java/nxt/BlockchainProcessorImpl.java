@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2018 Jelurida IP B.V.
+ * Copyright © 2016-2019 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -1604,7 +1604,7 @@ final class BlockchainProcessorImpl implements BlockchainProcessor {
                 Db.db.clearCache();
                 Db.db.commitTransaction();
             } catch (RuntimeException e) {
-                Logger.logErrorMessage("Error popping off to " + commonBlock.getHeight() + ", " + e.toString());
+                Logger.logErrorMessage("Error popping off to " + commonBlock.getHeight() + ", " + e.toString(), e);
                 Db.db.rollbackTransaction();
                 BlockImpl lastBlock = BlockDb.findLastBlock();
                 blockchain.setLastBlock(lastBlock);
