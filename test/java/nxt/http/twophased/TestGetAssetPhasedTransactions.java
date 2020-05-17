@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -25,12 +25,13 @@ import nxt.util.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestGetAssetPhasedTransactions extends BlockchainTest {
-    private static String asset = "18055555436405339905";
+    private String asset;
 
-    static APICall phasedTransactionsApiCall() {
+    private APICall phasedTransactionsApiCall() {
         return new APICall.Builder("getAssetPhasedTransactions")
                 .param("asset", asset)
                 .param("firstIndex", 0)
@@ -47,12 +48,27 @@ public class TestGetAssetPhasedTransactions extends BlockchainTest {
                 .build();
     }
 
+    @Before
+    public void setUpTest() {
+        JSONObject issueAssetResult = new APICall.Builder("issueAsset").
+                param("secretPhrase", BOB.getSecretPhrase()).
+                param("name", "AliceAsset").
+                param("description", "AliceAssetDescription").
+                param("quantityQNT", 1000).
+                param("decimals", 0).
+                param("feeNQT", 1000 * Constants.ONE_NXT).
+                build().invokeNoError();
+        generateBlock();
+
+        asset = (String) issueAssetResult.get("transaction");
+    }
 
     @Test
     public void simpleTransactionLookup() {
-        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhased(byAssetApiCall(), false);
+        APICall apiCall = byAssetApiCall();
+        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
 
-        JSONObject response = phasedTransactionsApiCall().invoke();
+        JSONObject response = phasedTransactionsApiCall().invokeNoError();
         Logger.logMessage("getAssetPhasedTransactionsResponse:" + response.toJSONString());
         JSONArray transactionsJson = (JSONArray) response.get("transactions");
         Assert.assertTrue(TwoPhasedSuite.searchForTransactionId(transactionsJson, (String) transactionJSON.get("transaction")));
@@ -61,10 +77,11 @@ public class TestGetAssetPhasedTransactions extends BlockchainTest {
     @Test
     public void sorting() {
         for (int i = 0; i < 15; i++) {
-            TestCreateTwoPhased.issueCreateTwoPhased(byAssetApiCall(), false);
+            APICall apiCall = byAssetApiCall();
+            TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
         }
 
-        JSONObject response = phasedTransactionsApiCall().invoke();
+        JSONObject response = phasedTransactionsApiCall().invokeNoError();
         Logger.logMessage("getAssetPhasedTransactionsResponse:" + response.toJSONString());
         JSONArray transactionsJson = (JSONArray) response.get("transactions");
 

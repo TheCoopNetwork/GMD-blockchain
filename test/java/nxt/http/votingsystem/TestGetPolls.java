@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -18,6 +18,7 @@ package nxt.http.votingsystem;
 
 import nxt.BlockchainTest;
 import nxt.http.APICall;
+import nxt.http.callers.GetPollsCall;
 import nxt.util.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -28,11 +29,10 @@ public class TestGetPolls extends BlockchainTest {
 
     @Test
     public void accountPollsIncrease() {
-        APICall apiCall = new APICall.Builder("getPolls")
-                .param("includeVoters", "false")
-                .param("account", Long.toUnsignedString(DAVE.getId()))
-                .param("firstIndex", 0)
-                .param("lastIndex", 100)
+        APICall apiCall = GetPollsCall.create()
+                .account(Long.toUnsignedString(DAVE.getId()))
+                .firstIndex(0)
+                .lastIndex(100)
                 .build();
 
         JSONObject jsonResponse = apiCall.invoke();

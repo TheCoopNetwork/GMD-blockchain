@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -22,6 +22,9 @@ import nxt.CurrencyMinting;
 import nxt.CurrencyType;
 import nxt.crypto.HashFunction;
 import nxt.http.APICall;
+import nxt.http.callers.CurrencyMintCall;
+import nxt.http.callers.GetCurrencyCall;
+import nxt.http.callers.GetMintingTargetCall;
 import nxt.util.Convert;
 import nxt.util.Logger;
 import org.json.simple.JSONObject;
@@ -34,71 +37,70 @@ public class TestCurrencyMint extends BlockchainTest {
     public void mint() {
         APICall apiCall = new TestCurrencyIssuance.Builder().
                 type(CurrencyType.MINTABLE.getCode() | CurrencyType.EXCHANGEABLE.getCode()).
-                maxSupply((long)10000000).
-                initialSupply((long)0).
+                maxSupply(10000000).
+                initialSupply(0).
                 issuanceHeight(0).
-                minting((byte)2, (byte)8, HashFunction.SHA256.getId()).
+                minting((byte) 2, (byte) 8, HashFunction.SHA256.getId()).
                 build();
 
         String currencyId = TestCurrencyIssuance.issueCurrencyApi(apiCall);
         mintCurrency(currencyId);
     }
 
-    public void mintCurrency(String currencyId) {
+    private void mintCurrency(String currencyId) {
         // Failed attempt to mint
-        APICall apiCall = new APICall.Builder("currencyMint").
+        APICall apiCall = CurrencyMintCall.create().
                 secretPhrase(ALICE.getSecretPhrase()).
                 feeNQT(Constants.ONE_NXT).
-                param("currency", currencyId).
-                param("nonce", 123456).
-                param("units", 1000).
-                param("counter", 1).
+                currency(currencyId).
+                nonce("123456").
+                units(1000).
+                counter(1).
                 build();
         JSONObject mintResponse = apiCall.invoke();
         Logger.logDebugMessage("mintResponse: " + mintResponse);
         generateBlock();
-        apiCall = new APICall.Builder("getCurrency").
-                feeNQT(Constants.ONE_NXT).
-                param("currency", currencyId).
-                build();
+        apiCall = GetCurrencyCall.create().
+//                feeNQT(Constants.ONE_NXT).
+        currency(currencyId).
+                        build();
         JSONObject getCurrencyResponse = apiCall.invoke();
         Logger.logDebugMessage("getCurrencyResponse: " + getCurrencyResponse);
         Assert.assertEquals("0", getCurrencyResponse.get("currentSupply"));
 
         // Successful attempt
         long units = 10;
-        long algorithm = (Long)getCurrencyResponse.get("algorithm");
+        long algorithm = (Long) getCurrencyResponse.get("algorithm");
         long nonce;
-        for (nonce=0; nonce < Long.MAX_VALUE; nonce++) {
+        for (nonce = 0; nonce < Long.MAX_VALUE; nonce++) {
             if (CurrencyMinting.meetsTarget(CurrencyMinting.getHash((byte) algorithm, nonce, Convert.parseUnsignedLong(currencyId), units, 1, ALICE.getId()),
                     CurrencyMinting.getTarget(2, 8, units, 0, 100000))) {
                 break;
             }
         }
         Logger.logDebugMessage("nonce: " + nonce);
-        apiCall = new APICall.Builder("currencyMint").
+        apiCall = CurrencyMintCall.create().
                 secretPhrase(ALICE.getSecretPhrase()).
                 feeNQT(Constants.ONE_NXT).
-                param("currency", currencyId).
-                param("nonce", nonce).
-                param("units", units).
-                param("counter", 1).
+                currency(currencyId).
+                nonce("" + nonce).
+                units(units).
+                counter(1).
                 build();
         mintResponse = apiCall.invoke();
         Logger.logDebugMessage("mintResponse: " + mintResponse);
         generateBlock();
-        apiCall = new APICall.Builder("getCurrency").
-                feeNQT(Constants.ONE_NXT).
-                param("currency", currencyId).
+        apiCall = GetCurrencyCall.create().
+                currency(currencyId).
                 build();
         getCurrencyResponse = apiCall.invoke();
         Logger.logDebugMessage("getCurrencyResponse: " + getCurrencyResponse);
         Assert.assertEquals("" + units, getCurrencyResponse.get("currentSupply"));
 
-        apiCall = new APICall.Builder("getMintingTarget").
-                param("currency", currencyId).
-                param("account", ALICE.getId()).
-                param("units", "1000").
+        apiCall = GetMintingTargetCall.create().
+                currency(currencyId).
+                account(ALICE.getId()).
+                units(1000).
                 build();
         JSONObject getMintingTargetResponse = apiCall.invoke();
         Logger.logDebugMessage("getMintingTargetResponse: " + getMintingTargetResponse);

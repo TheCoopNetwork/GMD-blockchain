@@ -1,8 +1,23 @@
+/*
+ * Copyright © 2016-2020 Jelurida IP B.V.
+ *
+ * See the LICENSE.txt file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with Jelurida B.V.,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE.txt file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+
 package nxt.http.accountproperties;
 
 import nxt.BlockchainTest;
 import nxt.Constants;
-import nxt.http.APICall;
+import nxt.http.callers.SetAccountPropertyCall;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,11 +31,11 @@ public class AccountPropertiesTest extends BlockchainTest {
 
     @Test
     public void accountProperty1() {
-        JSONObject response = new APICall.Builder("setAccountProperty").
-                param("secretPhrase", ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT * 20).
-                param("recipient", BOB.getStrId()).
-                param("property", KEY1).
-                param("value", VALUE1).
+        JSONObject response = SetAccountPropertyCall.create().
+                secretPhrase(ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT * 20).
+                recipient(BOB.getStrId()).
+                property(KEY1).
+                value(VALUE1).
                 build().invoke();
         Assert.assertEquals(4L, response.get("errorCode"));
         Assert.assertTrue(((String)response.get("errorDescription")).contains("Invalid account property"));
@@ -36,11 +51,12 @@ public class AccountPropertiesTest extends BlockchainTest {
             sb.append(specialChar);
         }
         String value = sb.toString();
-        JSONObject response = new APICall.Builder("setAccountProperty").
-                param("secretPhrase", ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT * 20).
-                param("recipient", BOB.getStrId()).
-                param("property", KEY1).
-                param("value", value).
+        JSONObject response = SetAccountPropertyCall.create().
+                secretPhrase(ALICE.getSecretPhrase()).
+                feeNQT(Constants.ONE_NXT * 20).
+                recipient(BOB.getStrId()).
+                property(KEY1).
+                value(value).
                 build().invoke();
         Assert.assertEquals(4L, response.get("errorCode"));
         Assert.assertTrue(((String)response.get("errorDescription")).contains("Invalid account property"));
@@ -56,11 +72,12 @@ public class AccountPropertiesTest extends BlockchainTest {
             sb.append(specialChar);
         }
         String value = sb.toString();
-        JSONObject response = new APICall.Builder("setAccountProperty").
-                param("secretPhrase", ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT * 20).
-                param("recipient", BOB.getStrId()).
-                param("property", KEY1).
-                param("value", value).
+        JSONObject response = SetAccountPropertyCall.create().
+                secretPhrase(ALICE.getSecretPhrase()).
+                feeNQT(Constants.ONE_NXT * 20).
+                recipient(BOB.getStrId()).
+                property(KEY1).
+                value(value).
                 build().invoke();
         Assert.assertEquals(4L, response.get("errorCode"));
         Assert.assertTrue(((String)response.get("errorDescription")).contains("Invalid account property"));
@@ -75,11 +92,12 @@ public class AccountPropertiesTest extends BlockchainTest {
             sb.append(specialChar);
         }
         String name = sb.toString();
-        JSONObject response = new APICall.Builder("setAccountProperty").
-                param("secretPhrase", ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT * 20).
-                param("recipient", BOB.getStrId()).
-                param("property", name).
-                param("value", "").
+        JSONObject response = SetAccountPropertyCall.create().
+                secretPhrase(ALICE.getSecretPhrase()).
+                feeNQT(Constants.ONE_NXT * 20).
+                recipient(BOB.getStrId()).
+                property(name).
+                value("").
                 build().invoke();
 
         Assert.assertNull(response.get("errorCode"));

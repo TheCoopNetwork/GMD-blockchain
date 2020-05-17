@@ -13,6 +13,7 @@
 /nxt.jar
 /nxtservice.jar
 /nxt_test_db
+/nxt_unit_test_db
 /README_win.txt
 /nxt.log.lck
 /bin
@@ -22,7 +23,10 @@
 /compile.bat
 /test/classes/
 *.csv
-/jre
+/jdk
+/jdk.runtime
+/javafx-sdk
+/javafx-sdk.runtime
 /dist
 deploy.sh
 /resource/nxt.manifest.mf
@@ -34,6 +38,4 @@ deploy.sh
 /addons/classes/
 /addons/src/*.java
 /out
-/ardor
-/ardor.exe
-/ardorservice.exe
+/nxt

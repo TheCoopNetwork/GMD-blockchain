@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -21,13 +21,15 @@ import nxt.BlockchainProcessor;
 import nxt.BlockchainTest;
 import nxt.Helper;
 import nxt.Nxt;
+import nxt.SafeShutdownSuite;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 
-public abstract class AbstractHttpApiSuite {
+public abstract class AbstractHttpApiSuite extends SafeShutdownSuite {
     @BeforeClass
     public static void init() {
+        SafeShutdownSuite.safeSuiteInit();
         BlockchainTest.initNxt();
         Nxt.getTransactionProcessor().clearUnconfirmedTransactions();
         Nxt.getBlockchainProcessor().addListener(new Helper.BlockListener(), BlockchainProcessor.Event.BLOCK_GENERATED);
@@ -37,6 +39,6 @@ public abstract class AbstractHttpApiSuite {
     @AfterClass
     public static void shutdown() {
         Assert.assertEquals(0, Helper.getCount("unconfirmed_transaction"));
-        Nxt.shutdown();
+        SafeShutdownSuite.safeSuiteShutdown();
     }
 }

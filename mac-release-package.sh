@@ -21,7 +21,7 @@ FILES="changelogs conf html lib resource contrib"
 FILES="${FILES} ${APPLICATION}.exe ${APPLICATION}service.exe"
 FILES="${FILES} 3RD-PARTY-LICENSES.txt AUTHORS.txt LICENSE.txt"
 FILES="${FILES} DEVELOPERS-GUIDE.md OPERATORS-GUIDE.md README.md README.txt USERS-GUIDE.md"
-FILES="${FILES} mint.bat mint.sh run.bat run.sh run-tor.sh run-desktop.sh start.sh stop.sh compact.sh compact.bat sign.sh sign.bat passphraseRecovery.sh passphraseRecovery.bat"
+FILES="${FILES} mint.bat mint.sh run.bat run.sh run-tor.sh run-desktop.sh start.sh stop.sh compact.sh compact.bat sign.sh sign.bat passphraseRecovery.sh passphraseRecovery.bat pem.to.pkcs12.keystore.certbot.hook.sh"
 FILES="${FILES} nxt.policy nxtdesktop.policy Wallet.url Dockerfile"
 
 echo compile
@@ -43,7 +43,6 @@ mv ../nxt.map ../nxt.map.${VERSION}
 else
 FILES="${FILES} classes src JPL-NRS.pdf"
 FILES="${FILES} compile.sh javadoc.sh jar.sh package.sh"
-FILES="${FILES} win-compile.sh win-javadoc.sh win-package.sh"
 echo javadoc
 ./javadoc.sh
 fi

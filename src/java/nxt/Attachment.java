@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -19,7 +19,6 @@ package nxt;
 import nxt.crypto.Crypto;
 import nxt.crypto.EncryptedData;
 import nxt.util.Convert;
-import nxt.util.bbh.LengthRwPrimitiveType;
 import nxt.util.bbh.StringRw;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,6 +32,7 @@ import java.util.List;
 
 import static nxt.util.bbh.LengthRwPrimitiveType.BYTE;
 import static nxt.util.bbh.LengthRwPrimitiveType.SHORT;
+import static nxt.util.bbh.LengthRwPrimitiveType.UBYTE;
 
 public interface Attachment extends Appendix {
 
@@ -126,6 +126,44 @@ public interface Attachment extends Appendix {
 
     }
 
+    abstract class PropertyDeleteAttachment extends AbstractAttachment {
+
+        private final long propertyId;
+
+        protected PropertyDeleteAttachment(ByteBuffer buffer) {
+            super(buffer);
+            this.propertyId = buffer.getLong();
+        }
+
+        protected PropertyDeleteAttachment(JSONObject attachmentData) {
+            super(attachmentData);
+            this.propertyId = Convert.parseUnsignedLong((String)attachmentData.get("property"));
+        }
+
+        public PropertyDeleteAttachment(long propertyId) {
+            this.propertyId = propertyId;
+        }
+
+        @Override
+        protected int getMySize() {
+            return 8;
+        }
+
+        @Override
+        protected void putMyBytes(ByteBuffer buffer) {
+            buffer.putLong(propertyId);
+        }
+
+        @Override
+        protected void putMyJSON(JSONObject attachment) {
+            attachment.put("property", Long.toUnsignedString(propertyId));
+        }
+
+        public long getPropertyId() {
+            return propertyId;
+        }
+    }
+
     EmptyAttachment ORDINARY_PAYMENT = new EmptyAttachment() {
 
         @Override
@@ -171,17 +209,13 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 1 + Convert.toBytes(aliasName).length + 2 + Convert.toBytes(aliasURI).length;
+            return ALIAS_NAME_RW.getSize(aliasName) + ALIAS_URI_RW.getSize(aliasURI);
         }
 
         @Override
         void putMyBytes(ByteBuffer buffer) {
-            byte[] alias = Convert.toBytes(this.aliasName);
-            byte[] uri = Convert.toBytes(this.aliasURI);
-            buffer.put((byte)alias.length);
-            buffer.put(alias);
-            buffer.putShort((short) uri.length);
-            buffer.put(uri);
+            ALIAS_NAME_RW.writeToBuffer(aliasName, buffer);
+            ALIAS_URI_RW.writeToBuffer(aliasURI, buffer);
         }
 
         @Override
@@ -233,14 +267,12 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 1 + Convert.toBytes(aliasName).length + 8;
+            return MessagingAliasAssignment.ALIAS_NAME_RW.getSize(aliasName) + 8;
         }
 
         @Override
         void putMyBytes(ByteBuffer buffer) {
-            byte[] aliasBytes = Convert.toBytes(aliasName);
-            buffer.put((byte)aliasBytes.length);
-            buffer.put(aliasBytes);
+            MessagingAliasAssignment.ALIAS_NAME_RW.writeToBuffer(aliasName, buffer);
             buffer.putLong(priceNQT);
         }
 
@@ -284,14 +316,12 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 1 + Convert.toBytes(aliasName).length;
+            return MessagingAliasAssignment.ALIAS_NAME_RW.getSize(aliasName);
         }
 
         @Override
         void putMyBytes(ByteBuffer buffer) {
-            byte[] aliasBytes = Convert.toBytes(aliasName);
-            buffer.put((byte) aliasBytes.length);
-            buffer.put(aliasBytes);
+            MessagingAliasAssignment.ALIAS_NAME_RW.writeToBuffer(aliasName, buffer);
         }
 
         @Override
@@ -329,14 +359,12 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 1 + Convert.toBytes(aliasName).length;
+            return MessagingAliasAssignment.ALIAS_NAME_RW.getSize(aliasName);
         }
 
         @Override
         void putMyBytes(final ByteBuffer buffer) {
-            byte[] aliasBytes = Convert.toBytes(aliasName);
-            buffer.put((byte)aliasBytes.length);
-            buffer.put(aliasBytes);
+            MessagingAliasAssignment.ALIAS_NAME_RW.writeToBuffer(aliasName, buffer);
         }
 
         @Override
@@ -767,17 +795,13 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 1 + Convert.toBytes(name).length + 2 + Convert.toBytes(description).length;
+            return NAME_RW.getSize(name) + DESCRIPTION_RW.getSize(description);
         }
 
         @Override
         void putMyBytes(ByteBuffer buffer) {
-            byte[] name = Convert.toBytes(this.name);
-            byte[] description = Convert.toBytes(this.description);
-            buffer.put((byte)name.length);
-            buffer.put(name);
-            buffer.putShort((short) description.length);
-            buffer.put(description);
+            NAME_RW.writeToBuffer(name, buffer);
+            DESCRIPTION_RW.writeToBuffer(description, buffer);
         }
 
         @Override
@@ -827,17 +851,13 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 1 + Convert.toBytes(property).length + 1 + Convert.toBytes(value).length;
+            return PROPERTY_NAME_RW.getSize(property) + PROPERTY_VALUE_RW.getSize(value);
         }
 
         @Override
         void putMyBytes(ByteBuffer buffer) {
-            byte[] property = Convert.toBytes(this.property);
-            byte[] value = Convert.toBytes(this.value);
-            buffer.put((byte)property.length);
-            buffer.put(property);
-            buffer.put((byte)value.length);
-            buffer.put(value);
+            PROPERTY_NAME_RW.writeToBuffer(property, buffer);
+            PROPERTY_VALUE_RW.writeToBuffer(value, buffer);
         }
 
         @Override
@@ -861,46 +881,23 @@ public interface Attachment extends Appendix {
 
     }
 
-    final class MessagingAccountPropertyDelete extends AbstractAttachment {
-
-        private final long propertyId;
+    final class MessagingAccountPropertyDelete extends PropertyDeleteAttachment {
 
         MessagingAccountPropertyDelete(ByteBuffer buffer) {
             super(buffer);
-            this.propertyId = buffer.getLong();
         }
 
         MessagingAccountPropertyDelete(JSONObject attachmentData) {
             super(attachmentData);
-            this.propertyId = Convert.parseUnsignedLong((String)attachmentData.get("property"));
         }
 
         public MessagingAccountPropertyDelete(long propertyId) {
-            this.propertyId = propertyId;
-        }
-
-        @Override
-        int getMySize() {
-            return 8;
-        }
-
-        @Override
-        void putMyBytes(ByteBuffer buffer) {
-            buffer.putLong(propertyId);
-        }
-
-        @Override
-        void putMyJSON(JSONObject attachment) {
-            attachment.put("property", Long.toUnsignedString(propertyId));
+            super(propertyId);
         }
 
         @Override
         public TransactionType getTransactionType() {
             return TransactionType.Messaging.ACCOUNT_PROPERTY_DELETE;
-        }
-
-        public long getPropertyId() {
-            return propertyId;
         }
 
     }
@@ -939,17 +936,13 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 1 + Convert.toBytes(name).length + 2 + Convert.toBytes(description).length + 8 + 1;
+            return NAME_RW.getSize(name) + DESCRIPTION_RW.getSize(description) + 8 + 1;
         }
 
         @Override
         void putMyBytes(ByteBuffer buffer) {
-            byte[] name = Convert.toBytes(this.name);
-            byte[] description = Convert.toBytes(this.description);
-            buffer.put((byte)name.length);
-            buffer.put(name);
-            buffer.putShort((short) description.length);
-            buffer.put(description);
+            NAME_RW.writeToBuffer(name, buffer);
+            DESCRIPTION_RW.writeToBuffer(description, buffer);
             buffer.putLong(quantityQNT);
             buffer.put(decimals);
         }
@@ -1038,24 +1031,24 @@ public interface Attachment extends Appendix {
 
     }
 
-    final class ColoredCoinsAssetDelete extends AbstractAttachment {
+    abstract class ColoredCoinsAssetQuantity extends AbstractAttachment {
 
         private final long assetId;
         private final long quantityQNT;
 
-        ColoredCoinsAssetDelete(ByteBuffer buffer) {
+        ColoredCoinsAssetQuantity(ByteBuffer buffer) {
             super(buffer);
             this.assetId = buffer.getLong();
             this.quantityQNT = buffer.getLong();
         }
 
-        ColoredCoinsAssetDelete(JSONObject attachmentData) {
+        ColoredCoinsAssetQuantity(JSONObject attachmentData) {
             super(attachmentData);
             this.assetId = Convert.parseUnsignedLong((String)attachmentData.get("asset"));
             this.quantityQNT = Convert.parseLong(attachmentData.get("quantityQNT"));
         }
 
-        public ColoredCoinsAssetDelete(long assetId, long quantityQNT) {
+        public ColoredCoinsAssetQuantity(long assetId, long quantityQNT) {
             this.assetId = assetId;
             this.quantityQNT = quantityQNT;
         }
@@ -1077,11 +1070,6 @@ public interface Attachment extends Appendix {
             attachment.put("quantityQNT", quantityQNT);
         }
 
-        @Override
-        public TransactionType getTransactionType() {
-            return TransactionType.ColoredCoins.ASSET_DELETE;
-        }
-
         public long getAssetId() {
             return assetId;
         }
@@ -1090,6 +1078,133 @@ public interface Attachment extends Appendix {
             return quantityQNT;
         }
 
+    }
+
+    final class ColoredCoinsAssetDelete extends ColoredCoinsAssetQuantity {
+
+        ColoredCoinsAssetDelete(ByteBuffer buffer) {
+            super(buffer);
+        }
+
+        ColoredCoinsAssetDelete(JSONObject attachmentData) {
+            super(attachmentData);
+        }
+
+        public ColoredCoinsAssetDelete(long assetId, long quantityQNT) {
+            super(assetId, quantityQNT);
+        }
+
+        @Override
+        public TransactionType getTransactionType() {
+            return TransactionType.ColoredCoins.ASSET_DELETE;
+        }
+
+    }
+
+    final class ColoredCoinsAssetIncrease extends ColoredCoinsAssetQuantity {
+
+        ColoredCoinsAssetIncrease(ByteBuffer buffer) {
+            super(buffer);
+        }
+
+        ColoredCoinsAssetIncrease(JSONObject attachmentData) {
+            super(attachmentData);
+        }
+
+        public ColoredCoinsAssetIncrease(long assetId, long quantityQNT) {
+            super(assetId, quantityQNT);
+        }
+
+        @Override
+        public TransactionType getTransactionType() {
+            return TransactionType.ColoredCoins.ASSET_INCREASE;
+        }
+
+    }
+
+    final class ColoredCoinsAssetProperty extends AbstractAttachment {
+        public static final StringRw PROPERTY_NAME_RW = new StringRw(BYTE, Constants.MAX_ASSET_PROPERTY_NAME_LENGTH);
+        public static final StringRw PROPERTY_VALUE_RW = new StringRw(UBYTE, Constants.MAX_ASSET_PROPERTY_VALUE_LENGTH);
+
+        private final long assetId;
+        private final String property;
+        private final String value;
+
+        public ColoredCoinsAssetProperty(ByteBuffer buffer) throws NxtException.NotValidException {
+            super(buffer);
+            this.assetId = buffer.getLong();
+            this.property = PROPERTY_NAME_RW.readFromBuffer(buffer).trim();
+            this.value = PROPERTY_VALUE_RW.readFromBuffer(buffer).trim();
+        }
+
+        public ColoredCoinsAssetProperty(JSONObject attachmentData) {
+            super(attachmentData);
+            this.assetId = Convert.parseUnsignedLong((String) attachmentData.get("asset"));
+            this.property = Convert.nullToEmpty((String) attachmentData.get("property")).trim();
+            this.value = Convert.nullToEmpty((String) attachmentData.get("value")).trim();
+        }
+
+        public ColoredCoinsAssetProperty(long assetId, String property, String value) {
+            this.assetId = assetId;
+            this.property = property.trim();
+            this.value = Convert.nullToEmpty(value).trim();
+        }
+
+        @Override
+        int getMySize() {
+            return 8 + PROPERTY_NAME_RW.getSize(property) + PROPERTY_VALUE_RW.getSize(value);
+        }
+
+        @Override
+        void putMyBytes(ByteBuffer buffer) {
+            buffer.putLong(assetId);
+            PROPERTY_NAME_RW.writeToBuffer(property, buffer);
+            PROPERTY_VALUE_RW.writeToBuffer(value, buffer);
+        }
+
+        @Override
+        void putMyJSON(JSONObject attachment) {
+            attachment.put("asset", Long.toUnsignedString(assetId));
+            attachment.put("property", property);
+            attachment.put("value", value);
+        }
+
+        @Override
+        public TransactionType getTransactionType() {
+            return TransactionType.ColoredCoins.ASSET_PROPERTY_SET;
+        }
+
+        public long getAssetId() {
+            return assetId;
+        }
+
+        public String getProperty() {
+            return property;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    final class ColoredCoinsAssetPropertyDelete extends PropertyDeleteAttachment {
+
+        ColoredCoinsAssetPropertyDelete(ByteBuffer buffer) {
+            super(buffer);
+        }
+
+        ColoredCoinsAssetPropertyDelete(JSONObject attachmentData) {
+            super(attachmentData);
+        }
+
+        public ColoredCoinsAssetPropertyDelete(long propertyId) {
+            super(propertyId);
+        }
+
+        @Override
+        public TransactionType getTransactionType() {
+            return TransactionType.ColoredCoins.ASSET_PROPERTY_DELETE;
+        }
     }
 
     abstract class ColoredCoinsOrderPlacement extends AbstractAttachment {
@@ -1277,9 +1392,13 @@ public interface Attachment extends Appendix {
         private final long assetId;
         private final int height;
         private final long amountNQTPerQNT;
+        private final long holdingId;
+        private final HoldingType holdingType;
 
         ColoredCoinsDividendPayment(ByteBuffer buffer) {
             super(buffer);
+            this.holdingId = buffer.getLong();
+            this.holdingType = HoldingType.get(buffer.get());
             this.assetId = buffer.getLong();
             this.height = buffer.getInt();
             this.amountNQTPerQNT = buffer.getLong();
@@ -1290,9 +1409,13 @@ public interface Attachment extends Appendix {
             this.assetId = Convert.parseUnsignedLong((String)attachmentData.get("asset"));
             this.height = ((Long)attachmentData.get("height")).intValue();
             this.amountNQTPerQNT = Convert.parseLong(attachmentData.get("amountNQTPerQNT"));
+            this.holdingId = Convert.parseUnsignedLong((String) attachmentData.get("holding"));
+            this.holdingType = HoldingType.get(((Long)attachmentData.get("holdingType")).byteValue());
         }
 
-        public ColoredCoinsDividendPayment(long assetId, int height, long amountNQTPerQNT) {
+        public ColoredCoinsDividendPayment(long holdingId, HoldingType holdingType, long assetId, int height, long amountNQTPerQNT) {
+            this.holdingId = holdingId;
+            this.holdingType = holdingType;
             this.assetId = assetId;
             this.height = height;
             this.amountNQTPerQNT = amountNQTPerQNT;
@@ -1300,11 +1423,13 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 8 + 4 + 8;
+            return 8 + 1 + 8 + 4 + 8;
         }
 
         @Override
         void putMyBytes(ByteBuffer buffer) {
+            buffer.putLong(holdingId);
+            buffer.put(holdingType.getCode());
             buffer.putLong(assetId);
             buffer.putInt(height);
             buffer.putLong(amountNQTPerQNT);
@@ -1315,6 +1440,8 @@ public interface Attachment extends Appendix {
             attachment.put("asset", Long.toUnsignedString(assetId));
             attachment.put("height", height);
             attachment.put("amountNQTPerQNT", amountNQTPerQNT);
+            attachment.put("holding", Long.toUnsignedString(holdingId));
+            attachment.put("holdingType", holdingType.getCode());
         }
 
         @Override
@@ -1332,6 +1459,14 @@ public interface Attachment extends Appendix {
 
         public long getAmountNQTPerQNT() {
             return amountNQTPerQNT;
+        }
+
+        public long getHoldingId() {
+            return holdingId;
+        }
+
+        public HoldingType getHoldingType() {
+            return holdingType;
         }
 
     }
@@ -1997,21 +2132,15 @@ public interface Attachment extends Appendix {
 
         @Override
         int getMySize() {
-            return 1 + Convert.toBytes(name).length + 1 + Convert.toBytes(code).length + 2 +
-                    Convert.toBytes(description).length + 1 + 8 + 8 + 8 + 4 + 8 + 1 + 1 + 1 + 1 + 1;
+            return NAME_RW.getSize(name) + CODE_RW.getSize(code) + DESCRIPTION_RW.getSize(description)
+                    + 1 + 8 + 8 + 8 + 4 + 8 + 1 + 1 + 1 + 1 + 1;
         }
 
         @Override
         void putMyBytes(ByteBuffer buffer) {
-            byte[] name = Convert.toBytes(this.name);
-            byte[] code = Convert.toBytes(this.code);
-            byte[] description = Convert.toBytes(this.description);
-            buffer.put((byte)name.length);
-            buffer.put(name);
-            buffer.put((byte)code.length);
-            buffer.put(code);
-            buffer.putShort((short) description.length);
-            buffer.put(description);
+            NAME_RW.writeToBuffer(name, buffer);
+            CODE_RW.writeToBuffer(code, buffer);
+            DESCRIPTION_RW.writeToBuffer(description, buffer);
             buffer.put(type);
             buffer.putLong(initialSupply);
             buffer.putLong(reserveSupply);

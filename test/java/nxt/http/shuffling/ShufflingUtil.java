@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -17,9 +17,13 @@
 package nxt.http.shuffling;
 
 import nxt.Constants;
-import nxt.HoldingType;
 import nxt.Tester;
 import nxt.http.APICall;
+import nxt.http.callers.ShufflingCancelCall;
+import nxt.http.callers.ShufflingCreateCall;
+import nxt.http.callers.ShufflingProcessCall;
+import nxt.http.callers.ShufflingRegisterCall;
+import nxt.http.callers.ShufflingVerifyCall;
 import nxt.util.Convert;
 import nxt.util.Logger;
 import org.json.simple.JSONObject;
@@ -33,63 +37,31 @@ class ShufflingUtil {
 
     static final long defaultShufflingAmount = 1500000000;
     static final long defaultHoldingShufflingAmount = 40000;
-    static final long shufflingAsset = 3320741880585366286L;
-    static final long shufflingCurrency = -5643814336689018857L;
 
     static JSONObject create(Tester creator) {
         return create(creator, 4);
     }
 
     static JSONObject create(Tester creator, int participantCount) {
-        APICall apiCall = new APICall.Builder("shufflingCreate").
+        APICall apiCall = ShufflingCreateCall.create().
                 secretPhrase(creator.getSecretPhrase()).
                 feeNQT(Constants.ONE_NXT).
                 param("amount", String.valueOf(defaultShufflingAmount)).
                 param("participantCount", String.valueOf(participantCount)).
                 param("registrationPeriod", 10).
                 build();
-        JSONObject response = apiCall.invoke();
-        Logger.logMessage("shufflingCreateResponse: " + response.toJSONString());
-        return response;
-    }
-
-    static JSONObject createAssetShuffling(Tester creator) {
-        APICall apiCall = new APICall.Builder("shufflingCreate").
-                secretPhrase(creator.getSecretPhrase()).
-                feeNQT(Constants.ONE_NXT).
-                param("amount", String.valueOf(defaultHoldingShufflingAmount)).
-                param("participantCount", "4").
-                param("registrationPeriod", 10).
-                param("holding", Long.toUnsignedString(shufflingAsset)).
-                param("holdingType", String.valueOf(HoldingType.ASSET.getCode())).
-                build();
-        JSONObject response = apiCall.invoke();
-        Logger.logMessage("shufflingCreateResponse: " + response.toJSONString());
-        return response;
-    }
-
-    static JSONObject createCurrencyShuffling(Tester creator) {
-        APICall apiCall = new APICall.Builder("shufflingCreate").
-                secretPhrase(creator.getSecretPhrase()).
-                feeNQT(Constants.ONE_NXT).
-                param("amount", String.valueOf(defaultHoldingShufflingAmount)).
-                param("participantCount", "4").
-                param("registrationPeriod", 10).
-                param("holding", Long.toUnsignedString(shufflingCurrency)).
-                param("holdingType", String.valueOf(HoldingType.CURRENCY.getCode())).
-                build();
-        JSONObject response = apiCall.invoke();
+        JSONObject response = apiCall.invokeNoError();
         Logger.logMessage("shufflingCreateResponse: " + response.toJSONString());
         return response;
     }
 
     static JSONObject register(String shufflingFullHash, Tester tester) {
-        APICall apiCall = new APICall.Builder("shufflingRegister").
+        APICall apiCall = ShufflingRegisterCall.create().
                 secretPhrase(tester.getSecretPhrase()).
                 feeNQT(Constants.ONE_NXT).
                 param("shufflingFullHash", shufflingFullHash).
                 build();
-        JSONObject response = apiCall.invoke();
+        JSONObject response = apiCall.invokeNoError();
         Logger.logMessage("shufflingRegisterResponse: " + response.toJSONString());
         return response;
     }
@@ -98,7 +70,7 @@ class ShufflingUtil {
         APICall apiCall = new APICall.Builder("getShuffling").
                 param("shuffling", shufflingId).
                 build();
-        JSONObject getShufflingResponse = apiCall.invoke();
+        JSONObject getShufflingResponse = apiCall.invokeNoError();
         Logger.logMessage("getShufflingResponse: " + getShufflingResponse.toJSONString());
         return getShufflingResponse;
     }
@@ -107,7 +79,7 @@ class ShufflingUtil {
         APICall apiCall = new APICall.Builder("getShufflingParticipants").
                 param("shuffling", shufflingId).
                 build();
-        JSONObject getParticipantsResponse = apiCall.invoke();
+        JSONObject getParticipantsResponse = apiCall.invokeNoError();
         Logger.logMessage("getShufflingParticipantsResponse: " + getParticipantsResponse.toJSONString());
         return getParticipantsResponse;
     }
@@ -117,25 +89,25 @@ class ShufflingUtil {
     }
 
     static JSONObject process(String shufflingId, Tester tester, Tester recipient, boolean broadcast) {
-        APICall.Builder builder = new APICall.Builder("shufflingProcess").
-                param("shuffling", shufflingId).
-                param("secretPhrase", tester.getSecretPhrase()).
-                param("recipientSecretPhrase", recipient.getSecretPhrase()).
+        APICall.Builder builder = ShufflingProcessCall.create().
+                shuffling(shufflingId).
+                secretPhrase(tester.getSecretPhrase()).
+                recipientSecretPhrase(recipient.getSecretPhrase()).
                 feeNQT(0);
         if (!broadcast) {
             builder.param("broadcast", "false");
         }
         APICall apiCall = builder.build();
-        JSONObject shufflingProcessResponse = apiCall.invoke();
+        JSONObject shufflingProcessResponse = apiCall.invokeNoError();
         Logger.logMessage("shufflingProcessResponse: " + shufflingProcessResponse.toJSONString());
         return shufflingProcessResponse;
     }
 
     static JSONObject verify(String shufflingId, Tester tester, String shufflingStateHash) {
-        APICall apiCall = new APICall.Builder("shufflingVerify").
-                param("shuffling", shufflingId).
-                param("secretPhrase", tester.getSecretPhrase()).
-                param("shufflingStateHash", shufflingStateHash).
+        APICall apiCall = ShufflingVerifyCall.create().
+                shuffling(shufflingId).
+                secretPhrase(tester.getSecretPhrase()).
+                shufflingStateHash(shufflingStateHash).
                 feeNQT(Constants.ONE_NXT).
                 build();
         JSONObject response = apiCall.invoke();
@@ -148,10 +120,10 @@ class ShufflingUtil {
     }
 
     static JSONObject cancel(String shufflingId, Tester tester, String shufflingStateHash, long cancellingAccountId, boolean broadcast) {
-        APICall.Builder builder = new APICall.Builder("shufflingCancel").
-                param("shuffling", shufflingId).
-                param("secretPhrase", tester.getSecretPhrase()).
-                param("shufflingStateHash", shufflingStateHash).
+        APICall.Builder builder = ShufflingCancelCall.create().
+                shuffling(shufflingId).
+                secretPhrase(tester.getSecretPhrase()).
+                shufflingStateHash(shufflingStateHash).
                 feeNQT(10 * Constants.ONE_NXT);
         if (cancellingAccountId != 0) {
             builder.param("cancellingAccount", Long.toUnsignedString(cancellingAccountId));
@@ -185,14 +157,18 @@ class ShufflingUtil {
     }
 
     static JSONObject startShuffler(Tester tester, Tester recipient, String shufflingFullHash) {
-        APICall apiCall = new APICall.Builder("startShuffler").
-                secretPhrase(tester.getSecretPhrase()).
-                param("recipientPublicKey", Convert.toHexString(recipient.getPublicKey())).
-                param("shufflingFullHash", shufflingFullHash).
-                build();
-        JSONObject response = apiCall.invoke();
+        APICall apiCall = startShufflerBuilder(tester, recipient, shufflingFullHash);
+        JSONObject response = apiCall.invokeNoError();
         Logger.logMessage("startShufflerResponse: " + response.toJSONString());
         return response;
+    }
+
+    static APICall startShufflerBuilder(Tester tester, Tester recipient, String shufflingFullHash) {
+        return new APICall.Builder("startShuffler").
+                    secretPhrase(tester.getSecretPhrase()).
+                    param("recipientPublicKey", Convert.toHexString(recipient.getPublicKey())).
+                    param("shufflingFullHash", shufflingFullHash).
+                    build();
     }
 
     static JSONObject stopShuffler(Tester tester, String shufflingFullHash) {
@@ -215,7 +191,4 @@ class ShufflingUtil {
         Logger.logMessage("sendMoneyReponse: " + response.toJSONString());
         return response;
     }
-
-    private ShufflingUtil() {}
-
 }

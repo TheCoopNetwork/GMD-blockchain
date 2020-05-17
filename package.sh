@@ -16,7 +16,6 @@ FILES="${FILES} DEVELOPERS-GUIDE.md OPERATORS-GUIDE.md README.md README.txt USER
 FILES="${FILES} mint.bat mint.sh run.bat run.sh run-tor.sh run-desktop.sh start.sh stop.sh compact.sh compact.bat sign.sh sign.bat passphraseRecovery.sh passphraseRecovery.bat"
 FILES="${FILES} nxt.policy nxtdesktop.policy Wallet.url"
 FILES="${FILES} compile.sh javadoc.sh jar.sh package.sh"
-FILES="${FILES} win-compile.sh win-javadoc.sh win-package.sh"
 
 echo compile
 ./compile.sh

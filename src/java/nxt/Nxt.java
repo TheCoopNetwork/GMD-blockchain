@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -27,6 +27,7 @@ import nxt.http.APIProxy;
 import nxt.peer.Peers;
 import nxt.util.Convert;
 import nxt.util.Logger;
+import nxt.util.ResourceLookup;
 import nxt.util.ThreadPool;
 import nxt.util.Time;
 import org.json.simple.JSONObject;
@@ -51,7 +52,7 @@ import java.util.Properties;
 
 public final class Nxt {
 
-    public static final String VERSION = "1.11.15";
+    public static final String VERSION = "1.12.2";
     public static final String APPLICATION = "NxtClone";
 
     private static volatile Time time = new Time.EpochTime();
@@ -129,7 +130,7 @@ public final class Nxt {
                     throw new IllegalArgumentException(String.format("Error loading %s from %s", propertiesFile, configFile));
                 }
             } else {
-                try (InputStream is = ClassLoader.getSystemResourceAsStream(propertiesFile)) {
+                try (InputStream is = ResourceLookup.getSystemResourceAsStream(propertiesFile)) {
                     // When running nxt.exe from a Windows installation we always have nxt.properties in the classpath but this is not the nxt properties file
                     // Therefore we first load it from the classpath and then look for the real nxt.properties in the user folder.
                     if (is != null) {
@@ -190,7 +191,7 @@ public final class Nxt {
                 return;
             }
             inputArguments.forEach(System.out::println);
-        } catch (AccessControlException e) {
+        } catch (AccessControlException | NoClassDefFoundError e) {
             System.out.println("Cannot read input arguments " + e.getMessage());
         }
     }
@@ -332,6 +333,7 @@ public final class Nxt {
         AddOns.shutdown();
         API.shutdown();
         FundingMonitor.shutdown();
+        BlockchainProcessorImpl.getInstance().setGetMoreBlocks(false);
         ThreadPool.shutdown();
         BlockchainProcessorImpl.getInstance().shutdown();
         Peers.shutdown();
@@ -369,7 +371,7 @@ public final class Nxt {
                 PhasingPoll.init();
                 Trade.init();
                 AssetTransfer.init();
-                AssetDelete.init();
+                AssetHistory.init();
                 AssetDividend.init();
                 Vote.init();
                 PhasingVote.init();
@@ -405,8 +407,8 @@ public final class Nxt {
                 Logger.logMessage("Initialization took " + (currentTime - startTime) / 1000 + " seconds");
                 Logger.logMessage(Nxt.APPLICATION + " server " + VERSION + " started successfully.");
                 Logger.logMessage("Copyright © 2013-2016 The Nxt Core Developers.");
-                Logger.logMessage("Copyright © 2016-2019 Jelurida IP B.V.");
-                Logger.logMessage("Distributed under the Jelurida Public License version 1.1 for the Nxt Public Blockchain Platform, with ABSOLUTELY NO WARRANTY.");
+                Logger.logMessage("Copyright © 2016-2020 Jelurida IP B.V.");
+                Logger.logMessage("Distributed under the Jelurida Public License version 1.2 for the Nxt Public Blockchain Platform, with ABSOLUTELY NO WARRANTY.");
                 if (API.getWelcomePageUri() != null) {
                     Logger.logMessage("Client UI is at " + API.getWelcomePageUri());
                 }
@@ -499,7 +501,12 @@ public final class Nxt {
     }
 
     public static String getProcessId() {
-        String runtimeName = ManagementFactory.getRuntimeMXBean().getName();
+        String runtimeName;
+        try {
+            runtimeName = ManagementFactory.getRuntimeMXBean().getName();
+        } catch (NoClassDefFoundError ignore) {
+            return "";
+        }
         if (runtimeName == null) {
             return "";
         }

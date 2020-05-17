@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -16,8 +16,10 @@
 
 package nxt.http.accountControl;
 
-import nxt.Constants;
 import nxt.http.APICall;
+import nxt.http.callers.ApiSpec;
+import nxt.http.callers.CreateTransactionCallBuilder;
+import nxt.http.callers.IssueAssetCall;
 import nxt.http.monetarysystem.TestCurrencyIssuance;
 import nxt.util.Logger;
 import org.json.simple.JSONObject;
@@ -25,9 +27,8 @@ import org.junit.Assert;
 
 public class ACTestUtils {
 
-    public static class Builder extends APICall.Builder {
-
-        public Builder(String requestType, String secretPhrase) {
+    public static class Builder extends CreateTransactionCallBuilder<Builder> {
+        public Builder(ApiSpec requestType, String secretPhrase) {
             super(requestType);
             secretPhrase(secretPhrase);
             feeNQT(0);
@@ -43,35 +44,21 @@ public class ACTestUtils {
         }
     }
 
-    public static class CurrencyExchangeBuilder extends APICall.Builder {
-
-        public CurrencyExchangeBuilder(String currencyId, String secretPhrase, int height) {
-            super("publishExchangeOffer");
-            param("currency", currencyId);
-            param("buyRateNQT", 10 * Constants.ONE_NXT);
-            param("sellRateNQT", 10 * Constants.ONE_NXT);
-            param("totalBuyLimit", 0);
-            param("totalSellLimit", 50);
-            param("initialBuySupply", 0);
-            param("initialSellSupply", 5);
-            param("expirationHeight", height);
-            secretPhrase(secretPhrase);
-            feeNQT(0);
-        }
-    }
-    
-    public static class AssetBuilder extends APICall.Builder {
+    public static class AssetBuilder {
+        private final IssueAssetCall builder = IssueAssetCall.create();
 
         public AssetBuilder(String secretPhrase, String assetName) {
-            super("issueAsset");
-            param("name", assetName);
-            param("description", "Unit tests asset");
-            param("quantityQNT", 10000);
-            param("decimals", 4);
-            secretPhrase(secretPhrase);
-            feeNQT(0);
+            builder.param("name", assetName);
+            builder.param("description", "Unit tests asset");
+            builder.param("quantityQNT", 10000);
+            builder.param("decimals", 4);
+            builder.secretPhrase(secretPhrase);
+            builder.feeNQT(0);
         }
 
+        public IssueAssetCall getBuilder() {
+            return builder;
+        }
     }
     
     public static JSONObject assertTransactionSuccess(APICall.Builder builder) {

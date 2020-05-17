@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -107,7 +107,7 @@ public class TestMintCalculations {
         byte[] hash = HashFunction.SCRYPT.hash(new byte[]{(byte) 0x41, (byte) 0xFB});
         Assert.assertEquals("da3f4f010d772567a8896465d11df28693b244c91b8ba4bea5a30f6be572b667".toLowerCase(Locale.ROOT), Convert.toHexString(hash));
         hash = HashFunction.SCRYPT.hash(new byte[]{});
-        Assert.assertEquals("0cf2967ca5c120e80b37f8f75c971842e05da107278c1058e6ffbc68911c11f1", Convert.toHexString(hash));
+        Assert.assertEquals("413cd8c7202bba7ebce0c5aab6c0928eb5894052e0a494c8671e482583ecdea2", Convert.toHexString(hash));
     }
 
     @Test

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -28,7 +28,7 @@ import org.junit.Test;
 
 public class TestGetVoterPhasedTransactions extends BlockchainTest {
 
-    static APICall getVoterPhasedTransactions() {
+    private static APICall getVoterPhasedTransactions() {
         return new APICall.Builder("getVoterPhasedTransactions")
                 .param("account", Long.toUnsignedString(CHUCK.getId()))
                 .param("firstIndex", 0)
@@ -39,7 +39,7 @@ public class TestGetVoterPhasedTransactions extends BlockchainTest {
     @Test
     public void simpleTransactionLookup() {
         APICall apiCall = new TwoPhasedMoneyTransferBuilder().build();
-        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhased(apiCall, false);
+        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
         String transactionId = (String) transactionJSON.get("transaction");
 
         generateBlock();
@@ -55,7 +55,7 @@ public class TestGetVoterPhasedTransactions extends BlockchainTest {
 
         APICall apiCall = new TwoPhasedMoneyTransferBuilder()
                 .build();
-        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhased(apiCall, false);
+        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
         String transactionFullHash = (String) transactionJSON.get("fullHash");
 
         generateBlock();
@@ -81,7 +81,7 @@ public class TestGetVoterPhasedTransactions extends BlockchainTest {
     public void sorting() {
         for (int i = 0; i < 15; i++) {
             APICall apiCall = new TestCreateTwoPhased.TwoPhasedMoneyTransferBuilder().build();
-            TestCreateTwoPhased.issueCreateTwoPhased(apiCall, false);
+            TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
         }
 
         JSONObject response = getVoterPhasedTransactions().invoke();

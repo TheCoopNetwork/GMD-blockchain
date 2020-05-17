@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -19,6 +19,7 @@ package nxt.http.votingsystem;
 import nxt.BlockchainTest;
 import nxt.Constants;
 import nxt.http.APICall;
+import nxt.http.callers.CastVoteCall;
 import nxt.http.votingsystem.TestCreatePoll.CreatePollBuilder;
 import nxt.util.Logger;
 import org.json.simple.JSONArray;
@@ -36,12 +37,12 @@ public class TestCastVote extends BlockchainTest {
         String poll = TestCreatePoll.issueCreatePoll(apiCall, false);
         generateBlock();
 
-        apiCall = new APICall.Builder("castVote")
-                .param("secretPhrase", ALICE.getSecretPhrase())
-                .param("poll", poll)
-                .param("vote00", 1)
-                .param("vote01", 0)
-                .param("feeNQT", Constants.ONE_NXT)
+        apiCall = CastVoteCall.create()
+                .secretPhrase(ALICE.getSecretPhrase())
+                .poll(poll)
+                .vote00(1)
+                .vote01(0)
+                .feeNQT(Constants.ONE_NXT)
                 .build();
 
         JSONObject response = apiCall.invoke();
@@ -70,9 +71,10 @@ public class TestCastVote extends BlockchainTest {
         String poll = TestCreatePoll.issueCreatePoll(apiCall, false);
         generateBlock();
 
-        apiCall = new APICall.Builder("castVote")
-                .param("secretPhrase", ALICE.getSecretPhrase())
-                .param("poll", poll)
+        apiCall = CastVoteCall.create()
+                .setParamValidation(false)
+                .secretPhrase(ALICE.getSecretPhrase())
+                .poll(poll)
                 .param("vote1", 1)
                 .param("vote2", 1)
                 .param("vote3", 1)

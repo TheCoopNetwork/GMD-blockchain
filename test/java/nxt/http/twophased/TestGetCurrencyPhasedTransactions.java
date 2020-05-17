@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -20,17 +20,19 @@ import nxt.BlockchainTest;
 import nxt.Constants;
 import nxt.VoteWeighting;
 import nxt.http.APICall;
+import nxt.http.monetarysystem.TestCurrencyIssuance;
 import nxt.util.Convert;
 import nxt.util.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestGetCurrencyPhasedTransactions extends BlockchainTest {
-    private static String currency = "17287739300802062230";
+    private String currency;
 
-    static APICall phasedTransactionsApiCall() {
+    private APICall phasedTransactionsApiCall() {
         return new APICall.Builder("getCurrencyPhasedTransactions")
                 .param("currency", currency)
                 .param("firstIndex", 0)
@@ -47,9 +49,16 @@ public class TestGetCurrencyPhasedTransactions extends BlockchainTest {
                 .build();
     }
 
+    @Before
+    public void setUpTest() {
+        APICall apiCall = new TestCurrencyIssuance.Builder().naming("yjwcv", "YJWCV", "TestGetCurrencyPhasedTransactions").build();
+        currency = TestCurrencyIssuance.issueCurrencyApi(apiCall);
+    }
+
     @Test
     public void simpleTransactionLookup() {
-        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhased(byCurrencyApiCall(), false);
+        APICall apiCall = byCurrencyApiCall();
+        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
         JSONObject response = phasedTransactionsApiCall().invoke();
         Logger.logMessage("getCurrencyPhasedTransactionsResponse:" + response.toJSONString());
         JSONArray transactionsJson = (JSONArray) response.get("transactions");
@@ -59,7 +68,8 @@ public class TestGetCurrencyPhasedTransactions extends BlockchainTest {
     @Test
     public void sorting() {
         for (int i = 0; i < 15; i++) {
-            TestCreateTwoPhased.issueCreateTwoPhased(byCurrencyApiCall(), false);
+            APICall apiCall = byCurrencyApiCall();
+            TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
         }
 
         JSONObject response = phasedTransactionsApiCall().invoke();

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -23,6 +23,7 @@ public final class Constants {
     public static final boolean isTestnet = Nxt.getBooleanProperty("nxt.isTestnet");
     public static final boolean isOffline = Nxt.getBooleanProperty("nxt.isOffline");
     public static final boolean isLightClient = Nxt.getBooleanProperty("nxt.isLightClient");
+    public static final boolean isAutomatedTest = isTestnet && Nxt.getBooleanProperty("nxt.isAutomatedTest");
     public static final String customLoginWarning = Nxt.getStringProperty("nxt.customLoginWarning", null, false, "UTF-8");
 
     public static final String COIN_SYMBOL = "NxtCloneCoin";
@@ -82,6 +83,8 @@ public final class Constants {
 
     public static final int MAX_ACCOUNT_PROPERTY_NAME_LENGTH = 32;
     public static final int MAX_ACCOUNT_PROPERTY_VALUE_LENGTH = 160;
+    public static final int MAX_ASSET_PROPERTY_NAME_LENGTH = 32;
+    public static final int MAX_ASSET_PROPERTY_VALUE_LENGTH = 160;
 
     public static final long MAX_ASSET_QUANTITY_QNT = 1000000000L * 100000000L;
     public static final int MIN_ASSET_NAME_LENGTH = 3;
@@ -134,8 +137,8 @@ public final class Constants {
     // LAST_KNOWN_BLOCK must also be set in html/www/js/nrs.constants.js
     public static final int LAST_KNOWN_BLOCK = isTestnet ? 0 : 0;
 
-    public static final int[] MIN_VERSION = new int[] {1, 0};
-    public static final int[] MIN_PROXY_VERSION = new int[] {1, 0};
+    public static final int[] MIN_VERSION = new int[] {1, 12, 1};
+    public static final int[] MIN_PROXY_VERSION = new int[] {1, 12, 1};
 
     static final long UNCONFIRMED_POOL_DEPOSIT_NQT = (isTestnet ? 50 : 100) * ONE_NXT;
     public static final long SHUFFLING_DEPOSIT_NQT = (isTestnet ? 7 : 1000) * ONE_NXT;
@@ -144,6 +147,9 @@ public final class Constants {
 
     public static final String ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz";
     public static final String ALLOWED_CURRENCY_CODE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    public static final boolean DISABLE_FULL_TEXT_SEARCH = Nxt.getBooleanProperty("nxt.disableFullTextSearch");
+    public static final boolean DISABLE_METADATA_DETECTION = Nxt.getBooleanProperty("nxt.disableMetadataDetection");
 
     private Constants() {} // never
 

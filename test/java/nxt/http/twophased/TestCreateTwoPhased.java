@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -21,6 +21,7 @@ import nxt.Constants;
 import nxt.Nxt;
 import nxt.VoteWeighting;
 import nxt.http.APICall;
+import nxt.http.callers.SendMoneyCall;
 import nxt.util.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,78 +31,88 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertNull;
+
 
 public class TestCreateTwoPhased extends BlockchainTest {
 
-    static JSONObject issueCreateTwoPhased(APICall apiCall, boolean shouldFail) {
+    private static JSONObject issueCreateTwoPhasedFailed(APICall apiCall) {
         JSONObject twoPhased = apiCall.invoke();
         Logger.logMessage("two-phased sendMoney: " + twoPhased.toJSONString());
 
         generateBlock();
-        String transactionId = (String)twoPhased.get("transaction");
-        if (!shouldFail && transactionId == null || shouldFail && transactionId != null) {
-            Assert.fail();
-        }
+        assertNull(twoPhased.get("transaction"));
         return twoPhased;
     }
 
-    public static class TwoPhasedMoneyTransferBuilder extends APICall.Builder {
+    static JSONObject issueCreateTwoPhasedSuccess(APICall apiCall) {
+        JSONObject twoPhased = apiCall.invokeNoError();
+        generateBlock();
+        return twoPhased;
+    }
+
+    public static class TwoPhasedMoneyTransferBuilder {
+
+        private final SendMoneyCall builder = SendMoneyCall.create();
 
         public TwoPhasedMoneyTransferBuilder() {
-            super("sendMoney");
 
             int height = Nxt.getBlockchain().getHeight();
 
-            secretPhrase(ALICE.getSecretPhrase());
-            feeNQT(2*Constants.ONE_NXT);
-            recipient(BOB.getId());
-            param("amountNQT", 50 * Constants.ONE_NXT);
-            param("phased", "true");
-            param("phasingVotingModel", VoteWeighting.VotingModel.ACCOUNT.getCode());
-            param("phasingQuorum", 1);
-            param("phasingWhitelisted", CHUCK.getStrId());
-            param("phasingFinishHeight", height + 50);
+            builder.secretPhrase(ALICE.getSecretPhrase());
+            builder.feeNQT(2*Constants.ONE_NXT);
+            builder.recipient(BOB.getId());
+            builder.param("amountNQT", 50 * Constants.ONE_NXT);
+            builder.param("phased", "true");
+            builder.param("phasingVotingModel", VoteWeighting.VotingModel.ACCOUNT.getCode());
+            builder.param("phasingQuorum", 1);
+            builder.param("phasingWhitelisted", CHUCK.getStrId());
+            builder.param("phasingFinishHeight", height + 50);
         }
 
         public TwoPhasedMoneyTransferBuilder fee(long fee) {
-            feeNQT(fee);
+            builder.feeNQT(fee);
             return this;
         }
 
         public TwoPhasedMoneyTransferBuilder votingModel(byte model) {
-            param("phasingVotingModel", model);
+            builder.param("phasingVotingModel", model);
             return this;
         }
 
         public TwoPhasedMoneyTransferBuilder finishHeight(int maxHeight) {
-            param("phasingFinishHeight", maxHeight);
+            builder.param("phasingFinishHeight", maxHeight);
             return this;
         }
 
         public TwoPhasedMoneyTransferBuilder minBalance(long minBalance, byte minBalanceModel) {
-            param("phasingMinBalance", minBalance);
-            param("phasingMinBalanceModel", minBalanceModel);
+            builder.param("phasingMinBalance", minBalance);
+            builder.param("phasingMinBalanceModel", minBalanceModel);
             return this;
         }
 
         public TwoPhasedMoneyTransferBuilder quorum(int quorum) {
-            param("phasingQuorum", quorum);
+            builder.param("phasingQuorum", quorum);
             return this;
         }
 
         public TwoPhasedMoneyTransferBuilder noWhitelist() {
-            param("phasingWhitelisted", "");
+            builder.param("phasingWhitelisted", "");
             return this;
         }
 
         public TwoPhasedMoneyTransferBuilder whitelisted(long accountId) {
-            param("phasingWhitelisted", Long.toUnsignedString(accountId));
+            builder.param("phasingWhitelisted", Long.toUnsignedString(accountId));
             return this;
         }
 
         public TwoPhasedMoneyTransferBuilder holding(long accountId) {
-            param("phasingHolding", Long.toUnsignedString(accountId));
+            builder.param("phasingHolding", Long.toUnsignedString(accountId));
             return this;
+        }
+
+        public APICall build() {
+            return builder.build();
         }
     }
 
@@ -109,7 +120,7 @@ public class TestCreateTwoPhased extends BlockchainTest {
     @Test
     public void validMoneyTransfer() {
         APICall apiCall = new TwoPhasedMoneyTransferBuilder().build();
-        issueCreateTwoPhased(apiCall, false);
+        issueCreateTwoPhasedSuccess(apiCall);
     }
 
     @Test
@@ -117,27 +128,27 @@ public class TestCreateTwoPhased extends BlockchainTest {
         int height = Nxt.getBlockchain().getHeight();
 
         APICall apiCall = new TwoPhasedMoneyTransferBuilder().finishHeight(height).build();
-        issueCreateTwoPhased(apiCall, true);
+        issueCreateTwoPhasedFailed(apiCall);
 
         apiCall = new TwoPhasedMoneyTransferBuilder().finishHeight(height + 100000).build();
-        issueCreateTwoPhased(apiCall, true);
+        issueCreateTwoPhasedFailed(apiCall);
 
         apiCall = new TwoPhasedMoneyTransferBuilder().quorum(0).build();
-        issueCreateTwoPhased(apiCall, true);
+        issueCreateTwoPhasedFailed(apiCall);
 
         apiCall = new TwoPhasedMoneyTransferBuilder().noWhitelist().build();
-        issueCreateTwoPhased(apiCall, true);
+        issueCreateTwoPhasedFailed(apiCall);
 
         apiCall = new TwoPhasedMoneyTransferBuilder().whitelisted(0).build();
-        issueCreateTwoPhased(apiCall, true);
+        issueCreateTwoPhasedFailed(apiCall);
 
         apiCall = new TwoPhasedMoneyTransferBuilder().votingModel(VoteWeighting.VotingModel.ASSET.getCode()).build();
-        issueCreateTwoPhased(apiCall, true);
+        issueCreateTwoPhasedFailed(apiCall);
 
         apiCall = new TwoPhasedMoneyTransferBuilder().votingModel(VoteWeighting.VotingModel.ASSET.getCode())
                 .minBalance(50, VoteWeighting.MinBalanceModel.ASSET.getCode())
                 .build();
-        issueCreateTwoPhased(apiCall, true);
+        issueCreateTwoPhasedFailed(apiCall);
     }
 
     @Test
@@ -146,7 +157,7 @@ public class TestCreateTwoPhased extends BlockchainTest {
 
         for(int i=0; i < 10; i++){
             APICall apiCall = new TwoPhasedMoneyTransferBuilder().build();
-            JSONObject transactionJSON = issueCreateTwoPhased(apiCall, false);
+            JSONObject transactionJSON = issueCreateTwoPhasedSuccess(apiCall);
             String idString = (String) transactionJSON.get("transaction");
             transactionIds.add(idString);
         }

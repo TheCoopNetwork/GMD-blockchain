@@ -1,3 +1,18 @@
+/*
+ * Copyright © 2016-2020 Jelurida IP B.V.
+ *
+ * See the LICENSE.txt file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with Jelurida B.V.,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE.txt file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+
 package nxt.addons;
 
 import nxt.BlockchainTest;
@@ -8,14 +23,24 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@Ignore
 public class JPLSnapshotTest extends BlockchainTest {
+    /**
+     * This value came from genesis block.
+     */
+    private static final String aliceId = "9230759115816986914";
+    /**
+     * This value came from genesis block.
+     */
+    private static final long aliceCurrentBalance = 5033128 * Constants.ONE_NXT;
 
     private static final String INPUT_JSON_STR =
             "{\n" +
@@ -31,13 +56,16 @@ public class JPLSnapshotTest extends BlockchainTest {
             "    ]\n" +
             "}\n";
 
+    @Before
+    public void setUpTest() {
+        generateBlock();
+    }
+
     @Test
     public void testSnapshotWithoutInput() {
-        long aliceCurrentBalance = ALICE.getBalance();
-        String aliceId = Long.toUnsignedString(ALICE.getAccount().getId());
         JSONObject response = new APICall.Builder("downloadJPLSnapshot").
                 param("height", getHeight()).
-                build().invoke();
+                build().invokeNoError();
         JSONObject balances = (JSONObject)response.get("balances");
         long total = 0;
         long aliceSnapshotBalance = 0;
@@ -47,18 +75,16 @@ public class JPLSnapshotTest extends BlockchainTest {
                 aliceSnapshotBalance = entry.getValue();
             }
         }
-        Assert.assertEquals(aliceCurrentBalance, aliceSnapshotBalance);
+        Assert.assertEquals(aliceCurrentBalance, aliceSnapshotBalance); // 5033128 comes from genesis block
         Assert.assertTrue(total > Constants.MAX_BALANCE_NQT - 100000 * Constants.ONE_NXT); // some funds were sent to genesis or are locked in claimable currency
     }
 
     @Test
     public void testSnapshotWithInput() {
-        long aliceCurrentBalance = ALICE.getBalance();
-        String aliceId = Long.toUnsignedString(ALICE.getAccount().getId());
         JSONObject response = new APICall.Builder("downloadJPLSnapshot").
             param("height", getHeight()).
-            parts("newGenesisAccounts", INPUT_JSON_STR).
-            build().invoke();
+            parts("newGenesisAccounts", INPUT_JSON_STR.getBytes()).
+            build().invokeNoError();
         JSONObject balances = (JSONObject)response.get("balances");
         long total = 0;
         long aliceSnapshotBalance = 0;
@@ -69,7 +95,7 @@ public class JPLSnapshotTest extends BlockchainTest {
             }
         }
         Assert.assertTrue(Constants.MAX_BALANCE_NQT - total < 10000);
-        Assert.assertTrue(BigInteger.valueOf(aliceCurrentBalance).divide(BigInteger.valueOf(10)).subtract(BigInteger.valueOf(aliceSnapshotBalance)).longValueExact() < Constants.ONE_NXT);
+        Assert.assertEquals(aliceCurrentBalance / 10, aliceSnapshotBalance);
         JSONObject inputGenesis = (JSONObject)JSONValue.parse(INPUT_JSON_STR);
         JSONObject inputBalances = (JSONObject) inputGenesis.get("balances");
         for (Map.Entry<String, Long> entry : ((Map<String, Long>)inputBalances).entrySet()) {

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -19,6 +19,7 @@ package nxt.http.accountproperties;
 import nxt.BlockchainTest;
 import nxt.Constants;
 import nxt.http.APICall;
+import nxt.http.callers.SetAccountInfoCall;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class AccountInfoTest extends BlockchainTest {
             sb.append(specialChar);
         }
         String name = sb.toString();
-        APICall.Builder builder = new APICall.Builder("setAccountInfo").
+        APICall.Builder builder = SetAccountInfoCall.create().
                 param("secretPhrase", ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT * 20).
                 param("name", name);
         JSONObject response = builder.build().invoke();
@@ -61,7 +62,7 @@ public class AccountInfoTest extends BlockchainTest {
             sb.append(char3Byte);
         }
         String name = sb.toString();
-        APICall.Builder builder = new APICall.Builder("setAccountInfo").
+        APICall.Builder builder = SetAccountInfoCall.create().
                 param("secretPhrase", ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT * 20).
                 param("name", name);
         JSONObject response = builder.build().invoke();

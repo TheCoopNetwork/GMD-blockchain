@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -20,9 +20,12 @@ import nxt.BlockchainTest;
 import nxt.Constants;
 import nxt.CurrencyType;
 import nxt.http.APICall;
+import nxt.http.callers.CreateTransactionCallBuilder;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static nxt.http.callers.ApiSpec.issueCurrency;
 
 public class TestCurrencyIssuance extends BlockchainTest {
 
@@ -45,23 +48,23 @@ public class TestCurrencyIssuance extends BlockchainTest {
         Assert.assertEquals("bXbx", response.get("name"));
     }
 
-    static String issueCurrencyApi(APICall apiCall) {
-        JSONObject issueCurrencyResponse = apiCall.invoke();
+    public static String issueCurrencyApi(APICall apiCall) {
+        JSONObject issueCurrencyResponse = apiCall.invokeNoError();
         String currencyId = (String) issueCurrencyResponse.get("transaction");
         generateBlock();
 
         apiCall = new APICall.Builder("getCurrency").param("currency", currencyId).build();
-        JSONObject getCurrencyResponse = apiCall.invoke();
+        JSONObject getCurrencyResponse = apiCall.invokeNoError();
         Assert.assertEquals(currencyId, getCurrencyResponse.get("currency"));
         return currencyId;
     }
 
-    public static class Builder extends APICall.Builder {
+    public static class Builder extends CreateTransactionCallBuilder {
 
         public Builder() {
-            super("issueCurrency");
+            super(issueCurrency);
             secretPhrase(ALICE.getSecretPhrase());
-            feeNQT(0l);
+            feeNQT(0L);
             //feeNQT(25000 * Constants.ONE_NXT);
             param("name", "Test1");
             param("code", "TSXXX");

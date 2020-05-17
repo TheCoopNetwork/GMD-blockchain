@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -36,7 +36,7 @@ public class TestApproveTransaction extends BlockchainTest {
                 .finishHeight(Nxt.getBlockchain().getHeight() + duration)
                 .build();
 
-        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhased(apiCall, false);
+        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
         generateBlock();
 
         apiCall = new APICall.Builder("approveTransaction")
@@ -63,7 +63,7 @@ public class TestApproveTransaction extends BlockchainTest {
                 .finishHeight(Nxt.getBlockchain().getHeight() + duration)
                 .build();
 
-        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhased(apiCall, false);
+        JSONObject transactionJSON = TestCreateTwoPhased.issueCreateTwoPhasedSuccess(apiCall);
         generateBlock();
         apiCall = new APICall.Builder("approveTransaction")
                 .param("secretPhrase", DAVE.getSecretPhrase())
@@ -241,7 +241,7 @@ public class TestApproveTransaction extends BlockchainTest {
                 param("phasingVotingModel", 4).
                 param("phasingLinkedFullHash", "a13bbe67211fea8d59b2621f1e0118bb242dc5000d428a23a8bd47491a05d681"). // this hash does not match any transaction
                 param("phasingQuorum", 1).
-                build().invoke();
+                build().invokeNoError();
         Logger.logDebugMessage("sendMoney: " + response);
 
         generateBlock();

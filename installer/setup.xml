@@ -22,22 +22,22 @@
     </listeners>
 
     <natives>
-        <native type="izpack" name="ShellLink.dll" stage="both">
+        <native type="izpack" name="ShellLink.dll" uninstaller="true">
             <os family="windows"/>
         </native>
-        <native type="izpack" name="ShellLink_x64.dll" stage="both">
+        <native type="izpack" name="ShellLink_x64.dll" uninstaller="true">
             <os family="windows"/>
         </native>
-        <native type="izpack" name="WinSetupAPI.dll" stage="both">
+        <native type="izpack" name="WinSetupAPI.dll" uninstaller="true">
             <os family="windows"/>
         </native>
-        <native type="izpack" name="WinSetupAPI_x64.dll" stage="both">
+        <native type="izpack" name="WinSetupAPI_x64.dll" uninstaller="true">
             <os family="windows"/>
         </native>
-        <native type="3rdparty" name="COIOSHelper.dll" stage="uninstall">
+        <native type="3rdparty" name="COIOSHelper.dll" uninstaller="true">
             <os family="windows"/>
         </native>
-        <native type="3rdparty" name="COIOSHelper_x64.dll" stage="uninstall">
+        <native type="3rdparty" name="COIOSHelper_x64.dll" uninstaller="true">
             <os family="windows"/>
         </native>
     </natives>
@@ -155,6 +155,7 @@
             <file src="run.bat" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="mint.bat" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="compact.bat" targetdir="${INSTALL_PATH}" override="true"/>
+            <file src="html/www/favicon.ico" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="sign.bat" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="passphraseRecovery.bat" targetdir="${INSTALL_PATH}" override="true"/>
             <parsable targetfile="${INSTALL_PATH}/run.bat"/>
@@ -190,24 +191,24 @@
             <executable targetfile="${INSTALL_PATH}/sign.sh"/>
             <file src="passphraseRecovery.sh" targetdir="${INSTALL_PATH}" override="true"/>
             <executable targetfile="${INSTALL_PATH}/passphraseRecovery.sh"/>
+            <file src="pem.to.pkcs12.keystore.certbot.hook.sh" targetdir="${INSTALL_PATH}" override="true"/>
+            <executable targetfile="${INSTALL_PATH}/pem.to.pkcs12.keystore.certbot.hook.sh"/>
         </pack>
 
-        <pack name="jre.win" os="windows" required="yes" uninstall="false">
-            <description>Java 64 bit for Windows</description>
-            <fileset dir="../jre" targetdir="${INSTALL_PATH}/jre" override="true"/>
-        </pack>
-
-        <pack name="server.mac" os="mac_osx" required="yes" uninstall="false">
+        <pack name="server.mac" os="mac_osx" required="yes" uninstall="false" hidden="true">
             <description>Mac Specific Resources</description>
             <fileset dir="resource/mac/Contents" targetdir="${INSTALL_PATH}/Contents" override="true"/>		
-			<parsable targetfile="${INSTALL_PATH}/Contents/MacOS/nxt"/>
-			<executable targetfile="${INSTALL_PATH}/Contents/MacOS/nxt"/>		
-		</pack>
+            <parsable targetfile="${INSTALL_PATH}/Contents/MacOS/nxt"/>
+            <executable targetfile="${INSTALL_PATH}/Contents/MacOS/nxt"/>
+        </pack>
 
-        <pack name="jre.mac" os="mac_osx" required="yes" uninstall="false">
-            <description>Java 64 bit for Mac</description>
-            <fileset dir="../jre" targetdir="${INSTALL_PATH}/jre" override="true"/>
-            <executable targetfile="${INSTALL_PATH}/jre/bin/java" failure="warn" keep="true"/>
+        <pack name="jdk" required="yes" uninstall="false" hidden="true">
+            <os family="windows"/>
+            <os family="mac"/>
+            <description>Java JDK</description>
+            <fileset dir="../jdk.runtime" targetdir="${INSTALL_PATH}/jdk" override="true"/>
+            <executable targetfile="${INSTALL_PATH}/jdk/bin/java" failure="warn" keep="true"/>
+            <fileset dir="../javafx-sdk.runtime" targetdir="${INSTALL_PATH}/javafx-sdk" override="true"/>
         </pack>
 
     </packs>

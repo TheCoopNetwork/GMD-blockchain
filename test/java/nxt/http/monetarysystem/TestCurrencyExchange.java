@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -21,6 +21,10 @@ import nxt.BlockchainTest;
 import nxt.Constants;
 import nxt.CurrencyType;
 import nxt.http.APICall;
+import nxt.http.callers.CurrencyBuyCall;
+import nxt.http.callers.CurrencySellCall;
+import nxt.http.callers.PublishExchangeOfferCall;
+import nxt.http.callers.TransferCurrencyCall;
 import nxt.util.Convert;
 import nxt.util.Logger;
 import org.json.simple.JSONArray;
@@ -57,11 +61,12 @@ public class TestCurrencyExchange extends BlockchainTest {
                 afterOfferSellerBalance.diff(initialSellerBalance));
 
         // buy at rate higher than sell offer results in selling at sell offer
-        apiCall = new APICall.Builder("currencyBuy").
-                secretPhrase(BOB.getSecretPhrase()).feeNQT(Constants.ONE_NXT).
-                param("currency", currencyId).
-                param("rateNQT", "" + 106).
-                param("units", "200").
+        apiCall = CurrencyBuyCall.create().
+                secretPhrase(BOB.getSecretPhrase()).
+                feeNQT(Constants.ONE_NXT).
+                currency(currencyId).
+                rateNQT(106).
+                units(200).
                 build();
         JSONObject currencyExchangeResponse = apiCall.invoke();
         Logger.logDebugMessage("currencyExchangeResponse:" + currencyExchangeResponse);
@@ -114,11 +119,12 @@ public class TestCurrencyExchange extends BlockchainTest {
                 afterOfferBuyerBalance.diff(initialBuyerBalance));
 
         // We now transfer 2000 units to the 2nd account so that this account can sell them for NXT
-        apiCall = new APICall.Builder("transferCurrency").
-                secretPhrase(ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT).
-                param("currency", currencyId).
-                param("recipient", Long.toUnsignedString(initialSellerBalance.getAccountId())).
-                param("units", "2000").
+        apiCall = TransferCurrencyCall.create().
+                secretPhrase(ALICE.getSecretPhrase()).
+                feeNQT(Constants.ONE_NXT).
+                currency(currencyId).
+                recipient(initialSellerBalance.getAccountId()).
+                units(2000).
                 build();
         apiCall.invoke();
         generateBlock();
@@ -132,11 +138,12 @@ public class TestCurrencyExchange extends BlockchainTest {
                 afterTransferSellerBalance.diff(initialSellerBalance));
 
         // sell at rate lower than buy offer results in selling at buy offer rate (95)
-        apiCall = new APICall.Builder("currencySell").
-                secretPhrase(BOB.getSecretPhrase()).feeNQT(Constants.ONE_NXT).
-                param("currency", currencyId).
-                param("rateNQT", "" + 90).
-                param("units", "200").
+        apiCall = CurrencySellCall.create().
+                secretPhrase(BOB.getSecretPhrase()).
+                feeNQT(Constants.ONE_NXT).
+                currency(currencyId).
+                rateNQT(90).
+                units(200).
                 build();
         JSONObject currencyExchangeResponse = apiCall.invoke();
         Logger.logDebugMessage("currencyExchangeResponse:" + currencyExchangeResponse);
@@ -164,17 +171,18 @@ public class TestCurrencyExchange extends BlockchainTest {
     }
 
     private JSONObject publishExchangeOffer(String currencyId) {
-        APICall apiCall = new APICall.Builder("publishExchangeOffer").
-                secretPhrase(ALICE.getSecretPhrase()).feeNQT(Constants.ONE_NXT).
-                param("deadline", "1440").
-                param("currency", currencyId).
-                param("buyRateNQT", "" + 95). // buy currency for NXT
-                param("sellRateNQT", "" + 105). // sell currency for NXT
-                param("totalBuyLimit", "10000").
-                param("totalSellLimit", "5000").
-                param("initialBuySupply", "1000").
-                param("initialSellSupply", "500").
-                param("expirationHeight", "" + Integer.MAX_VALUE).
+        APICall apiCall = PublishExchangeOfferCall.create().
+                secretPhrase(ALICE.getSecretPhrase()).
+                feeNQT(Constants.ONE_NXT).
+                deadline(1440).
+                currency(currencyId).
+                buyRateNQT(95). // buy currency for NXT
+                sellRateNQT(105). // sell currency for NXT
+                totalBuyLimit(10000).
+                totalSellLimit(5000).
+                initialBuySupply(1000).
+                initialSellSupply(500).
+                expirationHeight(Integer.MAX_VALUE).
                 build();
 
         JSONObject publishExchangeOfferResponse = apiCall.invoke();

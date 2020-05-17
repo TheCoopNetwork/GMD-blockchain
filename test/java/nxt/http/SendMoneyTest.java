@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -32,7 +32,7 @@ public class SendMoneyTest extends BlockchainTest {
                 param("recipient", BOB.getStrId()).
                 param("amountNQT", 100 * Constants.ONE_NXT).
                 param("feeNQT", Constants.ONE_NXT).
-                build().invoke();
+                build().invokeNoError();
         Logger.logDebugMessage("sendMoney: " + response);
         // Forger
         Assert.assertEquals(0, FORGY.getBalanceDiff());
@@ -74,14 +74,14 @@ public class SendMoneyTest extends BlockchainTest {
                 param("recipient", BOB.getStrId()).
                 param("amountNQT", 100 * Constants.ONE_NXT).
                 param("feeNQT", Constants.ONE_NXT).
-                build().invoke();
+                build().invokeNoError();
         Logger.logDebugMessage("sendMoney1: " + response);
         response = new APICall.Builder("sendMoney").
                 param("secretPhrase", BOB.getSecretPhrase()).
                 param("recipient", ALICE.getStrId()).
                 param("amountNQT", 100 * Constants.ONE_NXT).
                 param("feeNQT", Constants.ONE_NXT).
-                build().invoke();
+                build().invokeNoError();
         Logger.logDebugMessage("sendMoney2: " + response);
         // Forger
         Assert.assertEquals(0, FORGY.getBalanceDiff());

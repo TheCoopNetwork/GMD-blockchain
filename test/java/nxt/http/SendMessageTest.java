@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -57,7 +57,7 @@ public class SendMessageTest extends BlockchainTest {
                 param("recipient", BOB.getStrId()).
                 param("messageToEncrypt", "hello world").
                 param("feeNQT", 0).
-                build().invoke();
+                build().invokeNoError();
         Logger.logDebugMessage("sendMessage: " + response);
         String transaction = (String) response.get("transaction");
         JSONObject attachment = (JSONObject) ((JSONObject)response.get("transactionJSON")).get("attachment");
@@ -82,7 +82,7 @@ public class SendMessageTest extends BlockchainTest {
                 param("encryptedMessageData", Convert.toHexString(encryptedData.getData())).
                 param("encryptedMessageNonce", Convert.toHexString(encryptedData.getNonce())).
                 param("feeNQT", 0).
-                build().invoke();
+                build().invokeNoError();
         Logger.logDebugMessage("sendMessage: " + response);
         String transaction = (String) response.get("transaction");
         JSONObject attachment = (JSONObject) ((JSONObject)response.get("transactionJSON")).get("attachment");
@@ -105,7 +105,7 @@ public class SendMessageTest extends BlockchainTest {
                 param("recipient", BOB.getStrId()).
                 param("messageToEncryptToSelf", "hello world").
                 param("feeNQT", 0).
-                build().invoke();
+                build().invokeNoError();
         Logger.logDebugMessage("sendMessage: " + response);
         String transaction = (String) response.get("transaction");
         JSONObject attachment = (JSONObject) ((JSONObject)response.get("transactionJSON")).get("attachment");
@@ -130,7 +130,7 @@ public class SendMessageTest extends BlockchainTest {
                 param("encryptToSelfMessageData", Convert.toHexString(encryptedData.getData())).
                 param("encryptToSelfMessageNonce", Convert.toHexString(encryptedData.getNonce())).
                 param("feeNQT", 0).
-                build().invoke();
+                build().invokeNoError();
         Logger.logDebugMessage("sendMessage: " + response);
         String transaction = (String) response.get("transaction");
         JSONObject attachment = (JSONObject) ((JSONObject)response.get("transactionJSON")).get("attachment");

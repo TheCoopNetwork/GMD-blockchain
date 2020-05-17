@@ -15,7 +15,7 @@ FILES="changelogs conf html lib resource contrib"
 FILES="${FILES} ${APPLICATION}.exe ${APPLICATION}service.exe"
 FILES="${FILES} 3RD-PARTY-LICENSES.txt AUTHORS.txt LICENSE.txt"
 FILES="${FILES} DEVELOPERS-GUIDE.md OPERATORS-GUIDE.md README.md README.txt USERS-GUIDE.md"
-FILES="${FILES} mint.bat mint.sh run.bat run.sh run-tor.sh run-desktop.sh start.sh stop.sh compact.sh compact.bat sign.sh sign.bat passphraseRecovery.sh passphraseRecovery.bat"
+FILES="${FILES} mint.bat mint.sh run.bat run.sh run-tor.sh run-desktop.sh start.sh stop.sh compact.sh compact.bat sign.sh sign.bat passphraseRecovery.sh passphraseRecovery.bat pem.to.pkcs12.keystore.certbot.hook.sh"
 FILES="${FILES} nxt.policy nxtdesktop.policy Wallet.url Dockerfile"
 
 unix2dos *.bat
@@ -41,7 +41,6 @@ mv ../nxt.map ../nxt.map.${VERSION}
 else
 FILES="${FILES} classes src JPL-NRS.pdf"
 FILES="${FILES} compile.sh javadoc.sh jar.sh package.sh"
-FILES="${FILES} win-compile.sh win-javadoc.sh win-package.sh"
 echo javadoc
 ./javadoc.sh
 fi
@@ -72,7 +71,7 @@ zip -q -X -r ${PACKAGE}.zip ${APPLICATION} -x \*/.idea/\* \*/.gitignore \*/.git/
 rm -rf ${APPLICATION}
 
 echo creating full changelog
-echo "${PACKAGE}:" > changelog-full.txt
+echo "${PACKAGE}, released `date +%Y-%m-%d`:" > changelog-full.txt
 echo >> changelog-full.txt
 cat changelogs/${CHANGELOG} >> changelog-full.txt
 echo >> changelog-full.txt
@@ -95,7 +94,7 @@ unix2dos changelog-full.txt
 echo creating change log ${CHANGELOG}
 echo "Release $1" > ${CHANGELOG}
 echo >> ${CHANGELOG}
-echo "https://www.jelurida.com/" >> ${CHANGELOG}
+echo "https://www.jelurida.com/nxt/blockchain-creation-kit" >> ${CHANGELOG}
 echo >> ${CHANGELOG}
 echo "sha256 checksums:" >> ${CHANGELOG}
 echo >> ${CHANGELOG}

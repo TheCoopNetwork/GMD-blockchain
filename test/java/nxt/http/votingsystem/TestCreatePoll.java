@@ -1,6 +1,6 @@
 /*
  * Copyright © 2013-2016 The Nxt Core Developers.
- * Copyright © 2016-2019 Jelurida IP B.V.
+ * Copyright © 2016-2020 Jelurida IP B.V.
  *
  * See the LICENSE.txt file at the top-level directory of this distribution
  * for licensing information.
@@ -21,10 +21,13 @@ import nxt.Constants;
 import nxt.Nxt;
 import nxt.VoteWeighting;
 import nxt.http.APICall;
+import nxt.http.callers.CreatePollCall;
 import nxt.util.Logger;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
 
 public class TestCreatePoll extends BlockchainTest {
 
@@ -32,7 +35,7 @@ public class TestCreatePoll extends BlockchainTest {
         JSONObject createPollResponse = apiCall.invoke();
         Logger.logMessage("createPollResponse: " + createPollResponse.toJSONString());
 
-        if(!shouldFail) {
+        if (!shouldFail) {
             Assert.assertNull(createPollResponse.get("errorCode"));
         }
 
@@ -41,7 +44,7 @@ public class TestCreatePoll extends BlockchainTest {
         try {
             String pollId = (String) createPollResponse.get("transaction");
 
-            if(!shouldFail && pollId == null) Assert.fail();
+            assertFalse(!shouldFail && pollId == null);
 
             apiCall = new APICall.Builder("getPoll").param("poll", pollId).build();
 
@@ -49,8 +52,8 @@ public class TestCreatePoll extends BlockchainTest {
             Logger.logMessage("getPollResponse:" + getPollResponse.toJSONString());
             Assert.assertEquals(pollId, getPollResponse.get("poll"));
             return pollId;
-        }catch(Throwable t){
-            if(!shouldFail) Assert.fail(t.getMessage());
+        } catch (Throwable t) {
+            if (!shouldFail) Assert.fail(t.getMessage());
             return null;
         }
     }
@@ -77,48 +80,57 @@ public class TestCreatePoll extends BlockchainTest {
         generateBlock();
     }
 
-    public static class CreatePollBuilder extends APICall.Builder {
+    public static class CreatePollBuilder {
+        private final CreatePollCall builder = CreatePollCall.create();
 
         public CreatePollBuilder() {
-            super("createPoll");
-            secretPhrase(ALICE.getSecretPhrase());
-            feeNQT(10 * Constants.ONE_NXT);
-            param("name", "Test1");
-            param("description", "The most cool Beatles guy?");
-            param("finishHeight", Nxt.getBlockchain().getHeight() + 100);
-            param("votingModel", VoteWeighting.VotingModel.ACCOUNT.getCode());
-            param("minNumberOfOptions", 1);
-            param("maxNumberOfOptions", 2);
-            param("minRangeValue", 0);
-            param("maxRangeValue", 1);
-            param("minBalance", 10 * Constants.ONE_NXT);
-            param("minBalanceModel", VoteWeighting.MinBalanceModel.NQT.getCode());
-            param("option00", "Ringo");
-            param("option01", "Paul");
-            param("option02", "John");
+            builder.secretPhrase(ALICE.getSecretPhrase());
+            builder.feeNQT(10 * Constants.ONE_NXT);
+            builder.name("Test1");
+            builder.description("The most cool Beatles guy?");
+            builder.finishHeight(Nxt.getBlockchain().getHeight() + 100);
+            builder.votingModel(VoteWeighting.VotingModel.ACCOUNT.getCode());
+            builder.minNumberOfOptions(1);
+            builder.maxNumberOfOptions(2);
+            builder.minRangeValue(0);
+            builder.maxRangeValue(1);
+            builder.minBalance(10 * Constants.ONE_NXT);
+            builder.minBalanceModel(VoteWeighting.MinBalanceModel.NQT.getCode());
+            builder.param("option00", "Ringo");
+            builder.param("option01", "Paul");
+            builder.param("option02", "John");
         }
 
         public CreatePollBuilder votingModel(byte votingModel) {
-            param("votingModel", votingModel);
+            builder.votingModel(votingModel);
             return this;
         }
 
         public CreatePollBuilder minBalance(long minBalance) {
-            param("minBalance", minBalance);
+            builder.minBalance(minBalance);
             return this;
         }
 
         public CreatePollBuilder minBalance(long minBalance, byte minBalanceModel) {
-            param("minBalance", minBalance);
-            param("minBalanceModel", minBalanceModel);
+            builder.minBalance(minBalance);
+            builder.minBalanceModel(minBalanceModel);
+            return this;
+        }
+
+        public CreatePollBuilder secretPhrase(String s) {
+            builder.secretPhrase(s);
             return this;
         }
 
         public CreatePollBuilder minBalance(long minBalance, byte minBalanceModel, long holdingId) {
-            param("minBalance", minBalance);
-            param("minBalanceModel", minBalanceModel);
-            param("holdingId", holdingId);
+            builder.minBalance(minBalance);
+            builder.minBalanceModel(minBalanceModel);
+            builder.param("holdingId", holdingId);
             return this;
+        }
+
+        public APICall build() {
+            return builder.build();
         }
     }
 }
