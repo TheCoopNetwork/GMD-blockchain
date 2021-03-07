@@ -1,114 +1,60 @@
 ----
-# Nxt Blockchain Creation Kit #
-
-This package is intended to allow easy creation of new blockchain projects
-based on Nxt, satisfying the requirements of the Jelurida Public License
-version 1.1 for the Nxt Public Blockchain Platform.
-
-This is a starter kit for developers, not for end users. If you just install
-it and run it, you will get a blockchain with no tokens, no accounts, and no
-peers configured. To actually start a new blockchain using this kit, at least
-the genesis block parameters and accounts must be defined in
-conf/data/genesisParameters.json and conf/data/genesisAccounts.json.
-
-Edit the genesisParameters.json file to define the timestamp of the genesis
-block for your new blockchain (epochBeginning), and the public key of the
-genesis account (genesisPublicKey).
-
-The genesisAccounts.json file, and genesisAccounts-testnet.json for testnet,
-should contain the list of accounts to be created in the genesis block of the
-new blockchain, and their corresponding balances and public keys. The supplied
-genesisAccounts.json file is empty. To generate such a file containing both
-new user accounts, and the accounts of NXT holders from the Nxt public
-blockchain, you must use the JPLSnapshot utility from the Nxt Reference
-Software (NRS) v1.11.8 or later.
+# Welcome to BUD! #
 
 ----
-### Using the JPLSnapshot NRS add-on ###
-
-Download and install the latest Nxt package from the Jelurida repository:
-
-https://bitbucket.org/Jelurida/nxt/downloads
-
-Enable the JPLSnapshot add-on in conf/nxt.properties by setting:
-
-nxt.addOns=nxt.addons.JPLSnapshot
-
-Make sure your node is configured as full node (not light client), and let it
-download the full blockchain.
-
-The add-on downloadJPLSnapshot API should be available under:
-
-http://localhost:7876/test?requestTag=ADDONS
-
-
-Below is the documentation for how to use this API:
+## What is BUD? ##
+BUD is a cryptocurrency to make the world a better place.
 
 ----
-The downloadJPLSnapshot API can be used to generate a genesis block JSON for a
-clone to satisfy the JPL 10% sharedrop requirement to existing NXT holders.
+## Get it! ##
 
-This utility takes a snapshot of account balances and public keys on the Nxt
-blockchain as of the specified height, scales down the balance of each account
-proportionately so that the total of balances of sharedrop accounts is equal to
-10% of the total of all balances, and merges this data with the supplied new
-genesis accounts and balances.
+  - *dependencies*:
+    - *general* - Java 8
+    - *Ubuntu* - `http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html`
+    - *Debian* - `http://www.webupd8.org/2014/03/how-to-install-oracle-java-8-in-debian.html`
+    - *FreeBSD* - `pkg install openjdk8`
 
-Note that using a height more than 800 blocks in the past will normally require
-a blockchain rescan, which takes a few hours to complete. Do not interrupt this
-process.
+----
+## Run it! ##
 
-Request parameters
+  - click on the BUD icon, or start from the command line:
+  - Unix: `./start.sh`
+  - Window: `run.bat`
 
-    newGenesisAccounts - a JSON formatted file containing all new account
-    public keys and balances to be included in the clone genesis block
-    
-    height - the Nxt blockchain height at which to take the snapshot
+  - wait for the JavaFX wallet window to open
+  - on platforms without JavaFX, open http://localhost:6876/ in a browser
 
-Response
+----
+## Compile it! ##
 
-    A JSON formatted file, genesisAccounts.json, containing all public keys,
-    new accounts and sharedrop accounts, and their initial balances, which
-    should be placed in the conf/data directory of the clone blockchain.
+  - if necessary with: `./compile.sh`
+  - you need jdk-8 as well
 
+----
+## Troubleshooting the NRS (BUD Reference Software) ##
 
-Input file format
+  - How to Stop the NRS Server?
+    - click on BUD Stop icon, or run `./stop.sh`
+    - or if started from command line, ctrl+c or close the console window
 
-The input file should contain a map of account numbers to coin balances, and a
-list of account public keys. Account numbers can be specified in either numeric
-or RS format. Supplying the public key for each account is optional, but
-recommended. Forging requires a public key, so the accounts that are going to
-forge the first blocks of the blockchain must have their public keys in the file.
-Here is an example input file, which allocates 300M each to the
-accounts with passwords "0", "1" and "2", for a total of 900M to new accounts,
-resulting in 100M automatically allocated to existing NXT holders:
+  - UI Errors or Stacktraces?
+    - report on BitBucket
 
-```
-{
-    "balances": {
-         "NXT-NZKH-MZRE-2CTT-98NPZ": 30000000000000000,
-         "NXT-X5JH-TJKJ-DVGC-5T2V8": 30000000000000000,
-         "NXT-LTR8-GMHB-YG56-4NWSE": 30000000000000000
-     },
-     "publicKeys": [
-         "bf0ced0472d8ba3df9e21808e98e61b34404aad737e2bae1778cebc698b40f37",
-         "39dc2e813bb45ff063a376e316b10cd0addd7306555ca0dd2890194d37960152",
-         "011889a0988ccbed7f488878c62c020587de23ebbbae9ba56dd67fd9f432f808"
-     ]
- }
-```
+  - Permissions Denied?
+    - no spaces and only latin characters in the path to the NRS installation directory
+    - known jetty issue
+
+----
+## Further Reading ##
+
+  - in this repository:
+    - USERS-GUIDE.md
+    - DEVELOPERS-GUIDE.md
+    - OPERATORS-GUIDE.md
+    - In the doc folder
 
 ----
 
-The generated genesisAccounts.json file should be placed in the conf/data
-directory for the new blockchain package, replacing the existing empty file.
-Changes in genesisAccounts.json are applied only when blockchain is started
-from scratch, i.e. previous database is missing.
-
-There are multiple other customizations that should be made for the newly
-created Nxt clone, such as changing the default peer ports in
-nxt/peer/Peer.java, defining default peers in nxt-default.properties, changing
-the coin name and software name in nxt/Nxt.java, customizing the UI, etc.
-Such customization work should be done by a competent developer, and is beyond
-the scope of this document.
-
+## License
+* This program is distributed under the terms of the Jelurida Public License version 1.1 for the Ardor Public Blockchain Platform.
+* This source code has been generated by CoinGenerator - https://coingenerator.sh

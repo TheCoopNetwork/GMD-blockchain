@@ -1,5 +1,5 @@
 #!/bin/sh
-APPLICATION="nxt-clone"
+APPLICATION="CoopNetwork"
 if [ -x jdk/bin/java ]; then
     JAVA=./jdk/bin/java
     JAR=./jdk/bin/jar

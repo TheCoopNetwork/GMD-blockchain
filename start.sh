@@ -5,7 +5,7 @@ echo "** DEPRECATED: Use 'run.sh --desktop' instead **"
 echo "***********************************************"
 sleep 1
 
-APPLICATION="nxt-clone"
+APPLICATION="CoopNetwork"
 if [ -e ~/.${APPLICATION}/nxt.pid ]; then
     PID=`cat ~/.${APPLICATION}/nxt.pid`
     ps -p $PID > /dev/null

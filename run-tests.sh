@@ -1,11 +1,6 @@
 #!/bin/sh
-PATHSEP=":"
-if [ "$OSTYPE" = "cygwin" ] ; then
-PATHSEP=";"
-fi
-
-CP=conf/${PATHSEP}classes/${PATHSEP}lib/*${PATHSEP}testlib/*
-SP=src/java/${PATHSEP}test/java/
+CP=conf/:classes/:lib/*:testlib/*
+SP=src/java/:test/java/
 
 if [ $# -eq 0 ]; then
 TESTS="nxt.crypto.Curve25519Test nxt.crypto.ReedSolomonTest nxt.peer.HallmarkTest nxt.TokenTest nxt.FakeForgingTest
@@ -14,7 +9,7 @@ else
 TESTS=$@
 fi
 
-/bin/rm -f nxt.jar
+/bin/rm -f CoopNetwork.jar
 /bin/rm -rf classes
 /bin/mkdir -p classes/
 

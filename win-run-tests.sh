@@ -3,7 +3,7 @@ CP="conf/;classes/;lib/*;testlib/*"
 SP="src/java/;test/java/"
 TESTS="nxt.crypto.Curve25519Test nxt.crypto.ReedSolomonTest"
 
-/bin/rm -f nxt.jar
+/bin/rm -f CoopNetwork.jar
 /bin/rm -rf classes
 /bin/mkdir -p classes/
 

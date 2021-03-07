@@ -4,9 +4,9 @@
         <property file="conf/nxt-default.properties" prefix="runtime"/>
     </properties>
     <info>
-        <appname>NXT</appname>
+        <appname>CoopNetwork</appname>
         <appversion>@{runtime.nxt.version}</appversion>
-        <url>https://www.jelurida.com/</url>
+        <url>https://github.com/CoopNetwork/BUD-blockchain</url>
         <run-privileged condition="izpack.windowsinstall"/>
     </info>
 
@@ -18,26 +18,25 @@
         <listener classname="RegistryUninstallerListener" stage="uninstall" >
             <os family="windows"/>
         </listener>
-        <listener classname="nxt.installer.InstallListener" stage="install"/>
     </listeners>
 
     <natives>
-        <native type="izpack" name="ShellLink.dll" uninstaller="true">
+        <native type="izpack" name="ShellLink.dll" stage="both">
             <os family="windows"/>
         </native>
-        <native type="izpack" name="ShellLink_x64.dll" uninstaller="true">
+        <native type="izpack" name="ShellLink_x64.dll" stage="both">
             <os family="windows"/>
         </native>
-        <native type="izpack" name="WinSetupAPI.dll" uninstaller="true">
+        <native type="izpack" name="WinSetupAPI.dll" stage="both">
             <os family="windows"/>
         </native>
-        <native type="izpack" name="WinSetupAPI_x64.dll" uninstaller="true">
+        <native type="izpack" name="WinSetupAPI_x64.dll" stage="both">
             <os family="windows"/>
         </native>
-        <native type="3rdparty" name="COIOSHelper.dll" uninstaller="true">
+        <native type="3rdparty" name="COIOSHelper.dll" stage="uninstall">
             <os family="windows"/>
         </native>
-        <native type="3rdparty" name="COIOSHelper_x64.dll" uninstaller="true">
+        <native type="3rdparty" name="COIOSHelper_x64.dll" stage="uninstall">
             <os family="windows"/>
         </native>
     </natives>
@@ -84,19 +83,18 @@
     </locale>
 
     <resources>
-        <res id="InfoPanel.info" src="changelogs/nxt-client-@{runtime.nxt.version}.changelog.txt" parse="yes"/>
+        <res id="InfoPanel.info" src="changelogs/changelog.txt" parse="yes"/>
         <res id="LicencePanel.licence" src="LICENSE.txt"/>
         <res id="Installer.image" src="html/www/img/installer_left_pane.png"/>
         <res id="shortcutSpec.xml" src="../installer/shortcutSpec.xml"/>
         <res id="Unix_shortcutSpec.xml" src="../installer/Unix_shortcutSpec.xml"/>
         <res id="RegistrySpec.xml" src="../installer/RegistrySpec.xml"/>
-        <res id="installer.langsel.img" src="html/www/img/nxt_logo.png"/>
-	</resources>
+    </resources>
 
     <variables>
         <variable name="$InstallerFrame.logfilePath" value="default"/>
         <variable name="DesktopShortcutCheckboxEnabled" value="true"/>
-        <variable name="TargetPanel.dir.mac" value="/Applications/nxt.app"/>
+        <variable name="TargetPanel.dir.mac" value="/Applications/CoopNetwork.app"/>
     </variables>
 
     <panels>
@@ -104,7 +102,6 @@
         <panel classname="LicencePanel"/>
         <panel classname="InfoPanel"/>
         <panel classname="TargetPanel"/>
-        <panel classname="nxt.installer.ConfigPanel"/>
         <panel classname="ShortcutPanel" condition="!izpack.macinstall"/>
         <panel classname="InstallPanel"/>
         <panel classname="SimpleFinishPanel"/>
@@ -113,13 +110,13 @@
     <packs>
         <pack name="server" required="yes">
             <description>Common Server Files</description>
-            <file src="nxt.jar" targetdir="${INSTALL_PATH}" override="true"/>
+            <file src="CoopNetwork.jar" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="README.txt" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="Wallet.url" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="3RD-PARTY-LICENSES.txt" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="AUTHORS.txt" targetdir="${INSTALL_PATH}" override="true"/>
+            <file src="COPYING.txt" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="LICENSE.txt" targetdir="${INSTALL_PATH}" override="true"/>
-            <file src="JPL-NRS.pdf" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="DEVELOPERS-GUIDE.md" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="OPERATORS-GUIDE.md" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="README.md" targetdir="${INSTALL_PATH}" override="true"/>
@@ -128,7 +125,6 @@
             <file src="nxtdesktop.policy" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="conf/nxt-default.properties" targetdir="${INSTALL_PATH}/conf" override="true"/>
             <file src="conf/logging-default.properties" targetdir="${INSTALL_PATH}/conf" override="true"/>
-            <fileset dir="conf/data" targetdir="${INSTALL_PATH}/conf/data" override="true"/>
             <fileset dir="lib" targetdir="${INSTALL_PATH}/lib" override="true" excludes=".gitignore"/>
             <fileset dir="changelogs" targetdir="${INSTALL_PATH}/changelogs" override="true" excludes=".gitignore"/>
             <fileset dir="classes" targetdir="${INSTALL_PATH}/classes" override="true" excludes=".gitignore"/>
@@ -137,11 +133,13 @@
             <fileset dir="contrib" targetdir="${INSTALL_PATH}/contrib" override="true" excludes=".gitignore"/>
             <fileset dir="logs" targetdir="${INSTALL_PATH}/logs" override="true" excludes=".gitignore"/>
             <fileset dir="addons" targetdir="${INSTALL_PATH}/addons" override="true" excludes=".gitignore"/>
+            <fileset dir="conf" targetdir="${INSTALL_PATH}/conf" override="true" excludes=".gitignore"/>
             <updatecheck>
                 <include name="*.desktop" />
                 <include name="lib/**" />
                 <include name="classes/**" />
                 <include name="html/**" />
+                <include name="conf/**" />
                 <exclude name="html/www/plugins/**" />
             </updatecheck>
         </pack>
@@ -149,15 +147,12 @@
         <pack name="server.windows" os="windows" required="yes">
             <description>Windows Specific Resources</description>
             <os family="windows"/>
-            <file src="nxt.exe" targetdir="${INSTALL_PATH}" override="true"/>
-            <file src="nxtservice.exe" targetdir="${INSTALL_PATH}" override="true"/>
-            <file src="nxtservice.jar" targetdir="${INSTALL_PATH}" override="true"/>
+            <file src="CoopNetwork.exe" targetdir="${INSTALL_PATH}" override="true"/>
+            <file src="CoopNetworkservice.exe" targetdir="${INSTALL_PATH}" override="true"/>
+            <file src="CoopNetworkservice.jar" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="run.bat" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="mint.bat" targetdir="${INSTALL_PATH}" override="true"/>
             <file src="compact.bat" targetdir="${INSTALL_PATH}" override="true"/>
-            <file src="html/www/favicon.ico" targetdir="${INSTALL_PATH}" override="true"/>
-            <file src="sign.bat" targetdir="${INSTALL_PATH}" override="true"/>
-            <file src="passphraseRecovery.bat" targetdir="${INSTALL_PATH}" override="true"/>
             <parsable targetfile="${INSTALL_PATH}/run.bat"/>
             <singlefile src="resource/nxt.properties" target="${INSTALL_PATH}/resource/nxt.properties" override="true"/>
             <singlefile src="resource/nxtservice.properties" target="${INSTALL_PATH}/resource/nxtservice.properties" override="true"/>
@@ -189,26 +184,24 @@
             <executable targetfile="${INSTALL_PATH}/compact.sh"/>
             <file src="sign.sh" targetdir="${INSTALL_PATH}" override="true"/>
             <executable targetfile="${INSTALL_PATH}/sign.sh"/>
-            <file src="passphraseRecovery.sh" targetdir="${INSTALL_PATH}" override="true"/>
-            <executable targetfile="${INSTALL_PATH}/passphraseRecovery.sh"/>
-            <file src="pem.to.pkcs12.keystore.certbot.hook.sh" targetdir="${INSTALL_PATH}" override="true"/>
-            <executable targetfile="${INSTALL_PATH}/pem.to.pkcs12.keystore.certbot.hook.sh"/>
         </pack>
 
-        <pack name="server.mac" os="mac_osx" required="yes" uninstall="false" hidden="true">
+        <pack name="jre.win" os="windows" required="yes" uninstall="false">
+            <description>Java 64 bit for Windows</description>
+            <fileset dir="../jre" targetdir="${INSTALL_PATH}/jre" override="true"/>
+        </pack>
+
+        <pack name="server.mac" os="mac_osx" required="yes" uninstall="false">
             <description>Mac Specific Resources</description>
-            <fileset dir="resource/mac/Contents" targetdir="${INSTALL_PATH}/Contents" override="true"/>		
-            <parsable targetfile="${INSTALL_PATH}/Contents/MacOS/nxt"/>
-            <executable targetfile="${INSTALL_PATH}/Contents/MacOS/nxt"/>
-        </pack>
+            <fileset dir="resource/mac/Contents" targetdir="${INSTALL_PATH}/Contents" override="true"/>
+			<parsable targetfile="${INSTALL_PATH}/Contents/MacOS/BUD"/>
+			<executable targetfile="${INSTALL_PATH}/Contents/MacOS/nxt"/>
+		</pack>
 
-        <pack name="jdk" required="yes" uninstall="false" hidden="true">
-            <os family="windows"/>
-            <os family="mac"/>
-            <description>Java JDK</description>
-            <fileset dir="../jdk.runtime" targetdir="${INSTALL_PATH}/jdk" override="true"/>
-            <executable targetfile="${INSTALL_PATH}/jdk/bin/java" failure="warn" keep="true"/>
-            <fileset dir="../javafx-sdk.runtime" targetdir="${INSTALL_PATH}/javafx-sdk" override="true"/>
+        <pack name="jre.mac" os="mac_osx" required="yes" uninstall="false">
+            <description>Java 64 bit for Mac</description>
+            <fileset dir="../jre" targetdir="${INSTALL_PATH}/jre" override="true"/>
+            <executable targetfile="${INSTALL_PATH}/jre/bin/java" failure="warn" keep="true"/>
         </pack>
 
     </packs>

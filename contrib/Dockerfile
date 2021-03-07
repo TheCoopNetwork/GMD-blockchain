@@ -5,7 +5,7 @@
 # 1. install docker, see docker.com
 # 2. clone the git repo including this Dockerfile
 # 3. build the container with ```docker build -t nxt .```
-# 4. run the created nxt container with ```docker run -d -p 127.0.0.1:7876:7876 -p 7874:7874 nxt```
+# 4. run the created nxt container with ```docker run -d -p 127.0.0.1:6876:7876 -p 6874:7874 nxt```
 # 5. inspect with docker logs (image hash, find out with docker ps, or assign a name)
 
 FROM phusion/baseimage
