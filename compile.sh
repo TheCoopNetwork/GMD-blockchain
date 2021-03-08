@@ -54,7 +54,7 @@ echo "core class files compiled successfully"
 if [ $skip_desktop -eq 0 ]; then
     echo "compiling desktop..."
     find src/java/nxtdesktop/ -name "*.java" > sources.tmp
-    ${JAVAC} -encoding utf8 -sourcepath "${SP}" -classpath "${CP}" -d classes/ @sources.tmp
+    ${JAVAC} --module-path $PATH_TO_FX --add-modules javafx.controls,javafx.web -encoding utf8 -sourcepath "${SP}" -classpath "${CP}" -d classes/ @sources.tmp
     if [ $? -eq 0 ]; then
         echo "desktop class files compiled successfully"
     else
