@@ -27,11 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.Locale;
 
-import static nxt.http.JSONResponses.INCORRECT_ASSET_DESCRIPTION;
-import static nxt.http.JSONResponses.INCORRECT_ASSET_NAME;
-import static nxt.http.JSONResponses.INCORRECT_ASSET_NAME_LENGTH;
-import static nxt.http.JSONResponses.INCORRECT_DECIMALS;
-import static nxt.http.JSONResponses.MISSING_NAME;
+import static nxt.http.JSONResponses.*;
 
 public final class IssueAsset extends CreateTransaction {
 
@@ -78,9 +74,11 @@ public final class IssueAsset extends CreateTransaction {
                 return INCORRECT_DECIMALS;
             }
         }
-
-        long quantityQNT = ParameterParser.getQuantityQNT(req);
         Account account = ParameterParser.getSenderAccount(req);
+        if (account.getBalanceNQT() < Constants.MIN_BUD_BALANCE_ASSET_CREATION * Constants.ONE_BUD) {
+            return NOT_ENOUGH_FUNDS;
+        }
+        long quantityQNT = ParameterParser.getQuantityQNT(req);
         Attachment attachment = new Attachment.ColoredCoinsAssetIssuance(name, description, quantityQNT, decimals);
         return createTransaction(req, account, attachment);
 
