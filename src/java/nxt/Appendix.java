@@ -32,6 +32,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static nxt.Constants.MESSAGE_FEE_PER_32_UNITS;
+
 public interface Appendix {
 
     int getSize();
@@ -189,7 +191,7 @@ public interface Appendix {
             return new Message(attachmentData);
         }
 
-        private static final Fee MESSAGE_FEE = new Fee.SizeBasedFee(0, Constants.ONE_NXT, 32) {
+        private static final Fee MESSAGE_FEE = new Fee.SizeBasedFee(0, MESSAGE_FEE_PER_32_UNITS, 32) {
             @Override
             public int getSize(TransactionImpl transaction, Appendix appendage) {
                 return ((Message)appendage).getMessage().length;
