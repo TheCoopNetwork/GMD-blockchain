@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3e7f92ea-19d7-4e65-87d1-09bba4069045" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/beta-release-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/beta-release-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compact.bat" beforeDir="false" afterPath="$PROJECT_DIR$/compact.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compact.sh" beforeDir="false" afterPath="$PROJECT_DIR$/compact.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compile.sh" beforeDir="false" afterPath="$PROJECT_DIR$/compile.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants-export.sh" beforeDir="false" afterPath="$PROJECT_DIR$/constants-export.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contrib/docker_start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/docker_start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generateAPICalls.sh" beforeDir="false" afterPath="$PROJECT_DIR$/generateAPICalls.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/h2.sh" beforeDir="false" afterPath="$PROJECT_DIR$/h2.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/de/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/de/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/el/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/el/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/fr/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/fr/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/id/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/id/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/it/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/it/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/ja/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/ja/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/ko/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/ko/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/ru/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/ru/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/vi/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/vi/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/zh-cn/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/zh-cn/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/zh-tw/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/zh-tw/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/installer/AppIcon.icns" beforeDir="false" afterPath="$PROJECT_DIR$/installer/AppIcon.icns" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/installer/build-installer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/installer/build-installer.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jar.sh" beforeDir="false" afterPath="$PROJECT_DIR$/jar.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc.sh" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mac-release-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/mac-release-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mint.bat" beforeDir="false" afterPath="$PROJECT_DIR$/mint.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/mint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pem.to.pkcs12.keystore.certbot.hook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/pem.to.pkcs12.keystore.certbot.hook.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/release-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/release-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-desktop.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run-desktop.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run-tests.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-tor.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run-tor.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sign.sh" beforeDir="false" afterPath="$PROJECT_DIR$/sign.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stop.sh" beforeDir="false" afterPath="$PROJECT_DIR$/stop.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win-release-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/win-release-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win-run-tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/win-run-tests.sh" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1pa0OS4Fh5eKwHENXSTONJLZukw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3e7f92ea-19d7-4e65-87d1-09bba4069045" name="Default Changelist" comment="" />
+      <created>1615405861628</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615405861628</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="src">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/installer/panels/src" />
+      <root url="file://$PROJECT_DIR$/src/java" />
+      <root url="file://$PROJECT_DIR$/test/java" />
+    </SOURCES>
+  </library>
+</component>
