@@ -33,10 +33,11 @@ if [ $desktop -eq 1 ] && [ $daemon -eq 1 ]; then
     exit 1
 fi
 
+startpwd=$(pwd)
 if [ -x jdk/bin/java ]; then
-    JAVACMD=./jdk/bin/java
+    JAVACMD="./jdk/bin/java -Dbud.startpath=$startpwd"
 else
-    JAVACMD=java
+    JAVACMD="java -Dbud.startpath=$startpwd"
 fi
 
 if [ $authbind -eq 1 ]; then
