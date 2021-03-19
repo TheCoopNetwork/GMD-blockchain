@@ -1,10 +1,14 @@
 ----
 # Welcome to BUD! #
 
+
 ----
 ## What is BUD? ##
 BUD is a cryptocurrency to make the world a better place.
 
+
+----
+## How to use it? ##
 One of the following options must be chosen in order to use it:
 1. Download the code from this repository, compile it on Linux and run it on Windows or Linux
 2. Download the compiled node and run it on your Windows or Linux PC. Download link https://bud.thecoopnetwork.io/bud-node-standalone.zip or https://blockchain.thecoopnetwork.io/bud-node-standalone.zip
@@ -14,23 +18,23 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
 
 
 ----
-## Option 1: get code compile and run it ##
+### Option 1: get code compile and run it ###
   - *dependencies*:
 		- to compile you need Java 8 or newer JDK on Linux
 			- *Ubuntu*/*Debian* - sudo apt install default-jdk
   - ./compile.sh --skip-desktop
   - ./run.sh
-  - open in your browser http://localhost:6876/
+  - Open in your browser http://localhost:6876/
 
-## Option 2: download compiled node  ##
-	- *dependencies*:
-		- to run you need Java 8 or newer JRE on Windows or Linux (java binary must be in PATH)
-	- Download zip file from https://bud.thecoopnetwork.io/bud-node-standalone.zip or https://blockchain.thecoopnetwork.io/bud-node-standalone.zip
-	- Extract contains and run start.bat on Windows or start.sh on Linux.
-	- open in your browser http://localhost:6876/
+### Option 2: download compiled node  ###
+  - *dependencies*:
+  - to run you need Java 8 or newer JRE on Windows or Linux (java binary must be in PATH)
+  - Download zip file from https://bud.thecoopnetwork.io/bud-node-standalone.zip or https://blockchain.thecoopnetwork.io/bud-node-standalone.zip
+  - Extract contains and run start.bat on Windows or start.sh on Linux.
+  - Open in your browser http://localhost:6876/
 	
-## Option 3: use trusted node  ##	
-	- open in your browser one of the nodes https://node1.thecoopnetwork.io/ https://node2.thecoopnetwork.io/ https://node3.thecoopnetwork.io/ https://node4.thecoopnetwork.io/ https://node5.thecoopnetwork.io/ https://server.thecoopnetwork.io/
+### Option 3: use trusted node  ###
+   - open in your browser one of the nodes https://node1.thecoopnetwork.io/ https://node2.thecoopnetwork.io/ https://node3.thecoopnetwork.io/ https://node4.thecoopnetwork.io/ https://node5.thecoopnetwork.io/ https://server.thecoopnetwork.io/
 
 Please make sure you never use your private passphrase on any site unless you trust the node (e.g. is running on your own machine).
 In case you use remote (over the internet node) please make sure https is enabled and certificate is valid.
