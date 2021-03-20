@@ -32,6 +32,7 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
   - Download zip file from https://bud.thecoopnetwork.io/bud-node-standalone.zip or https://blockchain.thecoopnetwork.io/bud-node-standalone.zip
   - Extract contains and run start.bat on Windows or start.sh on Linux.
   - Open in your browser http://localhost:6876/
+  - Check the version you are using http://localhost:6876/version
 	
 ### Option 3: use trusted node  ###
    - open in your browser one of the nodes https://node1.thecoopnetwork.io/ https://node2.thecoopnetwork.io/ https://node3.thecoopnetwork.io/ https://node4.thecoopnetwork.io/ https://node5.thecoopnetwork.io/ https://server.thecoopnetwork.io/
