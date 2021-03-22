@@ -20,7 +20,7 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
 ----
 ### Option 1: get code compile and run it ###
   - *dependencies*:
-		- to compile you need Java 8 or newer JDK on Linux
+		- to compile you need Java 11 or newer JDK on Linux
 			- *Ubuntu*/*Debian* - sudo apt install default-jdk
   - ./compile.sh --skip-desktop
   - ./run.sh
@@ -28,7 +28,7 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
 
 ### Option 2: download compiled node  ###
   - *dependencies*:
-  - to run you need Java 8 or newer JRE on Windows or Linux (java binary must be in PATH)
+  - to run you need Java 11 or newer JRE on Windows or Linux (java binary must be in PATH)
   - Download zip file from https://bud.thecoopnetwork.io/bud-node-standalone.zip or https://blockchain.thecoopnetwork.io/bud-node-standalone.zip
   - Extract contains and run start.bat on Windows or start.sh on Linux.
   - Open in your browser http://localhost:6876/
