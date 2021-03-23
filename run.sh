@@ -35,9 +35,9 @@ fi
 
 startpwd=$(pwd)
 if [ -x jdk/bin/java ]; then
-    JAVACMD="./jdk/bin/java -Dbud.startpath=$startpwd"
+    JAVACMD="./jdk/bin/java -Dbud.startpath=$startpwd -Xms256M -Xmx8G"
 else
-    JAVACMD="java -Dbud.startpath=$startpwd"
+    JAVACMD="java -Dbud.startpath=$startpwd -Xms256M -Xmx8G"
 fi
 
 if [ $authbind -eq 1 ]; then
