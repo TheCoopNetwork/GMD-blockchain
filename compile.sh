@@ -46,6 +46,12 @@ APPLICATION="CoopNetwork"
 /bin/rm -rf addons/classes
 /bin/mkdir -p addons/classes/
 
+
+if [ -z "$PATH_TO_FX" ]; then
+	PATH_TO_FX=/usr/share/openjfx/lib
+fi
+echo "PATH_TO_FX=$PATH_TO_FX"
+
 echo "compiling core..."
 find src/java/nxt/ -name "*.java" > sources.tmp
 ${JAVAC} -encoding utf8 -sourcepath "${SP}" -classpath "${CP}" -d classes/ @sources.tmp || exit 1
