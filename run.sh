@@ -34,10 +34,19 @@ if [ $desktop -eq 1 ] && [ $daemon -eq 1 ]; then
 fi
 
 startpwd=$(pwd)
-if [ -x jdk/bin/java ]; then
-    JAVACMD="./jdk/bin/java -Dbud.startpath=$startpwd -Xms256M -Xmx8G"
+if [ -z "$mem_java" ]
+then
+        mem="-Xms128M -Xmx4G"
 else
-    JAVACMD="java -Dbud.startpath=$startpwd -Xms256M -Xmx8G"
+        mem=$mem_java
+fi
+
+echo "setting java mem usage $mem"
+
+if [ -x jdk/bin/java ]; then
+    JAVACMD="./jdk/bin/java -Dbud.startpath=$startpwd $mem"
+else
+    JAVACMD="java -Dbud.startpath=$startpwd $mem"
 fi
 
 if [ $authbind -eq 1 ]; then
