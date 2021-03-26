@@ -39,3 +39,4 @@ deploy.sh
 /addons/src/*.java
 /out
 /nxt
+/autostart
