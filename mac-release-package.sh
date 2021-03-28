@@ -5,9 +5,9 @@ then
 	echo VERSION not defined
 	exit 1
 fi
-PACKAGE=BUD-client-${VERSION}
+PACKAGE=GMD-client-${VERSION}
 echo PACKAGE="${PACKAGE}"
-CHANGELOG=BUD-client-${VERSION}.changelog.txt
+CHANGELOG=GMD-client-${VERSION}.changelog.txt
 OBFUSCATE=$2
 MACVERSION=$3
 if [ -x ${MACVERSION} ];

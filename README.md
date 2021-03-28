@@ -1,10 +1,10 @@
 ----
-# Welcome to BUD! #
+# Welcome to GMD! #
 
 
 ----
-## What is BUD? ##
-BUD is a cryptocurrency to make the world a better place.
+## What is GMD? ##
+GMD is a cryptocurrency to make the world a better place.
 
 
 ----

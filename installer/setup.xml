@@ -6,7 +6,7 @@
     <info>
         <appname>CoopNetwork</appname>
         <appversion>@{runtime.nxt.version}</appversion>
-        <url>https://github.com/CoopNetwork/BUD-blockchain</url>
+        <url>https://github.com/CoopNetwork/GMD-blockchain</url>
         <run-privileged condition="izpack.windowsinstall"/>
     </info>
 
@@ -194,7 +194,7 @@
         <pack name="server.mac" os="mac_osx" required="yes" uninstall="false">
             <description>Mac Specific Resources</description>
             <fileset dir="resource/mac/Contents" targetdir="${INSTALL_PATH}/Contents" override="true"/>
-			<parsable targetfile="${INSTALL_PATH}/Contents/MacOS/BUD"/>
+			<parsable targetfile="${INSTALL_PATH}/Contents/MacOS/GMD"/>
 			<executable targetfile="${INSTALL_PATH}/Contents/MacOS/nxt"/>
 		</pack>
 

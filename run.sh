@@ -44,9 +44,9 @@ fi
 echo "setting java mem usage $mem"
 
 if [ -x jdk/bin/java ]; then
-    JAVACMD="./jdk/bin/java -Dbud.startpath=$startpwd $mem"
+    JAVACMD="./jdk/bin/java -Dgmd.startpath=$startpwd $mem"
 else
-    JAVACMD="java -Dbud.startpath=$startpwd $mem"
+    JAVACMD="java -Dgmd.startpath=$startpwd $mem"
 fi
 
 if [ $authbind -eq 1 ]; then

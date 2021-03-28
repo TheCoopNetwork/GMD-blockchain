@@ -75,7 +75,7 @@ public final class IssueAsset extends CreateTransaction {
             }
         }
         Account account = ParameterParser.getSenderAccount(req);
-        if (account.getBalanceNQT() < Constants.MIN_BUD_BALANCE_ASSET_CREATION * Constants.ONE_BUD) {
+        if (account.getBalanceNQT() < Constants.MIN_GMD_BALANCE_ASSET_CREATION * Constants.ONE_GMD) {
             return NOT_ENOUGH_FUNDS;
         }
         long quantityQNT = ParameterParser.getQuantityQNT(req);

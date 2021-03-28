@@ -26,15 +26,15 @@ public final class Constants {
     public static final boolean isAutomatedTest = isTestnet && Nxt.getBooleanProperty("nxt.isAutomatedTest");
     public static final String customLoginWarning = Nxt.getStringProperty("nxt.customLoginWarning", null, false, "UTF-8");
 
-    public static final String COIN_SYMBOL = "BUD";
-    public static final String ACCOUNT_PREFIX = "BUD";
+    public static final String COIN_SYMBOL = "GMD";
+    public static final String ACCOUNT_PREFIX = "GMD";
     public static final String PROJECT_NAME  = "CoopNetwork";
     public static final int MAX_NUMBER_OF_TRANSACTIONS = Nxt.getIntProperty("nxt.maxNumberOfTransactions", 255);
     public static final int MIN_TRANSACTION_SIZE = 176;
     public static final int MAX_PAYLOAD_LENGTH = MAX_NUMBER_OF_TRANSACTIONS * MIN_TRANSACTION_SIZE;
     public static final long MAX_BALANCE_NXT = 1000000000;
     public static final long ONE_NXT = 100000000;
-    public static final long ONE_BUD = 100000000;
+    public static final long ONE_GMD = 100000000;
     public static final long MAX_BALANCE_NQT = MAX_BALANCE_NXT * ONE_NXT;
 
     public static final int BLOCK_TIME = 60;
@@ -95,7 +95,7 @@ public final class Constants {
     public static final int MAX_SINGLETON_ASSET_DESCRIPTION_LENGTH = 160;
     public static final int MAX_ASSET_TRANSFER_COMMENT_LENGTH = 1000;
     public static final int MAX_DIVIDEND_PAYMENT_ROLLBACK = 1441;
-    public static final int MIN_BUD_BALANCE_ASSET_CREATION = 10000000;
+    public static final int MIN_GMD_BALANCE_ASSET_CREATION = 10000000;
 
     public static final int MAX_POLL_NAME_LENGTH = 100;
     public static final int MAX_POLL_DESCRIPTION_LENGTH = 1000;
