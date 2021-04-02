@@ -1731,7 +1731,7 @@ var NRS = (function (NRS, $, undefined) {
     };
 
     NRS.printPaperWallet = function(passphrase) {
-        var $pageHeader = $("<h2 data-i18n='nxt_ardor_paper_wallet'>NXT and Ardor Paper Wallet</h2>");
+        var $pageHeader = $("<h2 data-i18n='nxt_ardor_paper_wallet'>Geoma DAO (GMD) Paper Wallet</h2>");
         var $passphraseHeader = $("<h3 data-i18n='passphrase'>Passphrase</h3>");
         var $passphraseText = $("<div></div>");
         $passphraseText.text(passphrase);
