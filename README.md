@@ -31,37 +31,40 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
 ### Option 2: download compiled node  ###
   - *dependencies*:
   - to run you need Java 11 or newer JRE on Windows or Linux (java binary must be in PATH)
-  - Download zip file from https://awss3bucket-gmd.s3.eu-central-1.amazonaws.com/gmd-node-standalone.zip 
-      - alternative mirrors for download: 
-      	https://node8.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
-	https://node10.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 and IPv4)
-	https://node6.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
+  - Download zip file from either of the following:
+      - https://node10.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 and IPv4)
+      - https://node8.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
+      - https://node6.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
+      - https://node12.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
+      - https://awss3bucket-gmd.s3.eu-central-1.amazonaws.com/gmd-node-standalone.zip (IPv4 only)
+      - https://node13.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 only)
+      - https://node16.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 only)
   - Extract contains and run start.bat on Windows or start.sh on Linux.
   - Open in your browser http://localhost:6876/
   - [Optional] Version can be checked http://localhost:6876/version
 	
 ### Option 3: use trusted node  ###
    - open in your browser one of the nodes
- IPv6 and IPv4:
-   https://node10.thecoopnetwork.io
- IPv4 Only:
-   https://node1.thecoopnetwork.io 
-   https://node2.thecoopnetwork.io 
-   https://node3.thecoopnetwork.io 
-   https://node4.thecoopnetwork.io 
-   https://node5.thecoopnetwork.io 
-   https://node6.thecoopnetwork.io
-   https://node7.thecoopnetwork.io
-   https://node8.thecoopnetwork.io
-   https://node11.thecoopnetwork.io
-   https://node12.thecoopnetwork.io
-IPv6 only:
-   https://node9.thecoopnetwork.io
-   https://node13.thecoopnetwork.io
-   https://node14.thecoopnetwork.io
-   https://node15.thecoopnetwork.io
-   https://node16.thecoopnetwork.io
-   https://node17.thecoopnetwork.io
+ - IPv6 and IPv4:
+   - https://node10.thecoopnetwork.io
+ - IPv4 Only:
+   - https://node1.thecoopnetwork.io 
+   - https://node2.thecoopnetwork.io 
+   - https://node3.thecoopnetwork.io 
+   - https://node4.thecoopnetwork.io 
+   - https://node5.thecoopnetwork.io 
+   - https://node6.thecoopnetwork.io
+   - https://node7.thecoopnetwork.io
+   - https://node8.thecoopnetwork.io
+   - https://node11.thecoopnetwork.io
+   - https://node12.thecoopnetwork.io
+- IPv6 only:
+   - https://node9.thecoopnetwork.io
+   - https://node13.thecoopnetwork.io
+   - https://node14.thecoopnetwork.io
+   - https://node15.thecoopnetwork.io
+   - https://node16.thecoopnetwork.io
+   - https://node17.thecoopnetwork.io
    
    
 Please make sure you never use your private passphrase on any site unless you trust the node (e.g. is running on your own machine).
@@ -72,13 +75,13 @@ Nodes are tested and run well over both IPv4 and IPv6 networks.
 
 
 ## Testnet ##
-You can use the testnet as well, accessible on following URLs (do not use real wallet on testnet. Create new wallet for this):
-https://node1.thecoopnetwork.io:6877
-https://node2.thecoopnetwork.io:6877
-https://node6.thecoopnetwork.io:6877
-https://node8.thecoopnetwork.io:6877
-https://node10.thecoopnetwork.io:6877
-https://node12.thecoopnetwork.io:6877
+Testnet is available on the following links. Do not use real wallet on testnet - create new one.
+- https://node1.thecoopnetwork.io:6877
+- https://node2.thecoopnetwork.io:6877
+- https://node6.thecoopnetwork.io:6877
+- https://node8.thecoopnetwork.io:6877
+- https://node10.thecoopnetwork.io:6877
+- https://node12.thecoopnetwork.io:6877
 
 ## License
 * This program is distributed under the terms of the Jelurida Public License version 1.1 for the Ardor Public Blockchain Platform.
