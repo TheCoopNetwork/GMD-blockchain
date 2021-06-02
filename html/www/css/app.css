@@ -41,13 +41,15 @@ body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100%;
+  /* background: #02183f; */
   background: #f9f9f9;
   color: black !important;
 }
 /* preload images or they will flicker */
 body::after{
   position:absolute; width:0; height:0; overflow:hidden; z-index:-1;
-  content:url(../img/client_background.webp)
+  /* url(../img/client_background.webp) */
+  content:
   url(../img/nxt-load-progress-logo-circle.png)
   url(../img/nxt-load-progress-logo-circle.png);
 }
@@ -58,12 +60,20 @@ html.lockscreen, html.lockscreen body {
 a {
   color: #3c8dbc;
 }
-a:hover,
-a:active,
-a:focus {
+a:hover{
   outline: none;
   text-decoration: none;
   color: #72afd2;
+}
+a:focus,
+a.active {
+  outline: none;
+  text-decoration: none;
+  color: #72afd2;
+}
+a.disabled {
+  pointer-events: none;
+  cursor: default;
 }
 /* Layouts */
 .wrapper {
@@ -151,6 +161,13 @@ body.fixed .navbar {
 body.fixed .wrapper {
   margin-top: 50px;
 }
+
+.label-primary {
+  background-color: #051f3a !important;
+}
+
+
+
 /* Content */
 .content {
   padding: 20px; /*wesley*/
@@ -228,28 +245,28 @@ img {
   background-color: #222222 !important;
 }
 .bg-red {
-  background-color: #f56954 !important;
+  background-color: #590001 !important;
 }
 .bg-yellow {
-  background-color: #f39c12 !important;
+  background-color: #df8e0c !important;
 }
 .bg-aqua {
-  background-color: #00c0ef !important;
+  background-color: #Dfdbd9 !important;
 }
 .bg-blue {
-  background-color: #0073b7 !important;
+  background-color: #051f3a !important;
 }
 .bg-light-blue {
   background-color: #3c8dbc !important;
 }
 .bg-green {
-  background-color: #00a65a !important;
+  background-color: #01693b !important;
 }
 .bg-navy {
   background-color: #001f3f !important;
 }
 .bg-teal {
-  background-color: #39cccc !important;
+  background-color: #272725  !important;
 }
 .bg-olive {
   background-color: #3d9970 !important;
@@ -267,17 +284,10 @@ img {
   background-color: #932ab6 !important;
 }
 .bg-maroon {
-  background-color: #85144b !important;
+  background-color: #c7851c !important;
 }
 .small-box {
-  background: #217ba5; /* Old browsers */
-  background: -moz-linear-gradient(left,  #217ba5 0%, #56b3d8 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#217ba5), color-stop(100%,#56b3d8)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left,  #217ba5 0%,#56b3d8 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left,  #217ba5 0%,#56b3d8 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left,  #217ba5 0%,#56b3d8 100%); /* IE10+ */
-  background: linear-gradient(to right,  #217ba5 0%,#56b3d8 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#217ba5', endColorstr='#56b3d8',GradientType=1 ); /* IE6-9 */
+  background: rgb(250,250,250); 
 }
 
 /* Text colors */
@@ -1680,7 +1690,7 @@ body > .header .logo .icon {
   border-bottom-color: #d9dadc;
 }
 .btn.btn-primary {
-  background-color: #3c8dbc;
+  background-color: #051f3a;
   border-color: #367fa9;
 }
 .btn.btn-primary:hover,
@@ -1927,12 +1937,13 @@ body > .header .logo .icon {
 */
 /* ADD THIS CLASS TO THE <HTML> TAG */
 .lockscreen {
-  background-color: #002e43;
-  background: url(../img/client_background.webp) repeat center center fixed;
-  -webkit-background-size: cover;
+  /* background-color: #002e43; */
+  background-image: linear-gradient(#002e43, #030a0e);
+  /* background: url(../img/client_background.webp) repeat center center fixed; */
+  /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover; */
   min-height:  100% !important;
 }
 /* Remove the background from the body element */
@@ -2019,7 +2030,7 @@ body > .header .logo .icon {
   text-transform: uppercase;
 }
 #registration_link a, #custom_passphrase_link a {
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,1.0);
 }
 #registration_link a:hover, #custom_passphrase_link a {
   color: rgba(255,255,255,1.0);
@@ -2040,14 +2051,10 @@ body > .header .logo .icon {
 */
 /* skin-blue navbar */
 .navbar {
-  background: #005f82; /* Old browsers */
-  background: -moz-linear-gradient(top, #005f82 0%, #004a66 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#005f82), color-stop(100%,#004a66)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #005f82 0%,#004a66 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #005f82 0%,#004a66 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #005f82 0%,#004a66 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #005f82 0%,#004a66 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005f82', endColorstr='#004a66',GradientType=0 ); /* IE6-9 */
+  background: #051f3a;
+  /* background: #005f82; Old browsers */
+  /* background: linear-gradient(to bottom, #005f82 0%,#004a66 100%); W3C */
+  background: linear-gradient(to bottom, #002f41 0%,#051f3a 100%); /* W3C */
 }
 .navbar .nav a {
   color: #fff;
@@ -2070,20 +2077,17 @@ body > .header .logo .icon {
 /* skin-blue logo */
 .logo {
   color: #f9f9f9;
-  background: #005f82; /* Old browsers */
-  background: -moz-linear-gradient(top, #005f82 0%, #004a66 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#005f82), color-stop(100%,#004a66)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #005f82 0%,#004a66 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #005f82 0%,#004a66 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #005f82 0%,#004a66 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #005f82 0%,#004a66 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005f82', endColorstr='#004a66',GradientType=0 ); /* IE6-9 */
+  background: #051f3a;
+  /* background: #005f82; Old browsers */
+  /* background: linear-gradient(to bottom, #005f82 0%,#004a66 100%); W3C */
+  background: linear-gradient(to bottom, #002f41 0%,#051f3a 100%); /* W3C */
 }
 .logo > a {
   color: #f9f9f9;
 }
 .logo:hover {
-  background: #357ca5;
+  /* background: #357ca5; */
+  background: #051f3a;  
 }
 /* Skin-blue user panel */
 .user-panel > .image > img {

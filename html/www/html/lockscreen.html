@@ -19,7 +19,7 @@
 
     <table id="center" style="display:none;width:100%;height:100%;">
         <tr><td style="text-align:center;vertical-align:middle">
-            <img src="img/brand/logo.webp" id="logo-nxt-img" />
+            <img src="img/brand/logo.webp" id="logo-nxt-img" width="200" height="200"/>
 
             <div id="login_panel">
                 <div class="callout callout-danger custom_login_warning"></div>
@@ -27,7 +27,7 @@
                     <div data-i18n="proxy_connection_failed">Failed to connect to remote nodes</div>
                     <button class="btn btn-flat"><i class="fa fa-repeat"></i>&nbsp;Retry</button>
                 </div>
-                <div class="callout callout-danger" id="testnet_login" data-i18n="testnet_login_warning">Log in with your TestNet account - not your real one!</div>
+                <div class="callout callout-danger" id="testnet_login" data-i18n="testnet_login_warning">Log in with your TestNet account - not your real one !</div>
                 <div id="login_error" style="max-width:400px;min-width:400px;display:none">
                     <div class="callout callout-danger"></div>
                 </div>
@@ -35,7 +35,7 @@
                 <div id="account_data_reader" style="display:none;margin:auto;"></div>
 				<table style="width:100%;height:100%;">
 				<tr><td style="text-align:center;vertical-align:middle">
-                <div class="lockscreen-widget btn-group" data-toggle="buttons" id="loginButtons">
+                <!-- <div class="lockscreen-widget btn-group" data-toggle="buttons" id="loginButtons">
                     <label class="lockscreen-widget btn btn-primary btn-lg active" data-login-type="account" data-reader="account_data_reader">
                         <input type="radio" name="loginButtons"><i class="fa fa-male"></i>
                     </label>
@@ -45,7 +45,7 @@
                     <label class="lockscreen-widget btn btn-primary btn-lg scan-qr-code" data-login-type="scan" data-reader="account_data_reader">
                         <input type="radio" name="loginButtons"><i class="fa fa-qrcode"></i>
                     </label>
-                </div>
+                </div> -->
 				</td></tr>
 				</table>
 				<table style="width:100%;height:100%;">
@@ -88,12 +88,12 @@
 				</tr></td>
 				</table>
 
-                <div id="remem-wrap" style="text-align:center;vertical-align:middle">
+                <!-- <div id="remem-wrap" style="text-align:center;vertical-align:middle">
                     <div id="remember_me_container">
                         <input type="checkbox" name="remember_me" id="remember_me" value="1" /> <span></span>
                         <label for="remember_me" data-i18n="remember_me">Remember Me</label>
                     </div>
-                </div>
+                </div> -->
 
                 <div id="lockscreen_active_plugins_warning" style="margin-top:7px;display:none;">
                 <div style="display:inline-block;max-width: 400px; min-width: 400px;">
@@ -114,7 +114,9 @@
                 </div>
 
                 <div id="registration_link">
-                    <a href="#" onclick="NRS.registerAccount();" data-i18n="no_account_q_create_account">Don't have an account? Click here to create one!</a>
+                    <a href="#" onclick="NRS.registerAccount();">Don't have an account? Click here to create one !</a>
+                    <!-- <a href="#" onclick="NRS.registerAccount();" data-i18n="no_account_q_create_account">Don't have an account? Click here to create one !</a> -->
+
                 </div>
             </div>
 
@@ -247,7 +249,18 @@
                     </div>
                 </div>
             </div>
-
+            <div id="remem-wrap" style="text-align:left;vertical-align:middle">
+                <div id="remember_me_container">
+                    <label for="remember_pre" data-i18n="remember_pre">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </div>
+            </div>            
+            <div id="remem-wrap" style="text-align:left;vertical-align:middle">
+                <div id="remember_me_container">
+                    <label for="remember_pre" data-i18n="remember_pre">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" name="remember_me" id="remember_me" value="1" /> <span></span>
+                    <label for="remember_me" data-i18n="remember_me">Remember Me</label>
+                </div>
+            </div>
             <div id="custom_passphrase_link">
                 <a href="#" onclick="NRS.registerUserDefinedAccount();" data-i18n="choose_own_passphrase">Want to choose your own passphrase? Click here.</a>
             </div>
@@ -255,7 +268,7 @@
         </tr>
     </table>
     <!-- this dummy checkbox corrects rendering problem of checkboxes when using desktop application on Linux -->
-    <div id="dummyCheckbox">
+    <!-- <div id="dummyCheckbox">
         <input type="checkbox" disabled>
-    </div>
+    </div> -->
 </div>
