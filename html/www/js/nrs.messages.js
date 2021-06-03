@@ -67,11 +67,11 @@ var NRS = (function(NRS, $) {
 			"desiredPosition": 90,
 			"depends": {tags: [NRS.constants.API_TAGS.MESSAGES]}
 		});
-		NRS.appendMenuItemToTSMenuItem('sidebar_messages', {
-			"titleHTML": '<i class="fa fa-comment"></i> <span data-i18n="chat">Chat</span>',
-			"type": 'PAGE',
-			"page": 'messages'
-		});
+		// NRS.appendMenuItemToTSMenuItem('sidebar_messages', {
+		// 	"titleHTML": '<i class="fa fa-comment"></i> <span data-i18n="chat">Chat</span>',
+		// 	"type": 'PAGE',
+		// 	"page": 'messages'
+		// });
 	};
 
 	NRS.jsondata = NRS.jsondata || {};

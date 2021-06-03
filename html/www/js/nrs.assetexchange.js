@@ -2124,18 +2124,18 @@ var NRS = (function (NRS, $, undefined) {
             "page": 'open_orders'
         };
         NRS.appendMenuItemToTSMenuItem(sidebarId, options);
-        options = {
-            "titleHTML": '<span data-i18n="approval_requests">Approval Requests</span>',
-            "type": 'PAGE',
-            "page": 'approval_requests_asset'
-        };
-        NRS.appendMenuItemToTSMenuItem(sidebarId, options);
-        options = {
-            "titleHTML": '<span data-i18n="issue_asset">Issue Asset</span>',
-            "type": 'MODAL',
-            "modalId": 'issue_asset_modal'
-        };
-        NRS.appendMenuItemToTSMenuItem(sidebarId, options);
+        // options = {
+        //     "titleHTML": '<span data-i18n="approval_requests">Approval Requests</span>',
+        //     "type": 'PAGE',
+        //     "page": 'approval_requests_asset'
+        // };
+        // NRS.appendMenuItemToTSMenuItem(sidebarId, options);
+        // options = {
+        //     "titleHTML": '<span data-i18n="issue_asset">Issue Asset</span>',
+        //     "type": 'MODAL',
+        //     "modalId": 'issue_asset_modal'
+        // };
+        // NRS.appendMenuItemToTSMenuItem(sidebarId, options);
     };
 
     // updates mutable fields of stored assets
