@@ -391,7 +391,7 @@ var NRS = (function(NRS, $) {
             "<span>" + $.t("fund_account_warning_1") + "</span><br>" +
             "<span>" + $.t("fund_account_warning_2") + "</span><br>" +
             "<span>" + $.t("fund_account_warning_3", { "symbol": NRS.constants.COIN_SYMBOL }) + "</span><br>" +
-            "</div>";// +
+            "</div>" //+
             // "<a href='#' class='btn btn-xs btn-default' data-toggle='modal' data-target='#m_send_amount_sell_modal' " +
             // "data-pair='BTC_NXT'>" + $.t("fund_account_message", { "symbol": NRS.constants.COIN_SYMBOL }) + "</a>";
     };
