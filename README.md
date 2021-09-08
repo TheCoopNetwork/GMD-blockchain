@@ -36,7 +36,6 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
       - https://node8.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
       - https://node6.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
       - https://node12.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
-      - https://awss3bucket-gmd.s3.eu-central-1.amazonaws.com/gmd-node-standalone.zip (IPv4 only)
       - https://node13.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 only)
       - https://node16.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 only)
   - Extract contains and run start.bat on Windows or start.sh on Linux.
