@@ -22,7 +22,7 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
 ----
 ### Option 1: get code compile and run it ###
   - *dependencies*:
-		- to compile you need Java 11 or newer JDK on Linux
+		- to compile you need Java 11 or newer JDK on Linux or MacOS.  
 			- *Ubuntu*/*Debian* - sudo apt install default-jdk
   - ./compile.sh --skip-desktop
   - ./run.sh
