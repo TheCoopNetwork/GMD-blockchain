@@ -10,8 +10,8 @@ Geoma DAO (GMD) is a cryptocurrency to make the world a better place.
 ----
 ## How to use it? ##
 One of the following options must be chosen in order to use it (more details about each option on next paragraph):
-1. Download the code from this repository, compile it on Linux and run it on Windows or Linux
-2. Download the compiled node and run it on your Windows or Linux PC. 
+1. Download the code from this repository, compile it on Linux or MacOS and run it on Windows, Linux or MacOS.
+2. Download the compiled node and run it on your Windows, Linux or MacOS. 
 3. Use one of the trusted nodes hosted by TheCoopNetwork.io (no installation needed for this option)
 
 
