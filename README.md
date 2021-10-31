@@ -31,9 +31,9 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
 ### Option 2: download compiled node  ###
   - *dependencies*:
   - to run you need Java 11 or newer JRE on Windows or Linux (java binary must be in PATH)
-  - Download zip file from either of the following:
-      - https://node.thecoopnetwork.io:8443/gmd-node-standalone.zip (IPv6 and IPv4)
-      Or from other mirrors:
+  - Download zip file from either of the following:  
+      - https://node.thecoopnetwork.io:8443/gmd-node-standalone.zip (IPv6 and IPv4)  
+      Or from other mirrors:  
       - https://node10.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 and IPv4)
       - https://node8.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
       - https://node6.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
