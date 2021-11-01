@@ -32,7 +32,7 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
 
 #### For Windows ####
   - Download desktop app installer, install it and run it.  
-  - Download from here: https://node.thecoopnetwork.io:8443/GMD-Node-1.0.0/%20Setup.exe  
+  - Download from here: https://node.thecoopnetwork.io:8443/GMD-Node-1.0.0%20Setup.exe  
   - Source code and instructions here: https://github.com/CoopNetwork/GMD-node-app  
 
 #### For MacOS and Linux ####
