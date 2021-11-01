@@ -29,9 +29,16 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
   - Open in your browser http://localhost:6876/
 
 ### Option 2: download compiled node  ###
+
+#### For Windows ####
+  - Download desktop app installer, install it and run it.  
+  - Download from here: https://node.thecoopnetwork.io:8443/GMD-Node-1.0.0/%20Setup.exe  
+  - Source code and instructions here: https://github.com/CoopNetwork/GMD-node-app  
+
+#### For MacOS and Linux ####
   - *dependencies*:
-  - to run you need Java 11 or newer JRE on Windows or Linux (java binary must be in PATH)
-  - Download zip file from either of the following:  
+  - to run you need Java 11 or newer JRE (java must be in PATH. You can check with command `java --version`)
+  - Download zip file:  
       - https://node.thecoopnetwork.io:8443/gmd-node-standalone.zip (IPv6 and IPv4)  
       Or from other mirrors:  
       - https://node10.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 and IPv4)
@@ -40,7 +47,7 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
       - https://node12.thecoopnetwork.io/gmd-node-standalone.zip (IPv4 only)
       - https://node13.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 only)
       - https://node16.thecoopnetwork.io/gmd-node-standalone.zip (IPv6 only)
-  - Extract contains and run start.bat on Windows or start.sh on Linux.
+  - Extract contains and run start.sh.
   - Open in your browser http://localhost:6876/
   - [Optional] Version can be checked http://localhost:6876/version
 	
