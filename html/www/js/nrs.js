@@ -216,6 +216,10 @@ var NRS = (function(NRS, $, undefined) {
 
     function applyBranding(constants) {
         document.title = constants.PROJECT_NAME;
+		$.getJSON('https://api.coinpaprika.com/v1/ticker/gmd-the-coop-network', function(data) {
+			// JSON result in `data` variable
+			$("#nrs_market_value").text(data);
+		});
         $("#nrs_version_info").text(constants.PROJECT_NAME + " " + $.t("version"));
         $(".help-about").text($.t("about") + " " + constants.PROJECT_NAME);
         $(".modal-title-info").text(constants.PROJECT_NAME + " " + $.t("info"));
@@ -223,6 +227,7 @@ var NRS = (function(NRS, $, undefined) {
             $(".branding-message").html("<p>" + constants.PROJECT_NAME + " " + $.t("branding_message") + "<p>");
 		}
 	}
+
 
     function initImpl() {
 		var loadConstantsPromise = new Promise(function(resolve) {

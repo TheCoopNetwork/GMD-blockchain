@@ -1216,12 +1216,12 @@ var NRS = (function (NRS, $, undefined) {
             "page": 'approval_requests_currency'
         };
         NRS.appendMenuItemToTSMenuItem(sidebarId, options);
-        options = {
-            "titleHTML": '<span data-i18n="issue_currency">Issue Currency</span></a>',
-            "type": 'MODAL',
-            "modalId": 'issue_currency_modal'
-        };
-        NRS.appendMenuItemToTSMenuItem(sidebarId, options);
+        // options = {
+        //     "titleHTML": '<span data-i18n="issue_currency">Issue Currency</span></a>',
+        //     "type": 'MODAL',
+        //     "modalId": 'issue_currency_modal'
+        // };
+        // NRS.appendMenuItemToTSMenuItem(sidebarId, options);
     };
 
     /* ISSUE CURRENCY FORM */

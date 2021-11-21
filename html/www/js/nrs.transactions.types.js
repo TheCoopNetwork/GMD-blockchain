@@ -254,11 +254,11 @@ var NRS = (function(NRS, $, undefined) {
             'i18nKeyTitle': 'monetary_system',
             'iconHTML': '<i class="fa fa-bank"></i>',
             'subTypes': {
-                0: {
-                    'title': "Issue Currency",
-                    'i18nKeyTitle': 'issue_currency',
-                    'iconHTML': '<i class="fa fa-bullhorn"></i>'
-                },
+                // 0: {
+                //     'title': "Issue Currency",
+                //     'i18nKeyTitle': 'issue_currency',
+                //     'iconHTML': '<i class="fa fa-bullhorn"></i>'
+                // },
                 1: {
                     'title': "Reserve Increase",
                     'i18nKeyTitle': 'reserve_increase',
