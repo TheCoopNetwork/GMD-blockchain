@@ -235,6 +235,8 @@ img {
 .bg-fuchsia,
 .bg-purple,
 .bg-maroon,
+.bg-marketplace,
+.bg-data,
 .bg-black {
   color: #f9f9f9 !important;
 }
@@ -288,6 +290,12 @@ img {
 }
 .small-box {
   background: rgb(250,250,250); 
+}
+.bg-marketplace {
+  background: rgb(242, 167, 5);
+}
+.bg-data {
+  background: rgb(163, 141, 106);
 }
 
 /* Text colors */
