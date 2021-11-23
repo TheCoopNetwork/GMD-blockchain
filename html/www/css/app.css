@@ -2728,10 +2728,24 @@ tr.tentative-crossed td , tr.tentative-crossed td a {
     100% { opacity: 0; }
 }
 
-.loading_dots {
-    text-align: center;
-    margin: 100px 0 0 0;
+.div_balances{
 }
+
+.balance_gmd {
+  text-align: left;
+  float: left;
+}
+
+.balance_usd {
+  text-align: right;
+  
+}
+
+.loading_dots {
+  text-align: center;
+  margin: 100px 0 0 0;
+}
+
 
 .loading_dots span {
     -webkit-animation-name: opacity;

@@ -17,7 +17,9 @@
 <div id="dashboard_page" class="page" style="display:block">
     <section class="content-header">
         <span style="float:right; font-size:115%;">
-            <span id="nrs_version_info"></span>:
+            <span id="nrs_usd_value" style="font-weight: bold;"></span>
+            <span style="padding-left: 10px;"></span>
+            <span id="nrs_version_info"></span>
             <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nrs_modal">
                 <span id="nrs_version" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
             </a>
@@ -36,8 +38,20 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-blue">
                     <div class="inner">
-                        <h3><span id="account_balance"
-                                class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
+                        <h3>
+                            <div>
+                                <div id="account_balance" class="balance_gmd">
+                                    <span>.</span>
+                                    <span>.</span>
+                                    <span>.</span>
+                                </div>
+                                <div id="account_balance_usd" class="balance_usd">
+                                    <span>.</span>
+                                    <span>.</span>
+                                    <span>.</span>                                    
+                                </div>
+                            </div>
+                        </h3>
                         <p><span data-i18n="account_balance">My Account</span> <span class="label" id="account_leasing"
                                 style="display:none;background-color:#1990B1"></span></p>
                     </div>
