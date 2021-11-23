@@ -1279,7 +1279,7 @@ body > .header .logo .icon {
   background: rgba(0, 0, 0, 0.15);
 }
 .small-box h3 {
-  font-size: 38px;
+  font-size: 30px;
   font-weight: bold;
   margin: 0 0 10px 0;
   white-space: nowrap;
@@ -2728,8 +2728,6 @@ tr.tentative-crossed td , tr.tentative-crossed td a {
     100% { opacity: 0; }
 }
 
-.div_balances{
-}
 
 .balance_gmd {
   text-align: left;
