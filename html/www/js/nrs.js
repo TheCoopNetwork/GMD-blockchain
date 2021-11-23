@@ -227,7 +227,7 @@ var NRS = (function(NRS, $, undefined) {
 
     function initImpl() {
 		var loadConstantsPromise = new Promise(function(resolve) {
-			console.log("load server constants");
+			console.log("load server constants ???");
 			NRS.loadServerConstants(resolve);
 		});
 		loadConstantsPromise.then(function() {
@@ -1160,6 +1160,8 @@ var NRS = (function(NRS, $, undefined) {
 			"includeEffectiveBalance": true
 		}, function(response) {
 			var previousAccountInfo = NRS.accountInfo;
+			var unconfirmedBalanceNQT = 0;
+
 			NRS.accountInfo = response;
 			if (response.errorCode) {
 				NRS.logConsole("Get account info error (" + response.errorCode + ") " + response.errorDescription);
@@ -1173,6 +1175,9 @@ var NRS = (function(NRS, $, undefined) {
 					NRS.accountRS = NRS.accountInfo.accountRS;
 				}
                 NRS.updateDashboardMessage();
+
+				unconfirmedBalanceNQT = response.unconfirmedBalanceNQT;
+
                 $("#account_balance, #account_balance_sidebar").html(NRS.formatStyledAmount(response.unconfirmedBalanceNQT));
                 $("#account_forged_balance").html(NRS.formatStyledAmount(response.forgedBalanceNQT));
 
@@ -1192,6 +1197,7 @@ var NRS = (function(NRS, $, undefined) {
                                     NRS.accountInfo.assetBalances = [];
                                 }
                                 var current_balances = JSON.stringify(NRS.accountInfo.assetBalances);
+
                                 if (previous_balances != current_balances) {
                                     if (previous_balances != "undefined" && typeof previous_balances != "undefined") {
                                         previous_balances = JSON.parse(previous_balances);
@@ -1365,6 +1371,26 @@ var NRS = (function(NRS, $, undefined) {
 				} else {
 					$("#account_name").html($.t("set_account_info"));
 				}
+
+				const url = "https://api.coinpaprika.com/v1/ticker/gmd-the-coop-network";
+				$.getJSON( url, {format: "json"})
+				.done(function(data) {
+					const price = parseFloat(data.price_usd).toFixed(4);
+					NRS.logConsole("updateTickerPrice success", "$"+price);
+					$("#nrs_usd_value").text("1GMD = $"+price);
+				
+					if(unconfirmedBalanceNQT > 0) {
+						unconfirmedBalanceNQT = unconfirmedBalanceNQT / 100000000;
+						NRS.logConsole("updateAccountBalance USD success");
+						// $("#account_balance_usd").text("$"+ parseFloat( price * unconfirmedBalanceNQT ).toFixed(2) );
+						$("#account_balance_usd").html(NRS.formatStyledAmount( price * unconfirmedBalanceNQT ));
+					}
+
+				})
+				.fail(function(err) {
+					NRS.logConsole("updateTickerPrice error");
+					NRS.logConsole(err);
+				});
 			}
 
 			if (firstRun) {

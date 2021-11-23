@@ -1279,7 +1279,7 @@ body > .header .logo .icon {
   background: rgba(0, 0, 0, 0.15);
 }
 .small-box h3 {
-  font-size: 38px;
+  font-size: 30px;
   font-weight: bold;
   margin: 0 0 10px 0;
   white-space: nowrap;
@@ -2728,10 +2728,22 @@ tr.tentative-crossed td , tr.tentative-crossed td a {
     100% { opacity: 0; }
 }
 
-.loading_dots {
-    text-align: center;
-    margin: 100px 0 0 0;
+
+.balance_gmd {
+  text-align: left;
+  float: left;
 }
+
+.balance_usd {
+  text-align: right;
+  
+}
+
+.loading_dots {
+  text-align: center;
+  margin: 100px 0 0 0;
+}
+
 
 .loading_dots span {
     -webkit-animation-name: opacity;
