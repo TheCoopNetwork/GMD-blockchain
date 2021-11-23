@@ -7,3 +7,7 @@ OpenJDK is included in build.
 ### Prerequisites
 
 docker
+
+### Instructions
+
+`docker-compose up --build`
