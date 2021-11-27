@@ -30,12 +30,14 @@ As zero trust is required to run this blockchain, we recommend using option 1 wh
 
 ### Option 2: download compiled node  ###
 
-#### For Windows ####
+#### For Windows and MacOS - use Desktop app ####
   - Download desktop app installer, install it and run it.  
-  - Download from here: https://node.thecoopnetwork.io:8443/GMD-Node-1.0.0%20Setup.exe  
+  - Download from here: 
+    - Windows: https://node.thecoopnetwork.io:8443/GMD-Node-1.0.1%20Setup.exe
+    - MacOS: https://node.thecoopnetwork.io:8443/GMD-Node-darwin-x64-1.0.1.zip
   - Source code and instructions here: https://github.com/CoopNetwork/GMD-node-app  
 
-#### For MacOS and Linux ####
+#### For Linux ####
   - *dependencies*:
   - to run you need Java 11 or newer JRE (java must be in PATH. You can check with command `java --version`)
   - Download zip file:  
