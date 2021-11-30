@@ -25,7 +25,7 @@ chmod +x /output/start.sh
 
 cp /docker-image/Dockerfile /output/
 cd /output/
-docker build -t "gmd-node" .
+docker build -t "gasiminei/gmd-node" .
 rm -f /output/Dockerfile
 docker image save -o /output-docker-image/gmd-node.tar gmd-node
 cp -f /docker-image/docker-compose.yml /output-docker-image/docker-compose.yml

@@ -1,10 +1,17 @@
-version: "3"
+version: "3.8"
 services:
   gmd-node-service:
-    image: gmd-node
+    image: gasiminei/gmd-node
     ports:
-      - "6876:6876"
-      - "6874:6874"
+      - 6876:6876
+      - 6874:6874
     volumes:
-      - ./conf/nxt.properties:/GMD-blockchain/conf/nxt.properties:z
-      - ./nxt_db:/GMD-blockchain/nxt_db:z
+      - conf:/GMD-blockchain/conf:z
+      - nxt_db:/GMD-blockchain/nxt_db:z
+    deploy:
+      replicas: 3
+      placement:
+        max_replicas_per_node: 1
+volumes:
+    conf: {}
+    nxt_db: {}
