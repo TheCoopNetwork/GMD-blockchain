@@ -27,9 +27,9 @@ cp /docker-image/Dockerfile /output/
 cd /output/
 docker build -t "gasiminei/gmd-node" .
 rm -f /output/Dockerfile
-docker image save -o /output-docker-image/gmd-node.tar gmd-node
+#docker image save -o /output-docker-image/gmd-node.tar gmd-node
 cp -f /docker-image/docker-compose.yml /output-docker-image/docker-compose.yml
-gzip /output-docker-image/gmd-node.tar
+#gzip /output-docker-image/gmd-node.tar
 mkdir -p /output-docker-image/conf
 touch /output-docker-image/conf/nxt.properties
 
