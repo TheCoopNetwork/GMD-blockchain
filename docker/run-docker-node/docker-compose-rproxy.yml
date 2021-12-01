@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   gmd-node-service:
-    image: gasiminei/gmd-node
+    image: coopnetwork/gmd-node
     container_name: gmd-node-service
     ports:
       - 6874:6874
@@ -13,7 +13,7 @@ services:
       placement:
         max_replicas_per_node: 1
   reverse-proxy:
-    image: gasiminei/gmd-reverse-proxy-ng
+    image: coopnetwork/gmd-reverse-proxy-ng
     ports:
       - 443:443
     volumes:
