@@ -1,0 +1,17 @@
+version: "3.3"
+services:
+  gmd-build-jar:
+    build: 
+      context: ../../
+      dockerfile: docker/build/Dockerfile-build-jar-only
+    volumes:
+      - ./output/:/output/:z
+  gmd-build-img:
+    build:
+      context: ../../
+      dockerfile: docker/build/Dockerfile-build-img
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./output/:/output/:z
+      - ./output-docker-image/:/output-docker-image/:z
+
