@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  gmd-node-service:
+    image: coopnetwork/gmd-node
+    container_name: gmd-node-service
+    ports:
+      - 6874:6874
+      - 6876:6876
+    volumes:
+      - conf:/GMD-blockchain/conf:z
+      - nxt_db:/GMD-blockchain/nxt_db:z
+    deploy:
+      replicas: 3
+      placement:
+        max_replicas_per_node: 1
+volumes:
+    conf: {}
+    nxt_db: {}
