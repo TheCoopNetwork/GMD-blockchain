@@ -7,3 +7,4 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./output/:/output/:z
+      - ./output-docker-image/:/output-docker-image/:z

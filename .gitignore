@@ -1,6 +1,5 @@
 .lock
-/.idea/
-/.idea/dictionaries
+.idea/
 /nxt.iml
 /nxt_db
 /webapps/

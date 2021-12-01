@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  gmd-node-service:
+    image: gasiminei/gmd-node
+    ports:
+      - 6874:6874
+    volumes:
+      - conf:/GMD-blockchain/conf:z
+      - nxt_db:/GMD-blockchain/nxt_db:z
+    deploy:
+      replicas: 3
+      placement:
+        max_replicas_per_node: 1
+  reverse-proxy:
+    image: gasiminei/gmd-reverse-proxy-ng
+    ports:
+      - 443:443
+    volumes:
+      - /etc/cert/fullchain.pem:/etc/nginx/fullchain.pem
+      - /etc/cert/privkey.pem:/etc/nginx/privkey.pem
+
+    deploy:
+      replicas: 3
+      placement:
+        max_replicas_per_node: 1
+
+volumes:
+    conf: {}
+    nxt_db: {}
