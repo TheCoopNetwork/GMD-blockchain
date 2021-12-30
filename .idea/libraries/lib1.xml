@@ -1,0 +1,40 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/lucene-analyzers-common-5.5.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/websocket-server-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-servlet-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-jdk14-1.7.22.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-core-5.5.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/tika-parsers-1.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-util-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-http-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/websocket-common-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-security-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-servlets-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bcprov-jdk15on-160.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-queryparser-5.5.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-io-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-client-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/tika-core-1.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/websocket-api-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-proxy-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/websocket-client-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-queries-5.5.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-backward-codecs-5.5.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javase-3.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-server-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/weupnp-0.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-continuation-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/websocket-servlet-9.3.28.v20191105.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.22.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javapoet-1.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/core-3.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.servlet-api-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/h2-1.4.200.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
