@@ -16,22 +16,7 @@
 
 package nxt.http;
 
-import nxt.Account;
-import nxt.Alias;
-import nxt.Appendix;
-import nxt.Asset;
-import nxt.Attachment;
-import nxt.Constants;
-import nxt.Currency;
-import nxt.CurrencyBuyOffer;
-import nxt.CurrencySellOffer;
-import nxt.DigitalGoodsStore;
-import nxt.HoldingType;
-import nxt.Nxt;
-import nxt.NxtException;
-import nxt.Poll;
-import nxt.Shuffling;
-import nxt.Transaction;
+import nxt.*;
 import nxt.crypto.Crypto;
 import nxt.crypto.EncryptedData;
 import nxt.util.Convert;
@@ -778,6 +763,15 @@ public final class ParameterParser {
                 return new Appendix.UnencryptedPrunableEncryptedMessage(plainMessageBytes, isText, compress, recipientPublicKey);
             } else {
                 return new Appendix.UnencryptedEncryptedMessage(plainMessageBytes, isText, compress, recipientPublicKey);
+            }
+        }
+    }
+
+    public  static  Attachment.NFTAttachment getNFTData(HttpServletRequest req){
+        return new Attachment.NFTAttachment() {
+            @Override
+            public TransactionType getTransactionType() {
+                return null;
             }
         }
     }

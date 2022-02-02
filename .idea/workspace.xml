@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cb228185-4350-4619-85e6-85b611dc6d73" name="Changes" comment="" />
+    <list default="true" id="cb228185-4350-4619-85e6-85b611dc6d73" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beta-release-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/beta-release-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compact.bat" beforeDir="false" afterPath="$PROJECT_DIR$/compact.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compact.sh" beforeDir="false" afterPath="$PROJECT_DIR$/compact.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compile.sh" beforeDir="false" afterPath="$PROJECT_DIR$/compile.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/nxt-default.properties" beforeDir="false" afterPath="$PROJECT_DIR$/conf/nxt-default.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants-export.sh" beforeDir="false" afterPath="$PROJECT_DIR$/constants-export.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generateAPICalls.sh" beforeDir="false" afterPath="$PROJECT_DIR$/generateAPICalls.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/h2.sh" beforeDir="false" afterPath="$PROJECT_DIR$/h2.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/de/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/de/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/el/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/el/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/fr/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/fr/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/id/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/id/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/it/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/it/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/ja/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/ja/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/ko/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/ko/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/ru/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/ru/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/vi/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/vi/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/zh-cn/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/zh-cn/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/www/locales/zh-tw/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/html/www/locales/zh-tw/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/installer/AppIcon.icns" beforeDir="false" afterPath="$PROJECT_DIR$/installer/AppIcon.icns" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/installer/build-installer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/installer/build-installer.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jar.sh" beforeDir="false" afterPath="$PROJECT_DIR$/jar.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc.sh" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mac-release-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/mac-release-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mint.bat" beforeDir="false" afterPath="$PROJECT_DIR$/mint.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/mint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pem.to.pkcs12.keystore.certbot.hook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/pem.to.pkcs12.keystore.certbot.hook.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/release-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/release-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-desktop.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run-desktop.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run-tests.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-tor.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run-tor.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sign.sh" beforeDir="false" afterPath="$PROJECT_DIR$/sign.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/nxt/Attachment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/nxt/Attachment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/nxt/http/APIEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/nxt/http/APIEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/nxt/http/ParameterParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/nxt/http/ParameterParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/nxt/http/callers/ApiSpec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/nxt/http/callers/ApiSpec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stop.sh" beforeDir="false" afterPath="$PROJECT_DIR$/stop.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win-release-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/win-release-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win-run-tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/win-run-tests.sh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,15 +55,49 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/java/nxt/http/callers/ApiSpec.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/java/nxt/http/callers/IncreaseAssetSharesCall.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/java/nxt/http/callers/IssueAssetCall.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/java/nxt/http/APIEnum.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/java/nxt/http/APITag.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/java/nxt/http/IncreaseAssetShares.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="23173Re5m1ZPwLwA5PymuRfqcAK" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="nxt.http.callers" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="100.66-5005" type="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="192.168.100.66" />
+      <option name="PORT" value="5005" />
+      <option name="AUTO_RESTART" value="false" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="5005" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -30,5 +109,60 @@
       <updated>1640889540301</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/nxt/http/MintNFT.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/nxt/http/MintNFT.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/nxt/http/APIServlet.java</url>
+          <line>264</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/nxt/http/APIServlet.java</url>
+          <line>196</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/nxt/http/APIServlet.java</url>
+          <line>215</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/nxt/http/UploadTaggedData.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/nxt/Appendix.java</url>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

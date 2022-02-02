@@ -3270,6 +3270,10 @@ public interface Attachment extends Appendix {
 
     }
 
+    abstract class NFTAttachment extends  AbstractAttachment {
+
+    }
+
     abstract class TaggedDataAttachment extends AbstractAttachment implements Prunable {
 
         private final String name;

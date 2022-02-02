@@ -194,6 +194,7 @@ public enum APIEnum {
     GET_ALL_PRUNABLE_MESSAGES("getAllPrunableMessages", GetAllPrunableMessages.instance),
     VERIFY_PRUNABLE_MESSAGE("verifyPrunableMessage", VerifyPrunableMessage.instance),
     ISSUE_ASSET("issueAsset", IssueAsset.instance),
+    MINT_NFT("mintNFT", MintNFT.instance),
     ISSUE_CURRENCY("issueCurrency", IssueCurrency.instance),
     LEASE_BALANCE("leaseBalance", LeaseBalance.instance),
     LONG_CONVERT("longConvert", LongConvert.instance),

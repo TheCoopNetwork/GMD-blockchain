@@ -42,11 +42,12 @@ else
 fi
 
 echo "setting java mem usage $mem"
+jvm_debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
 
 if [ -x jdk/bin/java ]; then
-    JAVACMD="./jdk/bin/java -Dgmd.startpath=$startpwd $mem"
+    JAVACMD="./jdk/bin/java -Dgmd.startpath=$startpwd $mem $jvm_debug"
 else
-    JAVACMD="java -Dgmd.startpath=$startpwd $mem"
+    JAVACMD="java -Dgmd.startpath=$startpwd $mem $jvm_debug"
 fi
 
 if [ $authbind -eq 1 ]; then
