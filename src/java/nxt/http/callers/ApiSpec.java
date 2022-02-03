@@ -107,6 +107,8 @@ public enum ApiSpec {
 
     getAccount(null, "account", "includeLessors", "includeAssets", "includeCurrencies", "includeEffectiveBalance", "requireBlock", "requireLastBlock"),
 
+    getAccountsBulk(null, "minBalanceNQT", "pageSize", "page", "includeDescription"),
+
     blacklistAPIProxyPeer(null, "peer"),
 
     getPeer(null, "peer"),

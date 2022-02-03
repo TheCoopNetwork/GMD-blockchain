@@ -156,6 +156,8 @@ public final class JSONResponses {
     public static final JSONStreamAware INCORRECT_EC_BLOCK = incorrect("ecBlockId", "ecBlockId does not match the block id at ecBlockHeight");
     public static final JSONStreamAware INCORRECT_ASSET_PROPERTY_NAME_LENGTH = incorrect("property", "(length must be > 0 but less than " + Constants.MAX_ASSET_PROPERTY_NAME_LENGTH + " characters)");
     public static final JSONStreamAware INCORRECT_ASSET_PROPERTY_VALUE_LENGTH = incorrect("value", "(length must be less than " + Constants.MAX_ASSET_PROPERTY_VALUE_LENGTH + " characters)");
+    public static final JSONStreamAware INCORRECT_PAGE_SIZE = incorrect("pageSize", "Page size must be integer between 1 and 100");
+    public static final JSONStreamAware INCORRECT_PAGE = incorrect("page", "page must be integer. page 0 is first page");
 
     public static final JSONStreamAware NOT_ENOUGH_FUNDS;
     static {
