@@ -16,7 +16,7 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
     protected static final TransactionalDb db = Db.db;
 
     private GetAccountsBulk() {
-        super(new APITag[] {APITag.ACCOUNTS}, "minBalanceNQT", "pageSize", "page");
+        super(new APITag[] {APITag.ACCOUNTS}, "minBalanceNQT", "pageSize", "page", "includeDescription");
     }
 
     @Override
@@ -24,6 +24,7 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
         int pageSize;
         int page;
         long minBalanceNQT;
+        boolean includeDescription;;
         try {
             pageSize = Integer.parseInt(request.getParameter("pageSize"));
             if(pageSize < 1 || pageSize > 100) {
@@ -45,14 +46,21 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
         } catch (NumberFormatException e) {
             minBalanceNQT = 0;
         }
+        try {
+            includeDescription = Boolean.parseBoolean(request.getParameter("includeDescription"));
+        } catch (NumberFormatException e) {
+            includeDescription = false;
+        }
 
 
 
         JSONObject response = new JSONObject();
         try (Connection con = db.getConnection(); PreparedStatement pstmt = con.prepareStatement(
-                "SELECT ID,UNCONFIRMED_BALANCE,LATEST,FORGED_BALANCE,ACTIVE_LESSEE_ID,HEIGHT " +
+                "SELECT ID,UNCONFIRMED_BALANCE,ACCOUNT.LATEST,FORGED_BALANCE,ACTIVE_LESSEE_ID,ACCOUNT.HEIGHT" +
+                        (includeDescription? ",NAME,DESCRIPTION ":" ")+
                         "FROM ACCOUNT " +
-                        "WHERE LATEST=TRUE AND UNCONFIRMED_BALANCE >= ? " +
+                        (includeDescription ? "LEFT JOIN ACCOUNT_INFO ON ACCOUNT.ID = ACCOUNT_INFO.ACCOUNT_ID ":"")+
+                        "WHERE ACCOUNT.LATEST=TRUE AND UNCONFIRMED_BALANCE >= ? " +
                         "ORDER BY UNCONFIRMED_BALANCE DESC " +
                         "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY")) {
             pstmt.setLong(1, minBalanceNQT);
@@ -71,7 +79,18 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
                         o.put("ACTIVE_LESSEE_ID", "GMD-"+Crypto.rsEncode(lesee));
                     }
 
-                    o.put("HEIGHT", rs.getLong("HEIGHT"));
+                    o.put("HEIGHT", rs.getLong("ACCOUNT.HEIGHT"));
+
+                    if (includeDescription){
+                        String name = rs.getString("NAME");
+                        String description = rs.getString("DESCRIPTION");
+                        if (name!=null){
+                            o.put("NAME",name);
+                        }
+                        if (description!=null){
+                            o.put("DESCRIPTION", name);
+                        }
+                    }
 
                     arr.add(o);
 
