@@ -109,6 +109,8 @@ public enum ApiSpec {
 
     getAccountsBulk(null, "minBalanceNQT", "pageSize", "page", "includeDescription"),
 
+    getTransactionsBulk(null, "pageSize", "page", "filterBySender", "filterByReceiver", "filterByType", "filterBySubtype"),
+
     blacklistAPIProxyPeer(null, "peer"),
 
     getPeer(null, "peer"),
