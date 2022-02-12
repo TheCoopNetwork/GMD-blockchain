@@ -846,7 +846,7 @@ var NRS = (function (NRS, $, undefined) {
                     "currency": $("#currency_id").text(),
                     "includeCurrencyInfo": true
                 }, function (response) {
-                    if ( response.unconfirmedUnits < units )
+                    if ( parseInt(response.unconfirmedUnits) < parseInt(units) )
                     {
                         totalField.css("background-color", "red");
                         submitButton.prop('disabled', true);
@@ -1581,4 +1581,4 @@ var NRS = (function (NRS, $, undefined) {
     };
 
     return NRS;
-}(NRS || {}, jQuery));
+}(NRS || {}, jQuery);
