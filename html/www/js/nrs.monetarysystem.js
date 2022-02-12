@@ -828,17 +828,38 @@ var NRS = (function (NRS, $, undefined) {
             rateField.val(rate);
             var amount = NRS.convertToNXT(response.amountNQT);
             totalField.val(amount);
-            NRS.sendRequest("getBalance", {
-                "account": NRS.accountRS
-            }, function (balance) {
-                if (parseInt(response.amountNQT) > parseInt(balance.unconfirmedBalanceNQT - 100000000)) {
-                    totalField.css("background-color", "red");
-                    submitButton.prop('disabled', true);
-                } else {
-                    totalField.css("background-color", "");
-                    submitButton.prop('disabled', false);
-                }
-            });
+            if ( orderType === 'buy' ){
+                NRS.sendRequest("getBalance", {
+                    "account": NRS.accountRS
+                }, function (balance) {
+                    if (parseInt(response.amountNQT) > parseInt(balance.unconfirmedBalanceNQT - 100000000)) {
+                        totalField.css("background-color", "red");
+                        submitButton.prop('disabled', true);
+                    } else {
+                        totalField.css("background-color", "");
+                        submitButton.prop('disabled', false);
+                    }
+                });
+            } else if ( orderType === 'sell'){
+                NRS.sendRequest("getAccountCurrencies+", {
+                    "account": NRS.accountRS,
+                    "currency": $("#currency_id").text(),
+                    "includeCurrencyInfo": true
+                }, function (response) {
+                    if ( parseInt(response.unconfirmedUnits) < parseInt(units) )
+                    {
+                        totalField.css("background-color", "red");
+                        submitButton.prop('disabled', true);
+                    } else {
+                        totalField.css("background-color", "");
+                        submitButton.prop('disabled', false);
+                    }
+                });
+            } else {
+                totalField.css("background-color", "");
+                submitButton.prop('disabled', false);
+            }
+            
             var effectiveRate = units == "0" ? "0" : NRS.amountToPrecision(amount / units, 8 - decimals);
             effectiveRateField.val(effectiveRate);
             submitButton.data("units", response.units);
@@ -1560,4 +1581,4 @@ var NRS = (function (NRS, $, undefined) {
     };
 
     return NRS;
-}(NRS || {}, jQuery));
+}(NRS || {}, jQuery);
