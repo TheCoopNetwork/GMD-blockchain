@@ -63,6 +63,8 @@ public enum APIEnum {
     GET_MAX_SUPPLY("getMaxSupply", GetSupply.instance),
     GET_TOTAL_SUPPLY("getTotalSupply", GetSupply.instance),
     GET_TRANSACTIONS_BULK("getTransactionsBulk", GetTransactionsBulk.instance),
+    COUNT_ACCOUNTS("countAccounts", CountAccounts.instance),
+    COUNT_TRANSACTIONS("countTransactions", CountTransactions.instance),
     GET_ACCOUNT_BLOCK_COUNT("getAccountBlockCount", GetAccountBlockCount.instance),
     GET_ACCOUNT_BLOCK_IDS("getAccountBlockIds", GetAccountBlockIds.instance),
     GET_ACCOUNT_BLOCKS("getAccountBlocks", GetAccountBlocks.instance),

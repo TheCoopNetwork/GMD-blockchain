@@ -16,7 +16,7 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
     protected static final TransactionalDb db = Db.db;
 
     private GetAccountsBulk() {
-        super(new APITag[] {APITag.ACCOUNTS}, "minBalanceNQT", "pageSize", "page", "includeDescription");
+        super(new APITag[] {APITag.ACCOUNTS}, "minBalanceNQT", "pageSize", "page", "includeDescription", "includeEffectiveBalance");
     }
 
     @Override
@@ -24,7 +24,8 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
         int pageSize;
         int page;
         long minBalanceNQT;
-        boolean includeDescription;;
+        boolean includeDescription;
+        boolean includeEffectiveBalance;
         try {
             pageSize = Integer.parseInt(request.getParameter("pageSize"));
             if(pageSize < 1 || pageSize > 100) {
@@ -51,6 +52,11 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
         } catch (NumberFormatException e) {
             includeDescription = false;
         }
+        try {
+            includeEffectiveBalance = Boolean.parseBoolean(request.getParameter("includeEffectiveBalance"));
+        } catch (NumberFormatException e) {
+            includeEffectiveBalance = false;
+        }
 
 
 
@@ -58,6 +64,7 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
         try (Connection con = db.getConnection(); PreparedStatement pstmt = con.prepareStatement(
                 "SELECT ID,UNCONFIRMED_BALANCE,ACCOUNT.LATEST,FORGED_BALANCE,ACTIVE_LESSEE_ID,ACCOUNT.HEIGHT" +
                         (includeDescription? ",NAME,DESCRIPTION ":" ")+
+                        (includeEffectiveBalance? ",BALANCE ":" ")+
                         "FROM ACCOUNT " +
                         (includeDescription ? "LEFT JOIN ACCOUNT_INFO ON ACCOUNT.ID = ACCOUNT_INFO.ACCOUNT_ID ":"")+
                         "WHERE ACCOUNT.LATEST=TRUE AND UNCONFIRMED_BALANCE >= ? " +
@@ -90,6 +97,10 @@ public class GetAccountsBulk extends APIServlet.APIRequestHandler {
                         if (description!=null){
                             o.put("DESCRIPTION", name);
                         }
+                    }
+
+                    if(includeEffectiveBalance){
+                        o.put("EFFECTIVE_BALANCE", rs.getLong(("BALANCE")));
                     }
 
                     arr.add(o);

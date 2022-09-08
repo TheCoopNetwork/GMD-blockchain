@@ -31,19 +31,27 @@ public class GetTransactionsBulk extends APIServlet.APIRequestHandler {
     };
 
     private GetTransactionsBulk() {
-        super(new APITag[] {APITag.TRANSACTIONS},  "pageSize", "page", "filterBySender", "filterByReceiver", "filterByType", "filterBySubtype");
+        super(new APITag[] {APITag.TRANSACTIONS},  "pageSize", "page", "filterBySender", "filterByReceiver", "filterByType", "filterBySubtype", "minHeight", "maxHeight");
     }
 
     @Override
     protected JSONStreamAware processRequest(HttpServletRequest request) throws ParameterException {
+
         Integer pageSize = getIntParamFromRequest(request, "pageSize", i->i<1||i>100 , JSONResponses.INCORRECT_PAGE_SIZE , false);
         Integer page = getIntParamFromRequest(request, "page", i->i<0 , JSONResponses.INCORRECT_PAGE, false);
+
         long senderRSId=decodeAddrToLongId(request.getParameter("filterBySender"));
         long recvRSId=decodeAddrToLongId(request.getParameter("filterByReceiver"));
-        Integer typeId;
-        Integer subTypeId;
+
+        Integer typeId, subTypeId;
         typeId = getIntParamFromRequest(request, "filterByType", i->false, JSONResponses.INCORRECT_TYPE, true);
         subTypeId = getIntParamFromRequest(request, "filterBySubtype", i->false, JSONResponses.INCORRECT_SUBTYPE , true);
+
+        Integer minHeight, maxHeight;
+        minHeight = getIntParamFromRequest(request, "minHeight", i->i<0, JSONResponses.INCORRECT_MIN_HEIGHT, true);
+        maxHeight = getIntParamFromRequest(request, "maxHeight", i->(i<0 || (minHeight!=null&& minHeight > i)), JSONResponses.INCORRECT_MAX_HEIGHT, true);
+
+
 
         try (Connection con = db.getConnection(); PreparedStatement pstmt = con.prepareStatement(
                 "SELECT * "+
@@ -53,6 +61,8 @@ public class GetTransactionsBulk extends APIServlet.APIRequestHandler {
                         (recvRSId!=0 ? "AND ? = RECIPIENT_ID ":"") +
                         (typeId!=null ? "AND ? = TYPE ":"") +
                         (subTypeId!=null ? "AND ? = SUBTYPE ":"") +
+                        (minHeight!=null? "AND ? <= HEIGHT ": "") +
+                        (maxHeight!=null? "AND ? >= HEIGHT ": "") +
                         "ORDER BY TIMESTAMP DESC " +
                         "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY")) {
             int offset = 0;
@@ -67,6 +77,12 @@ public class GetTransactionsBulk extends APIServlet.APIRequestHandler {
             }
             if(subTypeId!=null){
                 pstmt.setInt(++offset,subTypeId);
+            }
+            if(minHeight!=null){
+                pstmt.setInt(++offset,minHeight);
+            }
+            if(maxHeight!=null){
+                pstmt.setInt(++offset,maxHeight);
             }
             pstmt.setInt(++offset, page*pageSize);
             pstmt.setInt(++offset, pageSize);
