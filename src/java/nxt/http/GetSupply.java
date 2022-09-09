@@ -1,11 +1,10 @@
 package nxt.http;
 import nxt.*;
 
+import nxt.util.CustomAPIResponse;
 import org.json.simple.JSONStreamAware;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.Writer;
 import java.math.BigDecimal;
 
 /**
@@ -28,23 +27,6 @@ public class GetSupply extends APIServlet.APIRequestHandler{
         Account genesisAccount = Account.getAccount(Genesis.CREATOR_ID);
         long genesisAccountBalanceNQT = genesisAccount.getBalanceNQT();
         BigDecimal supply = new BigDecimal(genesisAccountBalanceNQT).divide(MINUS_ONE_GMD);
-        return new CustomResponse(""+supply);
-    }
-
-    // For this particular endpoint a number is required to be returned directly, not a json.
-    // To do this The JSONStreamAware interface was implemented that will write to output stream a plain text instead of a json.
-    class CustomResponse implements JSONStreamAware {
-        private String msg;
-        CustomResponse(String msg){
-            this.msg = msg;
-        }
-        @Override
-        public void writeJSONString(Writer writer) throws IOException {
-            if(msg==null){
-                writer.write("null");
-            } else {
-                writer.write(msg);
-            }
-        }
+        return new CustomAPIResponse(""+supply); // For this particular endpoint a number is required to be returned directly, not a json.
     }
 }

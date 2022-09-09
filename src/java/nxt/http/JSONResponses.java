@@ -160,6 +160,9 @@ public final class JSONResponses {
     public static final JSONStreamAware INCORRECT_PAGE = incorrect("page", "page must be integer. page 0 is first page");
     public static final JSONStreamAware INCORRECT_TYPE = incorrect("type", "Must be positive integer");
     public static final JSONStreamAware INCORRECT_SUBTYPE = incorrect("subType", "Must be positive integer");
+    public static final JSONStreamAware INCORRECT_MIN_HEIGHT = incorrect("minHeight", "Minimum blockchain height must be positive integer.");
+    public static final JSONStreamAware INCORRECT_MAX_HEIGHT = incorrect("maxHeight", "Maximum blockchain height must be positive integer greater than minHeight.");
+    public static final JSONStreamAware INCORRECT_MIN_BALANCE = incorrect("minUnconfirmedBalanceNQT", "Could not parse");
 
     public static final JSONStreamAware NOT_ENOUGH_FUNDS;
     static {

@@ -107,13 +107,17 @@ public enum ApiSpec {
 
     getAccount(null, "account", "includeLessors", "includeAssets", "includeCurrencies", "includeEffectiveBalance", "requireBlock", "requireLastBlock"),
 
-    getAccountsBulk(null, "minBalanceNQT", "pageSize", "page", "includeDescription"),
+    getAccountsBulk(null, "minBalanceNQT", "pageSize", "page", "includeDescription", "includeEffectiveBalance"),
 
     getMaxSupply(null, ""),
 
     getTotalSupply(null, ""),
 
-    getTransactionsBulk(null, "pageSize", "page", "filterBySender", "filterByReceiver", "filterByType", "filterBySubtype"),
+    getTransactionsBulk(null, "pageSize", "page", "filterBySender", "filterByReceiver", "filterByType", "filterBySubtype", "minHeight", "maxHeight"),
+
+    countAccounts(null, "minUnconfirmedBalanceNQT"),
+
+    countTransactions(null, ""),
 
     blacklistAPIProxyPeer(null, "peer"),
 
