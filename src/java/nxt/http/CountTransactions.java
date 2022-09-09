@@ -12,6 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Returns the total number of transactions as a number (not JSON as most of the APIs)
+ */
 public class CountTransactions extends APIServlet.APIRequestHandler {
     static final CountTransactions instance = new CountTransactions();
     protected static final TransactionalDb db = Db.db;

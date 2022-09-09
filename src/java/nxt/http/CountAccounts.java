@@ -12,6 +12,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *
+ * This endpoint returns the number of accounts known to the blockchain. The return is a plain number not a json.
+ * An account can be known by the blockchain for 2 reasons:
+ *  a). it was part of at least one transaction
+ *  b). it was part of the initial pool of accounts being credited during genesys.
+ *
+ *  This endpoint has one optional parameter: minUnconfirmedBalanceNQT. When set, the endpoint will return the count of
+ *  the accounts with minUnconfirmedBalanceNQT or more UNCONFIRMED_BALANCE
+ *
+ */
 public class CountAccounts extends APIServlet.APIRequestHandler {
     static final CountAccounts instance = new CountAccounts();
     protected static final TransactionalDb db = Db.db;
