@@ -163,6 +163,7 @@ public final class JSONResponses {
     public static final JSONStreamAware INCORRECT_MIN_HEIGHT = incorrect("minHeight", "Minimum blockchain height must be positive integer.");
     public static final JSONStreamAware INCORRECT_MAX_HEIGHT = incorrect("maxHeight", "Maximum blockchain height must be positive integer greater than minHeight.");
     public static final JSONStreamAware INCORRECT_MIN_BALANCE = incorrect("minUnconfirmedBalanceNQT", "Could not parse");
+    public static final JSONStreamAware INCORRECT_INPUT_LIST_PARAMETER = incorrect("listOfAccounts", "Should be comma separated list of accounts");
 
     public static final JSONStreamAware NOT_ENOUGH_FUNDS;
     static {
