@@ -109,6 +109,8 @@ public enum ApiSpec {
 
     getAccountsBulk(null, "minBalanceNQT", "pageSize", "page", "includeDescription", "includeEffectiveBalance"),
 
+    getLastInboundTxHeightBulk(null, "listOfAccounts"),
+
     getMaxSupply(null, ""),
 
     getTotalSupply(null, ""),
